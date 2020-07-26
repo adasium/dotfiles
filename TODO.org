@@ -16,6 +16,7 @@
 ** TODO Add a calendar widget
 ** TODO Moving mouse to another workspace should change focus to that workspace
 ** TODO Meta+D to minimize everything
+** TODO Change app order with mouse on taskbar
 
 * ZSH
 ** TODO make the configuration lightweight
