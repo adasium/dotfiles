@@ -17,6 +17,9 @@
 ** TODO Moving mouse to another workspace should change focus to that workspace
 ** TODO Meta+D to minimize everything
 ** TODO Change app order with mouse on taskbar
+** TODO Newest apps on the right
+** TODO Don't cycle
+** TODO Make apps take fixed width max
 
 * ZSH
 ** TODO make the configuration lightweight
