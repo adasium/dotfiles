@@ -6,13 +6,18 @@
 
 * Org
 ** TODO Vanish dots before headers
-** TODO Make <TAB> indent and <S-TAB> dedent
+** TODO Make <TAB> indent and <S-TAB> outdent
+** TODO > and < should indent/outdent instantly
 
 * Awesome
-** TODO Add a basic configuration
+** DONE Add a basic configuration
+   CLOSED: [2020-07-26 Sun 14:04]
+** TODO Add a sound widget that allows changing devices
+** TODO Add a calendar widget
+** TODO Moving mouse to another workspace should change focus to that workspace
 
 * ZSH
 ** TODO make the configuration lightweight
 
-
-* https://gist.github.com/pesterhazy/fabd629fbb89a6cd3d3b92246ff29779
+* dodajWorek
+** https://gist.github.com/pesterhazy/fabd629fbb89a6cd3d3b92246ff29779
