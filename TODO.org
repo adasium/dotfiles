@@ -1,0 +1,18 @@
+* Python
+** TODO Create a virtualenv for each Python version used
+*** TODO set python interpreter for pylint and such
+** TODO Configure imenu (or something else) to have a swoop for searching classes/functions)
+** TODO Make <TAB> not trigger constructor on classes
+
+* Org
+** TODO Vanish dots before headers
+** TODO Make <TAB> indent and <S-TAB> dedent
+
+* Awesome
+** TODO Add a basic configuration
+
+* ZSH
+** TODO make the configuration lightweight
+
+
+* https://gist.github.com/pesterhazy/fabd629fbb89a6cd3d3b92246ff29779

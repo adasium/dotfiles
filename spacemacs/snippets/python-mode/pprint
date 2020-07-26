@@ -1,0 +1,4 @@
+#name : PrettyPrint
+#key : pprint
+# --
+__import__('pprint').pprint($0)

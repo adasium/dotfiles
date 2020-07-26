@@ -1,0 +1,9 @@
+autoflake  # remove unused imports
+epc
+django-stubs  # mypy
+flake8  # linter
+importmagic
+isort
+mypy  # linter
+pylint  # linter
+python-language-server
