@@ -1,0 +1,4 @@
+#name : PrettyPrint
+#key : pj
+# --
+print(__import__('json').dumps($0, indent=4))
