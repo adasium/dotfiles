@@ -529,7 +529,7 @@ you should place your code here."
 
 
   ;; ================================ VARIABLES ============================================
-  (setq yas-snippet-dirs '("/home/idego/.emacs.d/private/snippets/"))
+  (setq yas-snippet-dirs '("~/.emacs.d/private/snippets/"))
 
   ;; === vORG
   (setq org-hide-leading-stars t)
