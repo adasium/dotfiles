@@ -45,6 +45,7 @@ end
 
 -- {{{ Variable definitions
 -- Themes define colours, icons, font and wallpapers.
+awesome.set_preferred_icon_size(64)
 
 beautiful.init(gears.filesystem.get_configuration_dir() .. "theme.lua")
 
@@ -213,6 +214,7 @@ root.buttons(gears.table.join(
 
 -- {{{ Key bindings
 globalkeys = gears.table.join(
+    awful.key({ }, "Print", function () awful.util.spawn("flameshot gui") end),
     awful.key({ MODKEY,           }, "s",      hotkeys_popup.show_help,
               {description="show help", group="awesome"}),
     awful.key({ MODKEY,           }, "Left",   awful.tag.viewprev,
