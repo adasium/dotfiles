@@ -214,8 +214,25 @@ root.buttons(gears.table.join(
 
 -- {{{ Key bindings
 globalkeys = gears.table.join(
+    awful.key({ ALT,           }, "Tab",
+        function ()
+            -- awful.client.focus.history.previous()
+            awful.client.focus.byidx(1)
+            if client.focus then
+                client.focus:raise()
+            end
+    end),
+
+    awful.key({ ALT, "Shift"   }, "Tab",
+        function ()
+            -- awful.client.focus.history.previous()
+            awful.client.focus.byidx(-1)
+            if client.focus then
+                client.focus:raise()
+            end
+    end),
     awful.key({ }, "Print", function () awful.util.spawn("flameshot gui") end),
-    awful.key({ MODKEY,           }, "s",      hotkeys_popup.show_help,
+    awful.key({ ALT,           }, "s",      hotkeys_popup.show_help,
               {description="show help", group="awesome"}),
     awful.key({ MODKEY,           }, "Left",   awful.tag.viewprev,
               {description = "view previous", group = "tag"}),
@@ -352,6 +369,18 @@ clientkeys = gears.table.join(
             c:raise()
         end ,
         {description = "(un)maximize", group = "client"}),
+    awful.key({ MODKEY,           }, "Up",
+        function (c)
+            c.maximized = true
+            c:raise()
+        end ,
+        {description = "maximize", group = "client"}),
+    awful.key({ MODKEY,           }, "Down",
+        function (c)
+            c.maximized = false
+            c:raise()
+        end ,
+        {description = "maximize", group = "client"}),
     awful.key({ MODKEY, "Control" }, "m",
         function (c)
             c.maximized_vertical = not c.maximized_vertical
