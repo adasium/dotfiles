@@ -590,6 +590,8 @@ you should place your code here."
     (setq LaTeX-indent-level n)
     (setq TeX-brace-indent-level n)
     (setq tab-width n)
+    (setq lua-indent-level n)
+    (setq evil-shift-width n)
     )
   (chom/setup-indent chom/indent-level)
 
@@ -709,6 +711,7 @@ This function is called at the very end of Spacemacs initialization."
      ("tabbing")
      ("thebibliography")
      ("document" chom/LaTeX/indent-tabular)))
+ '(evil-shift-width 4)
  '(evil-want-Y-yank-to-eol nil)
  '(latex-noindent-environments nil)
  '(package-selected-packages
