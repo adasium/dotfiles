@@ -14,6 +14,9 @@ local beautiful = require("beautiful")
 local naughty = require("naughty")
 local menubar = require("menubar")
 local hotkeys_popup = require("awful.hotkeys_popup")
+local volume_control = require("volume")
+
+
 -- Enable hotkeys help widget for VIM and other apps
 -- when client with a matching name is opened:
 require("awful.hotkeys_popup.keys")
@@ -95,7 +98,7 @@ menubar.utils.terminal = terminal -- Set the terminal for applications that requ
 
 -- {{{ Wibar
 -- Create a textclock widget
-datetime = wibox.widget.textclock("%H:%M %d-%m-%Y", 10)
+datetime = wibox.widget.textclock("%d-%m-%Y   <b>%H:%M</b>", 10)
 
 -- Create a wibox for each screen and add it
 local taglist_buttons = gears.table.join(
@@ -195,6 +198,8 @@ awful.screen.connect_for_each_screen(function(s)
         { -- Right widgets
             layout = wibox.layout.fixed.horizontal,
             tbox_separator,
+            volume_control({}).widget,
+            tbox_separator,
             wibox.widget.systray(),
             tbox_separator,
             datetime,
@@ -232,14 +237,14 @@ globalkeys = gears.table.join(
             end
     end),
     awful.key({ }, "Print", function () awful.util.spawn("flameshot gui") end),
-    awful.key({ ALT,           }, "s",      hotkeys_popup.show_help,
-              {description="show help", group="awesome"}),
+    awful.key({                   }, "F1",     hotkeys_popup.show_help,
+              {description = "show help",     group="awesome"}),
     awful.key({ MODKEY,           }, "Left",   awful.tag.viewprev,
               {description = "view previous", group = "tag"}),
     awful.key({ MODKEY,           }, "Right",  awful.tag.viewnext,
-              {description = "view next", group = "tag"}),
+              {description = "view next",     group = "tag"}),
     awful.key({ MODKEY,           }, "Escape", awful.tag.history.restore,
-              {description = "go back", group = "tag"}),
+              {description = "go back",       group = "tag"}),
 
     awful.key({ MODKEY,           }, "j",
         function ()
@@ -282,7 +287,7 @@ globalkeys = gears.table.join(
     awful.key({ MODKEY, "Control" }, "r", awesome.restart,
               {description = "reload awesome", group = "awesome"}),
     awful.key({ MODKEY, "Shift"   }, "q", awesome.quit,
-              {description = "quit awesome", group = "awesome"}),
+              {description = "quit awesome (logout)", group = "awesome"}),
 
     awful.key({ MODKEY,           }, "l",     function () awful.tag.incmwfact( 0.05)          end,
               {description = "increase master width factor", group = "layout"}),
