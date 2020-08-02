@@ -198,9 +198,9 @@ awful.screen.connect_for_each_screen(function(s)
         { -- Right widgets
             layout = wibox.layout.fixed.horizontal,
             tbox_separator,
-            volume_control({}).widget,
-            tbox_separator,
             wibox.widget.systray(),
+            tbox_separator,
+            volume_control({}).widget,
             tbox_separator,
             datetime,
             space,
@@ -480,7 +480,8 @@ awful.rules.rules = {
                      keys = clientkeys,
                      buttons = clientbuttons,
                      screen = awful.screen.preferred,
-                     placement = awful.placement.no_overlap+awful.placement.no_offscreen
+                     placement = awful.placement.no_overlap+awful.placement.no_offscreen,
+                     size_hints_honor = false
      }
     },
 
