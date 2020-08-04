@@ -570,6 +570,7 @@ you should place your code here."
   (setq magit-log-margin '(t "%H:%M %d-%m-%Y" magit-log-margin-width t 20))
 
   ;; === vINDENT
+  (setq lsp-enable-indentation nil)
   (setq chom/indent-level 4)
   (defun chom/setup-indent (n)
     (setq python-tab-width n)
