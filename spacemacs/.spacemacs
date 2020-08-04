@@ -561,7 +561,7 @@ you should place your code here."
 
   ;; === vPYTHON
   (setq python-indent-guess-indent-offset-verbose nil)
-  (setq python-emacs-virtualenv-path (substitute-in-file-name "$HOME/.config/emacs/.venv/"))
+  (setq python-emacs-virtualenv-path (substitute-in-file-name "$HOME/.config/emacs/.venv"))
   (setq python-emacs-executable-path (f-join python-emacs-virtualenv-path "bin/python"))
   (setq importmagic-python-interpreter python-emacs-executable-path)
   (setq flycheck-flake8rc "setup.cfg")
@@ -615,6 +615,7 @@ you should place your code here."
   (define-key evil-normal-state-map (kbd ">") 'evil-shift-right-line)
   (define-key evil-normal-state-map (kbd "<") 'evil-shift-left-line)
   (define-key evil-normal-state-map (kbd "<escape>") 'evil-mc-undo-all-cursors)
+  (define-key evil-normal-state-map (kbd "gd") 'evil-jump-to-tag)
 
   (bind-key "M-w" 'er/expand-region)
 
