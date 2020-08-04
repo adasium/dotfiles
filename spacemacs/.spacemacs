@@ -40,9 +40,7 @@ values."
      ;; <M-m f e R> (Emacs style) to install them.
      ;; ----------------------------------------------------------------
 
-     (org :variables
-          org-enable-github-support t
-          )
+     org
 
      ;; TYPING-RELATED
      (auto-completion :variables
@@ -89,7 +87,6 @@ values."
              python-lsp-server 'pyls
              python-formatter nil
              python-sort-imports-on-save t
-             python-test-runner 'pytest
              )
      emacs-lisp
      (markdown :variables markdown-live-preview-engine 'vmd)
@@ -98,7 +95,7 @@ values."
             shell-default-position 'bottom)
 
      ;; PAPERS AND PDF
-     chrome
+     ;; chrome ;; TODO remove if necessary
      (latex
       :variables
       TeX-command-extra-options "-shell-escape"
