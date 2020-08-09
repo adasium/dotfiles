@@ -15,8 +15,13 @@ local naughty = require("naughty")
 local menubar = require("menubar")
 local hotkeys_popup = require("awful.hotkeys_popup")
 local volume_control = require("volume")
+
+-- https://github.com/pltanton/net_widgets/
 local net_widgets = require("net_widgets")
 
+font_face = "DejaVu-Sans-Book"
+font_size = "8"
+font = font_face .. " " .. font_size
 
 
 -- Enable hotkeys help widget for VIM and other apps
@@ -201,12 +206,9 @@ awful.screen.connect_for_each_screen(function(s)
             layout = wibox.layout.fixed.horizontal,
             wibox.widget.systray(),
             tbox_separator,
-            net_widgets.wireless({interface="wlp0s20u9"}),
+            net_widgets.wireless({font=font}),
             tbox_separator,
-            net_widgets.indicator({
-                interfaces  = {"enp3s0"},
-                timeout     = 5
-            }),
+            net_widgets.indicator(),
             tbox_separator,
             volume_control({}).widget,
             tbox_separator,
