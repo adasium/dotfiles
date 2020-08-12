@@ -5,7 +5,7 @@ MY_PATH="`dirname \"$0\"`"              # relative
 MY_PATH="`( cd \"$MY_PATH\" && pwd )`"  # absolutized and normalized
 
 ln -sfv $MY_PATH/vim/.vimrc ~
-mkdir ~/.vim/
+mkdir -p ~/.vim/
 ln -sfv $MY_PATH/vim/.config ~/.vim/
 ln -sfv $MY_PATH/vim/UltiSnips ~/.vim/
 
