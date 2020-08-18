@@ -1,8 +1,7 @@
 #!/bin/sh
 
-SPACEMACS_DIR="`dirname \"$0\"`"              # relative
-SPACEMACS_DIR="`( cd \"$MY_PATH\" && pwd )`"  # absolutized and normalized
+SCRIPT_DIR=$(dirname $(realpath -s $0))
 
-ln -sfv $SPACEMACS_DIR/.spacemacs ~
-ln -sfv $SPACEMACS_DIR/snippets/* ~/.emacs.d/private/snippets/
-ln -sfv $SPACEMACS_DIR/emacs.service ~/.config/systemd/user/
+ln -sfv $SCRIPT_DIR/.spacemacs ~/
+ln -sfv $SCRIPT_DIR/snippets/* ~/.emacs.d/private/snippets/
+ln -sfv $SCRIPT_DIR/emacs.service ~/.config/systemd/user/
