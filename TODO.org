@@ -30,3 +30,6 @@
 ** Python
 *** TODO Custom list implementation/extension
 *** TODO custom JSON serialization method
+
+Save dconf settings
+Create installation scrits for every program
