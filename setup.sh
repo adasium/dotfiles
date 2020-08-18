@@ -14,5 +14,4 @@ ln -sfv $MY_PATH/tmux/.tmux.conf ~
 ln -sfv $MY_PATH/zsh/.zshrc ~
 ln -sfv $MY_PATH/bash/.bash_aliases ~
 
-mkdir -p ~/.config/systemd/user/
-ln -sfv $MY_PATH/spacemacs/emacs.service ~/.config/systemd/user/
+./spacemacs/setup.sh
