@@ -30,7 +30,8 @@ values."
    dotspacemacs-configuration-layer-path '()
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
-   '(csv
+   '(systemd
+     csv
      haskell
      lua
 
@@ -717,7 +718,7 @@ This function is called at the very end of Spacemacs initialization."
  '(evil-want-Y-yank-to-eol nil)
  '(latex-noindent-environments nil)
  '(package-selected-packages
-   '(csv-mode org-plus-contrib evil-unimpaired f s dash doom-dark+-theme))
+   '(systemd org-plus-contrib evil-unimpaired f s dash doom-dark+-theme))
  '(spacemacs-indent-sensitive-modes
    '(asm-mode coffee-mode elm-mode haml-mode haskell-mode slim-mode makefile-mode makefile-bsdmake-mode makefile-gmake-mode makefile-imake-mode yaml-mode)))
 (custom-set-faces

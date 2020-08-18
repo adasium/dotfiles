@@ -3,7 +3,7 @@ epc
 django-stubs  # mypy
 flake8  # linter
 importmagic
-isort
-mypy  # linter
-pylint  # linter
+isort<5,>=4.2.5
+mypy<0.780,>=0.770
+pylint==2.5.3  # linter
 python-language-server
