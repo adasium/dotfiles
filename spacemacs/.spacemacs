@@ -529,6 +529,9 @@ you should place your code here."
 
 
   ;; ================================ VARIABLES ============================================
+  (setq split-width-threshold 0)
+  (setq split-height-threshold nil)
+
   (setq yas-snippet-dirs '("~/.emacs.d/private/snippets/"))
   (setq helm-ag-base-command "rg --vimgrep --no-heading --smart-case")
 
@@ -719,7 +722,18 @@ This function is called at the very end of Spacemacs initialization."
  '(evil-want-Y-yank-to-eol nil)
  '(latex-noindent-environments nil)
  '(package-selected-packages
-   '(systemd org-plus-contrib evil-unimpaired f s dash doom-dark+-theme))
+   '(tern org-plus-contrib evil-unimpaired f s dash doom-dark+-theme))
+ '(safe-local-variable-values
+   '((python-formatter . black)
+     (python-formatter black)
+     (flycheck-disabled-checkers . python-flake8)
+     (python-format-on-save t)
+     (python-sort-imports-on-save t)
+     (python-formatter 'black)
+     (python-fill-column . 90)
+     (javascript-backend . tide)
+     (javascript-backend . tern)
+     (javascript-backend . lsp)))
  '(spacemacs-indent-sensitive-modes
    '(asm-mode coffee-mode elm-mode haml-mode haskell-mode slim-mode makefile-mode makefile-bsdmake-mode makefile-gmake-mode makefile-imake-mode yaml-mode)))
 (custom-set-faces
