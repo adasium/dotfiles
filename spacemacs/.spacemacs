@@ -651,6 +651,7 @@ you should place your code here."
 
   ;; This hook needs to be used not to make settings overridden by package setup.
   (add-hook 'python-mode-hook 'chom/python-setup t)
+  (add-hook 'python-mode-hook 'display-fill-column-indicator-mode)
 
   ;; === ORG-h
   (add-hook 'org-mode-hook 'chom/org-setup)
