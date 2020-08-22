@@ -3,11 +3,10 @@ Description=Emacs text editor
 Documentation=info:emacs man:emacs(1) https://gnu.org/software/emacs/
 
 [Service]
-Type=forking
-ExecStart=/bin/bash -c "source ~/.config/emacs/.venv/bin/activate && /usr/local/bin/emacs --daemon"
-ExecStop=/usr/local/bin/emacsclient --eval "(kill-emacs)"
-Environment=SSH_AUTH_SOCK=%t/keyring/ssh
-Restart=on-failure
+Type=simple
+ExecStart=/bin/bash -c "source ~/.config/emacs/.venv/bin/activate && /usr/local/bin/emacs --fg-daemon"
+ExecStop=/usr/local/bin/emacsclient --eval "(spacemacs/kill-emacs)"
+Restart=no
 
 [Install]
 WantedBy=default.target
