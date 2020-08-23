@@ -224,12 +224,15 @@ function vwidget:create_menu()
             self:set_default_sink(sink.name)
         end})
     end
-    return awful.menu { items = {
-        { "mute", function() self:mute() end },
-        { "unmute", function() self:unmute() end },
-        { "Default Sink", sinks },
-        { "pavucontrol", function() self:action("pavucontrol") end },
-    } }
+    return awful.menu {
+        items = {
+            { "mute", function() self:mute() end },
+            { "unmute", function() self:unmute() end },
+            { "Default Sink", sinks },
+            { "pavucontrol", function() self:action("pavucontrol") end },
+        },
+        theme = {width = 300, height = 30}
+    }
 end
 
 function vwidget:show_menu()
