@@ -635,6 +635,10 @@ you should place your code here."
   (add-hook 'c++-mode-hook (lambda()
                              (chom/setup-indent chom/indent-level)))
 
+  ;; === LUA (h)
+  (add-hook 'lua-mode-hook (lambda()
+                             (chom/setup-indent chom/indent-level)))
+
   ;; === PYTHON (h)
   (defun chom/python-setup ()
     (let ((python-version (substring (shell-command-to-string "python --version") 7 10)))
@@ -671,6 +675,7 @@ you should place your code here."
                                (define-key evil-normal-state-map (kbd "O") 'chom/LaTeX/add-item-above)
                                ))
   (add-hook 'LaTeX-mode-hook 'chom/environment-object)
+  (remove-hook 'LaTeX-mode-hook 'latex/auto-fill-mode)
 
   ;; === JSON (h)
   (add-hook 'json-mode-hook (lambda()
@@ -721,6 +726,7 @@ This function is called at the very end of Spacemacs initialization."
  '(evil-shift-width 4)
  '(evil-want-Y-yank-to-eol nil)
  '(latex-noindent-environments nil)
+ '(lua-indent-level 4)
  '(package-selected-packages
    '(tern org-plus-contrib evil-unimpaired f s dash doom-dark+-theme))
  '(safe-local-variable-values
