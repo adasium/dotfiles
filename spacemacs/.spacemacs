@@ -529,6 +529,7 @@ you should place your code here."
 
 
   ;; ================================ VARIABLES ============================================
+  (setq py-isort-options "--skip __init__.py")
   (setq split-width-threshold 0)
   (setq split-height-threshold nil)
 
@@ -618,11 +619,13 @@ you should place your code here."
   (define-key evil-normal-state-map (kbd ">") 'evil-shift-right-line)
   (define-key evil-normal-state-map (kbd "<") 'evil-shift-left-line)
   (define-key evil-normal-state-map (kbd "<escape>") 'evil-mc-undo-all-cursors)
+  (define-key evil-insert-state-map (kbd "<S-return>") 'evil-open-above)
 
   (bind-key "M-w" 'er/expand-region)
 
   (bind-key "M-k" 'spacemacs/move-text-transient-state/move-text-up)
   (bind-key "M-j" 'spacemacs/move-text-transient-state/move-text-down)
+
   (evil-leader/set-key "/" 'spacemacs/helm-project-do-ag)
 
 
