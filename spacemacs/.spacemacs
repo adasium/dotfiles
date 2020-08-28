@@ -535,7 +535,6 @@ you should place your code here."
   (setq split-height-threshold nil)
 
   (setq yas-snippet-dirs '("~/.emacs.d/private/snippets/"))
-  (setq helm-ag-base-command "rg --vimgrep --no-heading --smart-case")
 
   ;; === vORG
   (setq org-hide-leading-stars t)
