@@ -117,11 +117,12 @@ values."
    '(
      doom-themes
      flycheck-mypy
+     highlight-indent-guides
      )
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
    ;; A list of packages that will not be installed and loaded.
-   dotspacemacs-excluded-packages '()
+   dotspacemacs-excluded-packages '(highlight-indentation)
 
    ;; Defines the behaviour of Spacemacs when installing packages.
    ;; Possible values are `used-only', `used-but-keep-unused' and `all'.
@@ -529,6 +530,7 @@ you should place your code here."
 
 
   ;; ================================ VARIABLES ============================================
+  (setq highlight-indent-guides-method 'column)
   (add-to-list 'load-path "~/.config/emacs/.venv/bin")
   (setq py-isort-options "--skip __init__.py")
   (setq split-width-threshold 0)
@@ -542,7 +544,7 @@ you should place your code here."
   (setq org-default-notes-file "TODO.org")
   (setq org-capture-templates
         '(
-          ("t" "Regular TODO" entry (file "")
+          ("t" "Regular TODO" entry (file org-projectile-file)
            "** TODO %?\n%a\n")
           ))
   (setq-default org-display-custom-times t)
@@ -563,6 +565,7 @@ you should place your code here."
   (ispell-hunspell-add-multi-dic "en_GB,en_US,pl_PL,de_DE")
 
   ;; === vPYTHON
+  (setq lsp-disabled-clients '(mspyls))
   (setq python-indent-guess-indent-offset-verbose nil)
   (setq python-emacs-virtualenv-path (substitute-in-file-name "$HOME/.config/emacs/.venv"))
   (setq python-emacs-executable-path (f-join python-emacs-virtualenv-path "bin/python"))
@@ -627,7 +630,7 @@ you should place your code here."
   (bind-key "M-k" 'spacemacs/move-text-transient-state/move-text-up)
   (bind-key "M-j" 'spacemacs/move-text-transient-state/move-text-down)
 
-  (evil-leader/set-key "/" 'spacemacs/helm-project-do-ag)
+  ;; (evil-leader/set-key "/" 'spacemacs/helm-project-do-ag)
 
 
 
@@ -663,6 +666,7 @@ you should place your code here."
   ;; This hook needs to be used not to make settings overridden by package setup.
   (add-hook 'python-mode-hook 'chom/python-setup t)
   (add-hook 'python-mode-hook 'display-fill-column-indicator-mode)
+  (add-hook 'python-mode-hook 'highlight-indent-guides-mode)
 
   ;; === ORG-h
   (add-hook 'org-mode-hook 'chom/org-setup)
