@@ -529,6 +529,7 @@ you should place your code here."
 
 
   ;; ================================ VARIABLES ============================================
+  (add-to-list 'load-path "~/.config/emacs/.venv/bin")
   (setq py-isort-options "--skip __init__.py")
   (setq split-width-threshold 0)
   (setq split-height-threshold nil)
@@ -566,6 +567,7 @@ you should place your code here."
   (setq python-indent-guess-indent-offset-verbose nil)
   (setq python-emacs-virtualenv-path (substitute-in-file-name "$HOME/.config/emacs/.venv"))
   (setq python-emacs-executable-path (f-join python-emacs-virtualenv-path "bin/python"))
+  (setq spacemacs-jump-handlers-python-mode (list 'dumb-jump 'evil-jump-to-tag))
   (setq importmagic-python-interpreter python-emacs-executable-path)
   (setq flycheck-flake8rc "setup.cfg")
   (setq flycheck-pylintrc "setup.cfg")
@@ -729,7 +731,7 @@ This function is called at the very end of Spacemacs initialization."
  '(evil-shift-width 4)
  '(evil-want-Y-yank-to-eol nil)
  '(latex-noindent-environments nil)
- '(lua-indent-level 4)
+ '(lua-indent-level 4 t)
  '(package-selected-packages
    '(tern org-plus-contrib evil-unimpaired f s dash doom-dark+-theme))
  '(safe-local-variable-values
