@@ -611,7 +611,7 @@ you should place your code here."
   (chom/setup-indent chom/indent-level)
 
   ;; === vOTHER
-	(setq powerline-default-separator 'alternate)
+	(setq powerline-default-separator 'nil)
   (setq vc-follow-symlinks t)
   (setq avy-timeout-seconds 0.3)
   (setq company-dabbrev-downcase 0)
