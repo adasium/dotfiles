@@ -541,6 +541,8 @@ you should place your code here."
   (setq py-isort-options "--skip __init__.py")
   (setq split-width-threshold 0)
   (setq split-height-threshold nil)
+  (setq helm-grep-ag-command "rg --color=always --smart-case --no-heading --line-number %s %s %s")
+
 
   (setq yas-snippet-dirs '("~/.emacs.d/private/snippets/"))
 
