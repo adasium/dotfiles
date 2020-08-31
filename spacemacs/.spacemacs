@@ -536,6 +536,12 @@ you should place your code here."
 
 
   ;; ================================ VARIABLES ============================================
+  (custom-set-faces
+   '(flycheck-error ((t (:underline (:style line :color "#FF0000")))))
+   '(flycheck-warning ((t (:underline (:style line :color "#FFFF00")))))
+   '(flycheck-info ((t (:underline (:style wave :color "#66D9EF")))))
+   )
+
   (setq highlight-indent-guides-method 'column)
   (add-to-list 'load-path "~/.config/emacs/.venv/bin")
   (setq py-isort-options '("-s __init__.py"
@@ -745,7 +751,7 @@ This function is called at the very end of Spacemacs initialization."
  '(latex-noindent-environments nil)
  '(lua-indent-level 4 t)
  '(package-selected-packages
-   '(tern org-plus-contrib evil-unimpaired f s dash doom-dark+-theme))
+   '(rainbow-mode org-plus-contrib evil-unimpaired f s dash doom-dark+-theme))
  '(safe-local-variable-values
    '((python-fill-column . 88)
      (python-fill-column . 99)
@@ -761,12 +767,7 @@ This function is called at the very end of Spacemacs initialization."
      (javascript-backend . lsp)))
  '(spacemacs-indent-sensitive-modes
    '(asm-mode coffee-mode elm-mode haml-mode haskell-mode slim-mode makefile-mode makefile-bsdmake-mode makefile-gmake-mode makefile-imake-mode yaml-mode)))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
+
 )
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
