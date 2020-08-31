@@ -769,14 +769,6 @@ This function is called at the very end of Spacemacs initialization."
      (javascript-backend . lsp)))
  '(spacemacs-indent-sensitive-modes
    '(asm-mode coffee-mode elm-mode haml-mode haskell-mode slim-mode makefile-mode makefile-bsdmake-mode makefile-gmake-mode makefile-imake-mode yaml-mode)))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(flycheck-error ((t (:underline (:style wave :color "#F92672")))))
- '(flycheck-info ((t (:underline (:style wave :color "#66D9EF")))))
- '(flycheck-warning ((t (:underline (:style wave :color "#FD971F"))))))
 )
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
