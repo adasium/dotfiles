@@ -747,7 +747,9 @@ This function is called at the very end of Spacemacs initialization."
  '(package-selected-packages
    '(tern org-plus-contrib evil-unimpaired f s dash doom-dark+-theme))
  '(safe-local-variable-values
-   '((python-formatter . black)
+   '((python-fill-column . 88)
+     (python-fill-column . 99)
+     (python-formatter . black)
      (python-formatter black)
      (flycheck-disabled-checkers . python-flake8)
      (python-format-on-save t)
