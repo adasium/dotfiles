@@ -54,7 +54,8 @@ values."
                       auto-completion-enable-sort-by-usage nil
                       auto-completion-enable-snippets-in-popup t
                       )
-     spell-checking
+     (spell-checking
+      :variables spell-checking-enable-by-default nil)
      syntax-checking
 
      ;; SEARCH
