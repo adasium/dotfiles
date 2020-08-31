@@ -538,7 +538,8 @@ you should place your code here."
   ;; ================================ VARIABLES ============================================
   (setq highlight-indent-guides-method 'column)
   (add-to-list 'load-path "~/.config/emacs/.venv/bin")
-  (setq py-isort-options "--skip __init__.py")
+  (setq py-isort-options '("-s __init__.py"
+                           "-m 3"))
   (setq split-width-threshold 0)
   (setq split-height-threshold nil)
   (setq helm-grep-ag-command "rg --color=always --smart-case --no-heading --line-number %s %s %s")
