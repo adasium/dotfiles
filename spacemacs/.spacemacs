@@ -690,11 +690,11 @@ you should place your code here."
                     flycheck-checker 'python-flake8
                     flycheck-checker-error-threshold 900
                     )
-              ))
-        (progn
-          (define-key evil-insert-state-map (kbd "M-RET") 'importmagic-fix-symbol-at-point)
-          (define-key evil-normal-state-map (kbd "M-RET") 'importmagic-fix-symbol-at-point)
-          (global-set-key [remap python-indent-dedent-line] 'chom/smart-tab-jump-in-or-indent)))))
+              )))
+      (progn
+        (define-key evil-insert-state-map (kbd "M-RET") 'importmagic-fix-symbol-at-point)
+        (define-key evil-normal-state-map (kbd "M-RET") 'importmagic-fix-symbol-at-point)
+        (global-set-key [remap python-indent-dedent-line] 'chom/smart-tab-jump-in-or-indent))))
 
   ;; This hook needs to be used not to make settings overridden by package setup.
   (add-hook 'python-mode-hook #'pipenv-mode)
