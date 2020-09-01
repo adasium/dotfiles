@@ -529,10 +529,25 @@ you should place your code here."
   (defun chom/django ()
     (if (projectile-project-p)
         (if (file-exists-p (concat (projectile-project-root) "manage.py"))
-            (web-mode-set-engine "django")
-          )
-      )
-    )
+            (web-mode-set-engine "django"))))
+
+
+  (defun chom/get-python-virtualenv-path ()
+    (let ((virtualenv-venv-path (concat (projectile-project-root) ".venv"))
+          (pipfile-path (concat (projectile-project-root) "Pipfile")))
+      (cond
+       ((file-directory-p virtualenv-venv-path)
+                         virtualenv-venv-path)
+       ((file-exists-p pipfile-path)
+                      (let ((result (string-trim (shell-command-to-string "PIPENV_IGNORE_VIRTUALENVS=1 pipenv --venv"))))
+                        (if (file-directory-p result)
+                            result)))
+       (t (message "No virtualenv found")
+          nil))))
+
+  (defun test()
+    (interactive)
+    (message (chom/python-virtualenv-path)))
 
 
   ;; ================================ VARIABLES ============================================
@@ -544,6 +559,7 @@ you should place your code here."
 
   (setq highlight-indent-guides-method 'column)
   (add-to-list 'load-path "~/.config/emacs/.venv/bin")
+  (add-to-list 'load-path "~/.local/bin")
   (setq py-isort-options '("-s __init__.py"
                            "-m 3"))
   (setq split-width-threshold 0)
@@ -644,6 +660,7 @@ you should place your code here."
 
   (bind-key "M-k" 'spacemacs/move-text-transient-state/move-text-up)
   (bind-key "M-j" 'spacemacs/move-text-transient-state/move-text-down)
+  (bind-key "C-k" 'test)
 
   ;; (evil-leader/set-key "/" 'spacemacs/helm-project-do-ag)
 
@@ -663,22 +680,24 @@ you should place your code here."
 
   ;; === PYTHON (h)
   (defun chom/python-setup ()
-    (let ((python-version (substring (shell-command-to-string "python --version") 7 10)))
-      (let ((python-packages-path (f-join "/" python-emacs-virtualenv-path "lib" python-version "site-packages")))
-        (setq python-version (substring (shell-command-to-string "python --version") 7 10))
-        (setenv "PYTHONPATH" (f-join python-shell-virtualenv-path "lib" (concat "python" python-version) "site-packages"))
-        (setenv "PYTHONPATH" (mapconcat (lambda (x) (format "%s" x)) (list (getenv "PYTHONPATH") (projectile-project-root)) ":"))
-        (setq python-shell-extra-pythonpaths (list (substitute-in-file-name python-packages-path))
-              flycheck-checker 'python-flake8
-              flycheck-checker-error-threshold 900
-            )
-        (define-key evil-insert-state-map (kbd "M-RET") 'importmagic-fix-symbol-at-point)
-        (define-key evil-normal-state-map (kbd "M-RET") 'importmagic-fix-symbol-at-point)
-
-        (global-set-key [remap python-indent-dedent-line] 'chom/smart-tab-jump-in-or-indent)
-      )))
+    (let ((virtualenv-dir-path (chom/get-python-virtualenv-path)))
+      (if virtualenv-dir-path
+          (let ((python-version (substring (shell-command-to-string "python --version") 7 10)))
+            (let ((emacs-python-packages-path (f-join "/" python-emacs-virtualenv-path "lib" python-version "site-packages")))
+              (setenv "PYTHONPATH" (f-join virtualenv-dir-path "lib" (concat "python" python-version) "site-packages"))
+              (setenv "PYTHONPATH" (mapconcat (lambda (x) (format "%s" x)) (list (getenv "PYTHONPATH") (projectile-project-root)) ":"))
+              (setq python-shell-extra-pythonpaths (list (substitute-in-file-name emacs-python-packages-path))
+                    flycheck-checker 'python-flake8
+                    flycheck-checker-error-threshold 900
+                    )
+              ))
+        (progn
+          (define-key evil-insert-state-map (kbd "M-RET") 'importmagic-fix-symbol-at-point)
+          (define-key evil-normal-state-map (kbd "M-RET") 'importmagic-fix-symbol-at-point)
+          (global-set-key [remap python-indent-dedent-line] 'chom/smart-tab-jump-in-or-indent)))))
 
   ;; This hook needs to be used not to make settings overridden by package setup.
+  (add-hook 'python-mode-hook #'pipenv-mode)
   (add-hook 'python-mode-hook 'chom/python-setup t)
   (add-hook 'python-mode-hook 'display-fill-column-indicator-mode)
   (add-hook 'python-mode-hook 'highlight-indent-guides-mode)
@@ -751,9 +770,10 @@ This function is called at the very end of Spacemacs initialization."
  '(latex-noindent-environments nil)
  '(lua-indent-level 4 t)
  '(package-selected-packages
-   '(rainbow-mode org-plus-contrib evil-unimpaired f s dash doom-dark+-theme))
+   '(tern org-plus-contrib evil-unimpaired f s dash doom-dark+-theme))
  '(safe-local-variable-values
-   '((py-isort-options
+   '((python-formater . black)
+     (py-isort-options
       '("-s __init__.py" "-m 3"))
      (python-fill-column . 88)
      (python-fill-column . 99)
@@ -769,6 +789,14 @@ This function is called at the very end of Spacemacs initialization."
      (javascript-backend . lsp)))
  '(spacemacs-indent-sensitive-modes
    '(asm-mode coffee-mode elm-mode haml-mode haskell-mode slim-mode makefile-mode makefile-bsdmake-mode makefile-gmake-mode makefile-imake-mode yaml-mode)))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(flycheck-error ((t (:underline (:style line :color "#FF0000")))))
+ '(flycheck-info ((t (:underline (:style wave :color "#00FF00")))))
+ '(flycheck-warning ((t (:underline (:style line :color "#FFFF00"))))))
 )
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
