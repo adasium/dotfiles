@@ -560,8 +560,8 @@ you should place your code here."
   (setq highlight-indent-guides-method 'column)
   (add-to-list 'load-path "~/.config/emacs/.venv/bin")
   (add-to-list 'load-path "~/.local/bin")
-  (setq py-isort-options '("-s __init__.py"
-                           "-m 3"))
+  (setq py-isort-options '("-s" "__init__.py"
+                           "-m" "3"))
   (setq split-width-threshold 0)
   (setq split-height-threshold nil)
   (setq helm-grep-ag-command "rg --color=always --smart-case --no-heading --line-number %s %s %s")
