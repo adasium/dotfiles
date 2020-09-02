@@ -557,6 +557,16 @@ you should place your code here."
    '(flycheck-warning ((t (:underline (:style line :color "#FFFF00")))))
    '(flycheck-info ((t (:underline (:style wave :color "#00FF00")))))
    )
+  (setq hl-paren-colors
+        '(
+          "#FF0000"
+          "#FF7F00"
+          "#FFFF00"
+          "#00FF00"
+          "#0000FF"
+          "#4B0082"
+          "#9400D3"
+          ))
 
   (setq highlight-indent-guides-method 'column)
   (add-to-list 'load-path "~/.config/emacs/.venv/bin")
@@ -771,7 +781,7 @@ This function is called at the very end of Spacemacs initialization."
  '(latex-noindent-environments nil)
  '(lua-indent-level 4 t)
  '(package-selected-packages
-   '(tern org-plus-contrib evil-unimpaired f s dash doom-dark+-theme))
+   '(rainbow-mode tern org-plus-contrib evil-unimpaired f s dash doom-dark+-theme))
  '(safe-local-variable-values
    '((python-formater . black)
      (py-isort-options
