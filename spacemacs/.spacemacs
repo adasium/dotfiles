@@ -671,6 +671,9 @@ you should place your code here."
 
   (bind-key "M-k" 'spacemacs/move-text-transient-state/move-text-up)
   (bind-key "M-j" 'spacemacs/move-text-transient-state/move-text-down)
+
+  (define-key evil-normal-state-map (kbd "K") 'join-line)
+
   (bind-key "C-k" 'test)
 
   ;; (evil-leader/set-key "/" 'spacemacs/helm-project-do-ag)
