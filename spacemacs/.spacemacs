@@ -538,20 +538,21 @@ you should place your code here."
           (pipfile-path (concat (projectile-project-root) "Pipfile")))
       (cond
        ((file-directory-p virtualenv-venv-path)
-                         virtualenv-venv-path)
+        virtualenv-venv-path)
        ((file-exists-p pipfile-path)
-                      (let ((result (string-trim (shell-command-to-string "PIPENV_IGNORE_VIRTUALENVS=1 pipenv --venv"))))
-                        (if (file-directory-p result)
-                            result)))
-       (t (message "No virtualenv found")
-          nil))))
+        (let ((result (string-trim (shell-command-to-string (concat "PIPENV_IGNORE_VIRTUALENVS=1 " pipenv-executable " --venv")))))
+          (if (file-directory-p result)
+              result)))
+       (t nil))))
 
-  (defun test()
+  (defun chom/test()
     (interactive)
-    (message (chom/python-virtualenv-path)))
+    (message "hello")
+    (message (chom/get-python-virtualenv-path)))
 
 
   ;; ================================ VARIABLES ============================================
+  (setq pipenv-executable (executable-find "pipenv"))
   (custom-set-faces
    '(flycheck-error ((t (:underline (:style line :color "#FF0000")))))
    '(flycheck-warning ((t (:underline (:style line :color "#FFFF00")))))
@@ -569,8 +570,10 @@ you should place your code here."
           ))
 
   (setq highlight-indent-guides-method 'column)
-  (add-to-list 'load-path "~/.config/emacs/.venv/bin")
-  (add-to-list 'load-path "~/.local/bin")
+  (add-to-list 'exec-path (substitute-in-file-name "$HOME/.config/emacs/.venv/bin"))
+  (add-to-list 'exec-path (substitute-in-file-name "$HOME/.local/bin"))
+  (add-to-list 'exec-path (substitute-in-file-name "$HOME/.pyenv/shims"))
+
   (setq py-isort-options '("-s" "__init__.py"
                            "-m" "3"))
   (setq split-width-threshold 0)
@@ -674,13 +677,14 @@ you should place your code here."
 
   (define-key evil-normal-state-map (kbd "K") 'join-line)
 
-  (bind-key "C-k" 'test)
+  (bind-key "C-k" 'chom/test)
 
   ;; (evil-leader/set-key "/" 'spacemacs/helm-project-do-ag)
 
 
 
   ;; ================================ HOOKS ===============================================
+
   ;; === WEB (h)
   (add-hook 'web-mode-hook 'chom/django)
 
@@ -696,15 +700,17 @@ you should place your code here."
   (defun chom/python-setup ()
     (let ((virtualenv-dir-path (chom/get-python-virtualenv-path)))
       (if virtualenv-dir-path
-          (let ((python-version (substring (shell-command-to-string "python --version") 7 10)))
+          (progn
+            (let ((python-version (substring (shell-command-to-string "python --version") 7 10)))
             (let ((emacs-python-packages-path (f-join "/" python-emacs-virtualenv-path "lib" python-version "site-packages")))
               (setenv "PYTHONPATH" (f-join virtualenv-dir-path "lib" (concat "python" python-version) "site-packages"))
               (setenv "PYTHONPATH" (mapconcat (lambda (x) (format "%s" x)) (list (getenv "PYTHONPATH") (projectile-project-root)) ":"))
               (setq python-shell-extra-pythonpaths (list (substitute-in-file-name emacs-python-packages-path))
                     flycheck-checker 'python-flake8
-                    flycheck-checker-error-threshold 900
-                    )
-              )))
+                    flycheck-checker-error-threshold 900)))
+            (setq python-shell-interpreter (f-join "/" virtualenv-dir-path "bin" "python"))
+            (message python-shell-interpreter))
+        nil)
       (progn
         (define-key evil-insert-state-map (kbd "M-RET") 'importmagic-fix-symbol-at-point)
         (define-key evil-normal-state-map (kbd "M-RET") 'importmagic-fix-symbol-at-point)
