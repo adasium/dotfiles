@@ -86,7 +86,7 @@ values."
      (python :variables
              python-backend 'lsp
              python-fill-column 200
-             python-lsp-server 'pyls
+             python-lsp-server 'mspyls
              python-formatter nil
              python-sort-imports-on-save t
              )
