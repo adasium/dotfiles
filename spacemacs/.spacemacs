@@ -793,7 +793,8 @@ This function is called at the very end of Spacemacs initialization."
  '(package-selected-packages
    '(rainbow-mode tern org-plus-contrib evil-unimpaired f s dash doom-dark+-theme))
  '(safe-local-variable-values
-   '((python-formater . black)
+   '((blacken-line-length . 88)
+     (python-formater . black)
      (py-isort-options
       '("-s __init__.py" "-m 3"))
      (python-fill-column . 88)
