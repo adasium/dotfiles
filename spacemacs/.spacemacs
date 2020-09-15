@@ -669,6 +669,8 @@ you should place your code here."
   (define-key evil-normal-state-map (kbd "<escape>") 'evil-mc-undo-all-cursors)
   (define-key evil-insert-state-map (kbd "<S-return>") 'evil-open-above)
 
+  (evil-define-key 'insert evil-org-mode-map (kbd "<return>") 'evil-org-open-below)
+
   (bind-key "M-w" 'er/expand-region)
 
   (bind-key "M-k" 'spacemacs/move-text-transient-state/move-text-up)
@@ -726,6 +728,7 @@ you should place your code here."
   ;; === ORG-h
   (add-hook 'org-mode-hook 'chom/org-setup)
   (add-hook 'org-capture-mode-hook 'evil-insert-state t)
+  (add-hook 'org-mode-hook 'hl-todo-mode)
 
   ;; === MARKDOWN (h)
   ;; (add-hook 'markdown-mode-hook 'vmd-mode)
