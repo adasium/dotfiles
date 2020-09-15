@@ -425,6 +425,19 @@ you should place your code here."
                   (push file org-agenda-files)))
               (org-projectile-todo-files))))
 
+  (defun chom/evil-org-> (BEG END)
+    (interactive "r")
+    (evil-org-> BEG END 1)
+    (if (eq evil-state 'visual)
+        (evil-visual-restore)))
+
+
+  (defun chom/evil-org-< (BEG END)
+    (interactive "r")
+    (evil-org-< BEG END 1)
+    (if (eq evil-state 'visual)
+        (evil-visual-restore)))
+
   ;; https://www.reddit.com/r/emacs/comments/3n1j4x/anyway_to_tab_out_of_parentheses/
   (defun chom/smart-tab-jump-out-or-indent (&optional arg)
     "Smart tab behavior. Jump out quote or brackets, or indent."
@@ -582,7 +595,7 @@ you should place your code here."
 
   (setq yas-snippet-dirs '("~/.emacs.d/private/snippets/"))
 
-  ;; === vORG
+  ;; === ORG VARIABLES
   (setq org-hide-leading-stars t)
   (setq org-projectile-file "TODO.org")
   (setq org-default-notes-file "TODO.org")
@@ -593,6 +606,7 @@ you should place your code here."
           ))
   (setq-default org-display-custom-times t)
   (setq org-time-stamp-custom-formats '("<%Y-%m-%d>" . "<%Y-%m-%d %H:%M>"))
+  (setq-default org-list-indent-offset 2)
 
   ;; === vLATEX
   (setq font-latex-fontify-script nil)
@@ -669,14 +683,19 @@ you should place your code here."
   (define-key evil-normal-state-map (kbd "<escape>") 'evil-mc-undo-all-cursors)
   (define-key evil-insert-state-map (kbd "<S-return>") 'evil-open-above)
 
-  (evil-define-key 'insert evil-org-mode-map (kbd "<return>") 'evil-org-open-below)
-
   (bind-key "M-w" 'er/expand-region)
 
   (bind-key "M-k" 'spacemacs/move-text-transient-state/move-text-up)
   (bind-key "M-j" 'spacemacs/move-text-transient-state/move-text-down)
 
   (define-key evil-normal-state-map (kbd "K") 'join-line)
+  (evil-define-key 'visual evil-org-mode-map (kbd ">") 'chom/evil-org->)
+  (evil-define-key 'visual evil-org-mode-map (kbd "<") 'chom/evil-org-<)
+  (evil-define-key 'normal evil-org-mode-map (kbd ">") 'chom/evil-org->)
+  (evil-define-key 'normal evil-org-mode-map (kbd "<") 'chom/evil-org-<)
+
+  (evil-define-key 'insert evil-org-mode-map (kbd "<tab>") 'chom/evil-org->)
+  (evil-define-key 'insert evil-org-mode-map (kbd "<backtab>") 'chom/evil-org-<)
 
   (bind-key "C-k" 'chom/test)
 
@@ -796,10 +815,9 @@ This function is called at the very end of Spacemacs initialization."
  '(package-selected-packages
    '(rainbow-mode tern org-plus-contrib evil-unimpaired f s dash doom-dark+-theme))
  '(safe-local-variable-values
-   '((blacken-line-length . 88)
+   '((py-isort-options "-s __init__.py" "-m 3")
+     (blacken-line-length . 88)
      (python-formater . black)
-     (py-isort-options
-      '("-s __init__.py" "-m 3"))
      (python-fill-column . 88)
      (python-fill-column . 99)
      (python-formatter . black)
