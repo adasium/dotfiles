@@ -609,7 +609,7 @@ you should place your code here."
   (ispell-hunspell-add-multi-dic "en_GB,en_US,pl_PL,de_DE")
 
   ;; === vPYTHON
-  (setq lsp-disabled-clients '(mspyls))
+  (setq lsp-disabled-clients '(pyls))
   (setq python-indent-guess-indent-offset-verbose nil)
   (setq python-emacs-virtualenv-path (substitute-in-file-name "$HOME/.config/emacs/.venv"))
   (setq python-emacs-executable-path (f-join python-emacs-virtualenv-path "bin/python"))
