@@ -3,14 +3,21 @@
 SCRIPT_DIR=$(dirname $(realpath -s $0))
 SEP='--------------------'
 
+setting_up() {
+    echo $SEP Setting up $@ $SEP
+}
 
-echo $SEP Setting up Vim $SEP
+setting_up Vim
 ./vim/setup.sh
 
+setting_up Spacemacs
+./spacemacs/setup.sh
+
+setting_up Tmux
 ln -sfv $SCRIPT_DIR/tmux/.tmux.conf ~
 
+setting_up ZSH
 ln -sfv $SCRIPT_DIR/zsh/.zshrc ~
-ln -sfv $SCRIPT_DIR/bash/.bash_aliases ~
 
-echo $SEP Setting up Spacemacs $SEP
-./spacemacs/setup.sh
+setting_up Bash aliases
+ln -sfv $SCRIPT_DIR/bash/.bash_aliases ~
