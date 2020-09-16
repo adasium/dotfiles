@@ -427,16 +427,21 @@ you should place your code here."
 
   (defun chom/evil-org-> (BEG END)
     (interactive "r")
-    (evil-org-> BEG END 1)
-    (if (eq evil-state 'visual)
-        (evil-visual-restore)))
+    (cond
+     ((eq evil-state 'visual)
+      (evil-org-> BEG END 1)
+      (evil-visual-restore))
+     (t
+      (evil-org-> BEG END 1))))
 
 
   (defun chom/evil-org-< (BEG END)
     (interactive "r")
-    (evil-org-< BEG END 1)
-    (if (eq evil-state 'visual)
-        (evil-visual-restore)))
+    (cond
+     ((eq evil-state 'visual)
+      (evil-org-< BEG END 1)
+      (evil-visual-restore))
+     (t (evil-org-< BEG END 1))))
 
   ;; https://www.reddit.com/r/emacs/comments/3n1j4x/anyway_to_tab_out_of_parentheses/
   (defun chom/smart-tab-jump-out-or-indent (&optional arg)
@@ -696,6 +701,8 @@ you should place your code here."
 
   (evil-define-key 'insert evil-org-mode-map (kbd "<tab>") 'chom/evil-org->)
   (evil-define-key 'insert evil-org-mode-map (kbd "<backtab>") 'chom/evil-org-<)
+
+  (define-key evil-normal-state-map (kbd "gra") 'evil-mc-make-vertical-cursors)
 
   (bind-key "C-k" 'chom/test)
 
