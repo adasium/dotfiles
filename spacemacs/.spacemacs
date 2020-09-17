@@ -543,10 +543,33 @@ you should place your code here."
               result)))
        (t nil))))
 
-  (defun chom/test()
+  (defun chom/python-eval-buffer ()
     (interactive)
-    (message "hello")
-    (message (chom/get-python-virtualenv-path)))
+    (let ((shell-process
+           (or (python-shell-get-process)
+               ;; `run-python' has different return values and different
+               ;; errors in different emacs versions. In 24.4, it throws an
+               ;; error when the process didn't start, but in 25.1 it
+               ;; doesn't throw an error, so we demote errors here and
+               ;; check the process later
+               (with-demoted-errors "Error: %S"
+                 ;; in Emacs 24.5 and 24.4, `run-python' doesn't return the
+                 ;; shell process
+                 (call-interactively #'run-python)
+                 (python-shell-get-process)))))
+      (unless shell-process
+        (error "Failed to start python shell properly"))
+      (spacemacs/python-shell-send-buffer)))
+
+  (defun chom/python-eval-buffer-switch ()
+    (interactive)
+    (chom/python-eval-buffer)
+    (python-shell-switch-to-shell)
+    (evil-insert-state))
+
+
+  (defun chom/test()
+    (message "test"))
 
 
   ;; ================================ VARIABLES ============================================
@@ -670,6 +693,9 @@ you should place your code here."
   (define-key evil-normal-state-map (kbd "<escape>") 'evil-mc-undo-all-cursors)
   (define-key evil-insert-state-map (kbd "<S-return>") 'evil-open-above)
 
+  (spacemacs/set-leader-keys-for-major-mode 'python-mode "sb" 'chom/python-eval-buffer)
+  (spacemacs/set-leader-keys-for-major-mode 'python-mode "sB" 'chom/python-eval-buffer-switch)
+
   (bind-key "M-w" 'er/expand-region)
 
   (bind-key "M-k" 'spacemacs/move-text-transient-state/move-text-up)
@@ -721,6 +747,7 @@ you should place your code here."
       (progn
         (define-key evil-insert-state-map (kbd "M-RET") 'importmagic-fix-symbol-at-point)
         (define-key evil-normal-state-map (kbd "M-RET") 'importmagic-fix-symbol-at-point)
+
         (global-set-key [remap python-indent-dedent-line] 'chom/smart-tab-jump-in-or-indent))))
 
   ;; This hook needs to be used not to make settings overridden by package setup.
