@@ -569,7 +569,10 @@ you should place your code here."
 
 
   (defun chom/test()
-    (message "test"))
+    (interactive)
+    (message (buffer-file-name))
+    (message (projectile-project-root))
+    (message (file-relative-name (buffer-file-name) (projectile-project-root))))
 
 
   ;; ================================ VARIABLES ============================================
