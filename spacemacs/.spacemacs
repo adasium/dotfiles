@@ -567,12 +567,37 @@ you should place your code here."
     (python-shell-switch-to-shell)
     (evil-insert-state))
 
+  (defun chom/kill-thing-at-point (thing)
+    "Kill the `thing-at-point' for the specified kind of THING.
+    https://stackoverflow.com/questions/33442027/how-to-deleteor-kill-the-current-word-in-emacs
+    "
+    (let ((bounds (bounds-of-thing-at-point thing)))
+      (if bounds
+          (kill-region (car bounds) (cdr bounds))
+        (error "No %s at point" thing))))
 
-  (defun chom/test()
+  (defun chom/toggle-boolean ()
+    (interactive)
+    (cond
+     ((string= (thing-at-point 'word 'no-properties) "True")
+      (chom/kill-thing-at-point 'word)
+      (insert "False"))
+     ((string= (thing-at-point 'word 'no-properties) "False")
+      (chom/kill-thing-at-point 'word)
+      (insert "True"))
+     ((t nil)))
+    )
+
+  ;; STORAGE
+  (defun storage/storage1 ()
     (interactive)
     (message (buffer-file-name))
     (message (projectile-project-root))
     (message (file-relative-name (buffer-file-name) (projectile-project-root))))
+  ;; ENDSTORAGE
+
+  (defun chom/test()
+    )
 
 
   ;; ================================ VARIABLES ============================================
@@ -711,6 +736,7 @@ you should place your code here."
 
   (define-key evil-normal-state-map (kbd "gra") 'evil-mc-make-vertical-cursors)
 
+  (define-key evil-normal-state-map (kbd "C-c C-t") 'chom/toggle-boolean)
   (bind-key "C-k" 'chom/test)
 
   ;; (evil-leader/set-key "/" 'spacemacs/helm-project-do-ag)
