@@ -625,7 +625,8 @@ you should place your code here."
   (add-to-list 'exec-path (substitute-in-file-name "$HOME/.pyenv/shims"))
 
   (setq py-isort-options '("-s" "__init__.py"
-                           "-m" "3"))
+                           "-m" "3"
+                           "-tc"))
   (setq split-width-threshold 0)
   (setq split-height-threshold nil)
   (setq helm-grep-ag-command "rg --color=always --smart-case --no-heading --line-number %s %s %s")
@@ -856,7 +857,8 @@ This function is called at the very end of Spacemacs initialization."
  '(package-selected-packages
    '(rainbow-mode tern org-plus-contrib evil-unimpaired f s dash doom-dark+-theme))
  '(safe-local-variable-values
-   '((py-isort-options "-s __init__.py" "-m 3")
+   '((py-isort-options "-s __init__.py" "-m 3" "-tc")
+     (py-isort-options "-s __init__.py" "-m 3")
      (blacken-line-length . 88)
      (python-formater . black)
      (python-fill-column . 88)
