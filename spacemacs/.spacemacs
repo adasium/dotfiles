@@ -588,6 +588,12 @@ you should place your code here."
      ((t nil)))
     )
 
+  ;; PYTHON
+
+  (defun chom/helm-swoop/functions-top-level()
+    (interactive)
+    (helm-swoop :query "^\\ \\ \\ \\ def\ "))
+
   ;; STORAGE
   (defun storage/storage1 ()
     (interactive)
@@ -597,6 +603,9 @@ you should place your code here."
   ;; ENDSTORAGE
 
   (defun chom/test()
+    (interactive)
+    (helm-swoop
+     :query "^\\\(class\\\|\\ \\ \\ \\ def\ \\\)")
     )
 
 
@@ -677,7 +686,7 @@ you should place your code here."
   (setq magit-log-margin '(t "%H:%M %d-%m-%Y" magit-log-margin-width t 20))
 
   ;; === vINDENT
-  (setq lsp-enable-indentation nil)
+  (setq lsp-enable-indentation t)
   (setq chom/indent-level 4)
   (defun chom/setup-indent (n)
     (setq python-tab-width n)
@@ -725,6 +734,8 @@ you should place your code here."
   (spacemacs/set-leader-keys-for-major-mode 'python-mode "sb" 'chom/python-eval-buffer)
   (spacemacs/set-leader-keys-for-major-mode 'python-mode "sB" 'chom/python-eval-buffer-switch)
 
+  (spacemacs/set-leader-keys-for-major-mode 'python-mode "of" 'chom/helm-swoop/functions-top-level)
+
   (bind-key "M-w" 'er/expand-region)
 
   (bind-key "M-k" 'spacemacs/move-text-transient-state/move-text-up)
@@ -739,10 +750,6 @@ you should place your code here."
 
   (define-key evil-normal-state-map (kbd "C-c C-t") 'chom/toggle-boolean)
   (bind-key "C-k" 'chom/test)
-
-  ;; (evil-leader/set-key "/" 'spacemacs/helm-project-do-ag)
-
-
 
   ;; ================================ HOOKS ===============================================
 
