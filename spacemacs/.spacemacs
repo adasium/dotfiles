@@ -741,6 +741,9 @@ you should place your code here."
   (bind-key "M-k" 'spacemacs/move-text-transient-state/move-text-up)
   (bind-key "M-j" 'spacemacs/move-text-transient-state/move-text-down)
 
+  (with-eval-after-load 'magit-status
+    (define-key magit-status-mode-map (kbd "RET") 'magit-diff-visit-file-other-window))
+
   (define-key evil-normal-state-map (kbd "K") 'join-line)
 
   ;; (evil-define-key 'insert evil-org-mode-map (kbd "<tab>") 'chom/evil-org->)
