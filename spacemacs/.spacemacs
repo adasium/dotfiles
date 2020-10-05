@@ -89,6 +89,7 @@ values."
              python-lsp-server 'mspyls
              python-formatter nil
              python-sort-imports-on-save t
+             python-shell-interpreter "/usr/bin/python3"
              )
      emacs-lisp
      (markdown :variables markdown-live-preview-engine 'vmd)
@@ -594,6 +595,10 @@ you should place your code here."
     (interactive)
     (helm-swoop :query "^\\ \\ \\ \\ def\ "))
 
+  (defun chom/helm-swoop/classes-top-level()
+    (interactive)
+    (helm-swoop :query "^class\ "))
+
   ;; STORAGE
   (defun storage/storage1 ()
     (interactive)
@@ -604,8 +609,7 @@ you should place your code here."
 
   (defun chom/test()
     (interactive)
-    (helm-swoop
-     :query "^\\\(class\\\|\\ \\ \\ \\ def\ \\\)")
+    (message (lsp-workspace-root))
     )
 
 
@@ -735,6 +739,7 @@ you should place your code here."
   (spacemacs/set-leader-keys-for-major-mode 'python-mode "sB" 'chom/python-eval-buffer-switch)
 
   (spacemacs/set-leader-keys-for-major-mode 'python-mode "of" 'chom/helm-swoop/functions-top-level)
+  (spacemacs/set-leader-keys-for-major-mode 'python-mode "oc" 'chom/helm-swoop/classes-top-level)
 
   (bind-key "M-w" 'er/expand-region)
 
@@ -775,14 +780,14 @@ you should place your code here."
             (let ((python-version (substring (shell-command-to-string (concat virtualenv-dir-path "/bin/python --version")) 7 10)))
               (setenv "PYTHONPATH" (f-join virtualenv-dir-path "lib" (concat "python" python-version) "site-packages"))
               (setenv "PYTHONPATH" (mapconcat (lambda (x) (format "%s" x)) (list (getenv "PYTHONPATH") (projectile-project-root)) ":"))
-              (setq python-shell-extra-pythonpaths (list (substitute-in-file-name (f-join "/" python-emacs-virtualenv-path "lib" python-version "site-packages")))
+              (setq-local python-shell-extra-pythonpaths (list (substitute-in-file-name (f-join "/" python-emacs-virtualenv-path "lib" python-version "site-packages")))
                     flycheck-checker 'python-flake8
                     flycheck-checker-error-threshold 900))
-            (setq flycheck-python-flake8-executable (f-join "/" virtualenv-dir-path "bin" "flake8"))
-            (setq flycheck-python-mypy-executable (f-join "/" virtualenv-dir-path "bin" "mypy"))
-            (setq flycheck-python-pylint-executable (f-join "/" virtualenv-dir-path "bin" "pylint"))
-            (setq python-shell-interpreter (f-join "/" virtualenv-dir-path "bin" "python"))
-            (setq python-shell-exec-path (list (f-join "/" virtualenv-dir-path "bin"))))
+            (setq-local flycheck-python-flake8-executable (f-join "/" virtualenv-dir-path "bin" "flake8"))
+            (setq-local flycheck-python-mypy-executable (f-join "/" virtualenv-dir-path "bin" "mypy"))
+            (setq-local flycheck-python-pylint-executable (f-join "/" virtualenv-dir-path "bin" "pylint"))
+            (setq-local python-shell-interpreter (f-join "/" virtualenv-dir-path "bin" "python"))
+            (setq-local python-shell-exec-path (list (f-join "/" virtualenv-dir-path "bin"))))
         nil)
       (progn
         (define-key evil-insert-state-map (kbd "M-RET") 'importmagic-fix-symbol-at-point)
