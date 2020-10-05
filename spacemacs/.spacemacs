@@ -593,11 +593,11 @@ you should place your code here."
 
   (defun chom/helm-swoop/functions-top-level()
     (interactive)
-    (helm-swoop :query "^\\ \\ \\ \\ def\ "))
+    (helm-swoop :query "^\\ \\ \\ \\ def\\ "))
 
   (defun chom/helm-swoop/classes-top-level()
     (interactive)
-    (helm-swoop :query "^class\ "))
+    (helm-swoop :query "^class\\ "))
 
   ;; STORAGE
   (defun storage/storage1 ()
@@ -609,7 +609,7 @@ you should place your code here."
 
   (defun chom/test()
     (interactive)
-    (message (lsp-workspace-root))
+    (message (flycheck-python-module-args 'python-pylint "pylint"))
     )
 
 
@@ -778,8 +778,10 @@ you should place your code here."
       (if virtualenv-dir-path
           (progn
             (let ((python-version (substring (shell-command-to-string (concat virtualenv-dir-path "/bin/python --version")) 7 10)))
-              (setenv "PYTHONPATH" (f-join virtualenv-dir-path "lib" (concat "python" python-version) "site-packages"))
-              (setenv "PYTHONPATH" (mapconcat (lambda (x) (format "%s" x)) (list (getenv "PYTHONPATH") (projectile-project-root)) ":"))
+              (setenv "PYTHONPATH" )
+              (setenv "PYTHONPATH" (mapconcat (lambda (x) (format "%s" x))
+                                              (list (string-trim-right (projectile-project-root) "/")
+                                                    (f-join virtualenv-dir-path "lib" (concat "python" python-version) "site-packages")) ":"))
               (setq-local python-shell-extra-pythonpaths (list (substitute-in-file-name (f-join "/" python-emacs-virtualenv-path "lib" python-version "site-packages")))
                     flycheck-checker 'python-flake8
                     flycheck-checker-error-threshold 900))
@@ -798,8 +800,8 @@ you should place your code here."
   ;; This hook needs to be used not to make settings overridden by package setup.
   (add-hook 'python-mode-hook #'pipenv-mode)
   (add-hook 'python-mode-hook 'chom/python-setup t)
-  (add-hook 'python-mode-hook 'display-fill-column-indicator-mode)
-  (add-hook 'python-mode-hook 'highlight-indent-guides-mode)
+  (add-hook 'python-mode-hook 'display-fill-column-indicator-mode t)
+  (add-hook 'python-mode-hook 'highlight-indent-guides-mode t)
 
   ;; === ORG-h
   (add-hook 'org-mode-hook 'chom/org-setup)
