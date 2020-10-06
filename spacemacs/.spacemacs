@@ -607,10 +607,12 @@ you should place your code here."
     (message (file-relative-name (buffer-file-name) (projectile-project-root))))
   ;; ENDSTORAGE
 
+  (with-eval-after-load 'flycheck
+    (put 'python-pylint (flycheck--checker-property-name 'working-directory) (lambda(_) (projectile-project-root))))
+
   (defun chom/test()
     (interactive)
-    (message (flycheck-python-module-args 'python-pylint "pylint"))
-    )
+    (message ":)"))
 
 
   ;; ================================ VARIABLES ============================================
@@ -751,8 +753,6 @@ you should place your code here."
 
   (define-key evil-normal-state-map (kbd "K") 'join-line)
 
-  ;; (evil-define-key 'insert evil-org-mode-map (kbd "<tab>") 'chom/evil-org->)
-  ;; (evil-define-key 'insert evil-org-mode-map (kbd "<backtab>") 'chom/evil-org-<)
 
   (define-key evil-normal-state-map (kbd "gra") 'evil-mc-make-vertical-cursors)
 
@@ -783,7 +783,6 @@ you should place your code here."
                                               (list (string-trim-right (projectile-project-root) "/")
                                                     (f-join virtualenv-dir-path "lib" (concat "python" python-version) "site-packages")) ":"))
               (setq-local python-shell-extra-pythonpaths (list (substitute-in-file-name (f-join "/" python-emacs-virtualenv-path "lib" python-version "site-packages")))
-                    flycheck-checker 'python-flake8
                     flycheck-checker-error-threshold 900))
             (setq-local flycheck-python-flake8-executable (f-join "/" virtualenv-dir-path "bin" "flake8"))
             (setq-local flycheck-python-mypy-executable (f-join "/" virtualenv-dir-path "bin" "mypy"))
