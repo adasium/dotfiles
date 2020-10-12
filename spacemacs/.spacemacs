@@ -830,10 +830,6 @@ you should place your code here."
   (add-hook 'json-mode-hook (lambda()
                               (setq tab-width 4)))
 
-  ;; === SPACEMACS (h)
-  ; TODO: remove *spacemacs* buffer and set *scratch* as default
-
-
   ;; === WORKAROUNDS
   ;; https://github.com/syl20bnr/spacemacs/issues/9756#issuecomment-363436814
   (setq spacemacs-default-jump-handlers
