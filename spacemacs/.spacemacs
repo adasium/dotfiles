@@ -30,7 +30,8 @@ values."
    dotspacemacs-configuration-layer-path '()
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
-   '(systemd
+   '(rust
+     systemd
      csv
      haskell
      lua
@@ -591,9 +592,13 @@ you should place your code here."
 
   ;; PYTHON
 
-  (defun chom/helm-swoop/functions-top-level()
+  (defun chom/helm-swoop/functions-methods()
     (interactive)
     (helm-swoop :query "^\\ \\ \\ \\ def\\ "))
+
+  (defun chom/helm-swoop/functions-all()
+    (interactive)
+    (helm-swoop :query "^\\ *def\\ "))
 
   (defun chom/helm-swoop/classes-top-level()
     (interactive)
@@ -740,7 +745,8 @@ you should place your code here."
   (spacemacs/set-leader-keys-for-major-mode 'python-mode "sb" 'chom/python-eval-buffer)
   (spacemacs/set-leader-keys-for-major-mode 'python-mode "sB" 'chom/python-eval-buffer-switch)
 
-  (spacemacs/set-leader-keys-for-major-mode 'python-mode "of" 'chom/helm-swoop/functions-top-level)
+  (spacemacs/set-leader-keys-for-major-mode 'python-mode "of" 'chom/helm-swoop/functions-methods)
+  (spacemacs/set-leader-keys-for-major-mode 'python-mode "oF" 'chom/helm-swoop/functions-all)
   (spacemacs/set-leader-keys-for-major-mode 'python-mode "oc" 'chom/helm-swoop/classes-top-level)
 
   (bind-key "M-w" 'er/expand-region)
@@ -784,9 +790,9 @@ you should place your code here."
                                                     (f-join virtualenv-dir-path "lib" (concat "python" python-version) "site-packages")) ":"))
               (setq-local python-shell-extra-pythonpaths (list (substitute-in-file-name (f-join "/" python-emacs-virtualenv-path "lib" python-version "site-packages")))
                     flycheck-checker-error-threshold 900))
-            (setq-local flycheck-python-flake8-executable (f-join "/" virtualenv-dir-path "bin" "flake8"))
-            (setq-local flycheck-python-mypy-executable (f-join "/" virtualenv-dir-path "bin" "mypy"))
-            (setq-local flycheck-python-pylint-executable (f-join "/" virtualenv-dir-path "bin" "pylint"))
+            ;; (setq-local flycheck-python-flake8-executable (f-join "/" virtualenv-dir-path "bin" "flake8"))
+            ;; (setq-local flycheck-python-mypy-executable (f-join "/" virtualenv-dir-path "bin" "mypy"))
+            ;; (setq-local flycheck-python-pylint-executable (f-join "/" virtualenv-dir-path "bin" "pylint"))
             (setq-local python-shell-interpreter (f-join "/" virtualenv-dir-path "bin" "python"))
             (setq-local python-shell-exec-path (list (f-join "/" virtualenv-dir-path "bin"))))
         nil)
@@ -833,6 +839,7 @@ you should place your code here."
   (setq spacemacs-default-jump-handlers
         (remove 'evil-goto-definition spacemacs-default-jump-handlers))
 
+  (put 'dap-debug-template-configurations 'safe-local-variable #'listp)
   ;; ================================== END
   )
 
@@ -871,7 +878,7 @@ This function is called at the very end of Spacemacs initialization."
  '(latex-noindent-environments nil)
  '(lua-indent-level 4 t)
  '(package-selected-packages
-   '(rainbow-mode tern org-plus-contrib evil-unimpaired f s dash doom-dark+-theme))
+   '(toml-mode ron-mode racer helm-gtags ggtags flycheck-rust counsel-gtags counsel swiper ivy cargo rust-mode org-plus-contrib evil-unimpaired f s dash doom-dark+-theme))
  '(safe-local-variable-values
    '((py-isort-options "-s __init__.py" "-m 3" "-tc")
      (py-isort-options "-s __init__.py" "-m 3")
