@@ -635,13 +635,12 @@ you should place your code here."
       (let ((recent-commit (car commits))
             (oldest-commit (car (last commits))))
         (let ((parent-of-oldest-commit (car (magit-git-lines "rev-parse" (concat oldest-commit "^")))))
-          (chom/magit/github-compare parent-of-oldest-commit recent-commit)
-          )))
-    )
+          (chom/magit/github-compare oldest-commit recent-commit)))))
 
   (defun chom/test()
     (interactive)
-    (message (chom/magit/today-github-diff)))
+    (message (chom/magit/today-github-diff))
+    (kill-new (chom/magit/today-github-diff)))
 
 
   ;; ================================ VARIABLES ============================================
