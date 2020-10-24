@@ -6,8 +6,10 @@ mkdir -vp ~/.config/emacs/
 mkdir -vp ~/.config/systemd/user/
 
 ln -sfv $SCRIPT_DIR/.spacemacs ~/
+mkdir -vp ~/.emacs.d/private/snippets/
 ln -sfv $SCRIPT_DIR/snippets/* ~/.emacs.d/private/snippets/
 ln -sfv $SCRIPT_DIR/emacs.service ~/.config/systemd/user/
+mkdir -vp ~/.local/share/applications/
 ln -sfv $SCRIPT_DIR/emacsclient.desktop ~/.local/share/applications/
 
 ln -sfv $SCRIPT_DIR/requirements.txt ~/.config/emacs/
