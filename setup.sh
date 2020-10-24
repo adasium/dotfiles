@@ -21,3 +21,6 @@ ln -sfv $SCRIPT_DIR/zsh/.zshrc ~
 
 setting_up Bash aliases
 ln -sfv $SCRIPT_DIR/bash/.bash_aliases ~
+
+setting_up Cinnamon settings
+./cinnamon/setup.sh
