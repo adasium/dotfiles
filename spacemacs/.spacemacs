@@ -915,7 +915,6 @@ This function is called at the very end of Spacemacs initialization."
    '((py-isort-options "-s __init__.py" "-m 3" "-tc")
      (py-isort-options "-s __init__.py" "-m 3")
      (blacken-line-length . 88)
-     (python-formater . black)
      (python-fill-column . 88)
      (python-fill-column . 99)
      (python-formatter . black)

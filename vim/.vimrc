@@ -20,7 +20,6 @@ call plug#begin()
     Plug 'vim-airline/vim-airline'
     Plug 'morhetz/gruvbox'
     Plug 'nelstrom/vim-visual-star-search'
-    Plug 'ThePrimeagen/vim-be-good'
 
 call plug#end()            " required
 
