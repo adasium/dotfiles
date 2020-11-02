@@ -653,6 +653,7 @@ you should place your code here."
 
 
   ;; ================================ VARIABLES ============================================
+  (setq dotspacemacs-frame-title-format "%t (%b)")
   (setq lsp-diagnostic-package :none)
   (setq pipenv-executable (executable-find "pipenv"))
   (custom-set-faces
