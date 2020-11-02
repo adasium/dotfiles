@@ -845,6 +845,14 @@ you should place your code here."
   (add-hook 'python-mode-hook 'display-fill-column-indicator-mode t)
   (add-hook 'python-mode-hook 'highlight-indent-guides-mode t)
 
+  ;; === HASKELL (h)
+  (defun chom/haskell-setup ()
+    (setq-local flycheck-idle-change-delay 3)
+    (setq-local flycheck-check-syntax-automatically (quote (save idle-change mode-
+                                                                 enabled))))
+
+  (add-hook 'haskell-mode-hook 'chom/haskell-setup)
+
   ;; === ORG-h
   (add-hook 'org-mode-hook 'chom/org-setup)
   (add-hook 'org-capture-mode-hook 'evil-insert-state t)
