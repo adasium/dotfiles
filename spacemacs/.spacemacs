@@ -440,14 +440,14 @@ you should place your code here."
   (defun chom/smart-tab-jump-out-or-indent (&optional arg)
     "Smart tab behavior. Jump out quote or brackets, or indent."
     (interactive "P")
-    (if (-contains? (list "\"" "'" ")" "}" ";" "|" ">" "]" ) (make-string 1 (char-after)))
+    (if (-contains? (list "\"" "'" ")" "}" ";" "|" ">" "]" "`") (make-string 1 (char-after)))
         (forward-char 1)
       (indent-for-tab-command arg)))
 
   (defun chom/smart-tab-jump-in-or-indent (&optional arg)
     "Smart tab behavior. Jump out quote or brackets, or indent."
     (interactive "P")
-    (if (-contains? (list "\"" "'" ")" "}" ";" "|" ">" "]" ) (make-string 1 (char-before)))
+    (if (-contains? (list "\"" "'" ")" "}" ";" "|" ">" "]" "`") (make-string 1 (char-before)))
         (backward-char 1)
       (indent-for-tab-command arg)))
 
@@ -807,6 +807,8 @@ you should place your code here."
 
   (define-key evil-normal-state-map (kbd "C-c C-t") 'chom/toggle-boolean)
   (bind-key "C-k" 'chom/test)
+  ;; (define-key evil-insert-state-map (kbd "C-j") 'evil-next-line)
+  ;; (define-key evil-insert-state-map (kbd "C-k") 'evil-previous-line)
 
   ;; ================================ HOOKS ===============================================
   ;; === MAGIT (h)
