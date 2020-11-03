@@ -88,7 +88,7 @@ values."
              python-backend 'lsp
              python-fill-column 200
              python-lsp-server 'mspyls
-             python-formatter nil
+             python-formatter 'black
              python-sort-imports-on-save t
              python-shell-interpreter "/usr/bin/python3"
              )
@@ -653,6 +653,8 @@ you should place your code here."
 
 
   ;; ================================ VARIABLES ============================================
+  (setq dap-python-terminal "gnome-terminal -- ")
+  (setq sp-escape-quotes-after-insert nil)
   (setq dotspacemacs-frame-title-format "%t (%b)")
   (setq lsp-diagnostic-package :none)
   (setq pipenv-executable (executable-find "pipenv"))
@@ -671,6 +673,11 @@ you should place your code here."
           "#4B0082"
           "#9400D3"
           ))
+
+  ;; == MARKDOWN VARIABLES
+  (setq markdown-toc-header-toc-start "<!-- markdown-toc start -->")
+
+  ;; == PYTHON VARIABLES
 
   (setq highlight-indent-guides-method 'column)
   (add-to-list 'exec-path (substitute-in-file-name "$HOME/.config/emacs/.venv/bin"))
@@ -782,6 +789,9 @@ you should place your code here."
   (spacemacs/set-leader-keys-for-major-mode 'python-mode "oF" 'chom/helm-swoop/functions-all)
   (spacemacs/set-leader-keys-for-major-mode 'python-mode "oc" 'chom/helm-swoop/classes-top-level)
 
+  (spacemacs/set-leader-keys-for-major-mode 'python-mode "cd" 'dap-debug)
+  (spacemacs/set-leader-keys-for-major-mode 'python-mode "cr" 'dap-debug-recent)
+
   (bind-key "M-w" 'er/expand-region)
 
   (bind-key "M-k" 'spacemacs/move-text-transient-state/move-text-up)
@@ -816,28 +826,9 @@ you should place your code here."
 
   ;; === PYTHON (h)
   (defun chom/python-setup ()
-    (let ((virtualenv-dir-path (chom/get-python-virtualenv-path)))
-      (if virtualenv-dir-path
-          (let ((virtualenv-python-executable (concat (f-slash virtualenv-dir-path) "bin/python")))
-            (progn
-              (let ((virtualenv-python-version (substring (shell-command-to-string (concat virtualenv-python-executable " --version")) 7 10)))
-                (setenv "PYTHONPATH" )
-                (setenv "PYTHONPATH" (mapconcat (lambda (x) (format "%s" x))
-                                                (list (string-trim-right (projectile-project-root) "/")
-                                                      (f-join virtualenv-dir-path "lib" (concat "python" virtualenv-python-version) "site-packages")) ":"))
-                (setq-local python-shell-extra-pythonpaths (list (substitute-in-file-name (f-join "/" python-emacs-virtualenv-path "lib" virtualenv-python-version "site-packages")))
-                            flycheck-checker-error-threshold 900))
-              (setq-local flycheck-python-flake8-executable (f-join "/" virtualenv-dir-path "bin" "flake8"))
-              (setq-local flycheck-python-mypy-executable (f-join "/" virtualenv-dir-path "bin" "mypy"))
-              (setq-local flycheck-python-pylint-executable (f-join "/" virtualenv-dir-path "bin" "pylint"))
-              (setq-local python-shell-interpreter (f-join "/" virtualenv-dir-path "bin" "python"))
-              (setq-local python-shell-exec-path (list (f-join "/" virtualenv-dir-path "bin"))))
-            nil))
-      (progn
-        (define-key evil-insert-state-map (kbd "M-RET") 'importmagic-fix-symbol-at-point)
-        (define-key evil-normal-state-map (kbd "M-RET") 'importmagic-fix-symbol-at-point)
-
-        (global-set-key [remap python-indent-dedent-line] 'chom/smart-tab-jump-in-or-indent))))
+    (define-key evil-insert-state-map (kbd "M-RET") 'importmagic-fix-symbol-at-point)
+    (define-key evil-normal-state-map (kbd "M-RET") 'importmagic-fix-symbol-at-point)
+    (global-set-key [remap python-indent-dedent-line] 'chom/smart-tab-jump-in-or-indent))
 
   ;; This hook needs to be used not to make settings overridden by package setup.
   (add-hook 'python-mode-hook #'pipenv-mode)
@@ -880,7 +871,7 @@ you should place your code here."
   (setq spacemacs-default-jump-handlers
         (remove 'evil-goto-definition spacemacs-default-jump-handlers))
 
-  (put 'dap-debug-template-configurations 'safe-local-variable #'listp)
+  (setq enable-local-eval t)
   ;; ================================== END
   )
 

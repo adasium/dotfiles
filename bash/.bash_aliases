@@ -1,4 +1,5 @@
 # -*- mode: shell-script -*-
+alias vim="nvim"
 
 alias aliases="vim ~/.bash_aliases && source ~/.bash_aliases"
 alias locals="vim ~/.local_aliases && source ~/.local_aliases"
