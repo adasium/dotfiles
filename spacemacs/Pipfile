@@ -12,9 +12,9 @@ django-stubs = "*"
 flake8 = "*"
 importmagic = "*"
 isort = "<5,>=4.2.5"
-mypy = ">=0.770,<0.780"
 pylint = "==2.5.3"
 python-language-server = "*"
+mypy = "*"
 
 [requires]
 python_version = "3.8"
