@@ -653,6 +653,7 @@ you should place your code here."
 
 
   ;; ================================ VARIABLES ============================================
+  (setq projectile-indexing-method 'hybrid)
   (setq dap-python-terminal "gnome-terminal -- ")
   (setq sp-escape-quotes-after-insert nil)
   (setq dotspacemacs-frame-title-format "%t (%b)")
@@ -874,6 +875,7 @@ you should place your code here."
         (remove 'evil-goto-definition spacemacs-default-jump-handlers))
 
   (setq enable-local-eval t)
+  (put 'py-isort-options 'safe-local-variable #'listp)
   ;; ================================== END
   )
 
