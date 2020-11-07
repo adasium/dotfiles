@@ -438,14 +438,17 @@ you should place your code here."
   (defun chom/smart-tab-jump-out-or-indent (&optional arg)
     "Smart tab behavior. Jump out quote or brackets, or indent."
     (interactive "P")
-    (if (-contains? (list "\"" "'" ")" "}" ";" "|" ">" "]" "`") (make-string 1 (char-after)))
+    (if (and (char-after)
+             (-contains? (list "\"" "'" ")" "}" ";" "|" ">" "]" "`")
+                         (make-string 1 (char-after))))
         (forward-char 1)
       (indent-for-tab-command arg)))
 
   (defun chom/smart-tab-jump-in-or-indent (&optional arg)
     "Smart tab behavior. Jump out quote or brackets, or indent."
     (interactive "P")
-    (if (-contains? (list "\"" "'" ")" "}" ";" "|" ">" "]" "`") (make-string 1 (char-before)))
+    (if (and (char-before)
+             (-contains? (list "\"" "'" ")" "}" ";" "|" ">" "]" "`") (make-string 1 (char-before))))
         (backward-char 1)
       (indent-for-tab-command arg)))
 
@@ -772,6 +775,7 @@ you should place your code here."
   ;; ============================== KEYBINDINGS ===========================================
 
   (global-set-key [remap indent-for-tab-command] 'chom/smart-tab-jump-out-or-indent)
+  (global-set-key (kbd "<backtab>") 'chom/smart-tab-jump-in-or-indent)
   (global-set-key [remap python-indent-dedent-line] 'chom/smart-tab-jump-in-or-indent)
   (bind-key "C-M-b" 'evil-mc-make-cursor-backward-WORD-end)
   (define-key evil-insert-state-map (kbd "<C-tab>") 'yas-expand)
