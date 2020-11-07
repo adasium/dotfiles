@@ -20,7 +20,6 @@ ENABLE_CORRECTION="true"
 plugins=(
   git
   zsh-autosuggestions
-  urltools
 )
 
 source $ZSH/oh-my-zsh.sh
