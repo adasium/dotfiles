@@ -918,8 +918,7 @@ This function is called at the very end of Spacemacs initialization."
  '(package-selected-packages
    '(toml-mode ron-mode racer helm-gtags ggtags flycheck-rust counsel-gtags counsel swiper ivy cargo rust-mode org-plus-contrib evil-unimpaired f s dash doom-dark+-theme))
  '(safe-local-variable-values
-   '((py-isort-options "-s __init__.py" "-m 3" "-tc")
-     (py-isort-options "-s __init__.py" "-m 3")
+   '(
      (blacken-line-length . 88)
      (python-fill-column . 88)
      (python-fill-column . 99)
