@@ -57,7 +57,7 @@ testmic() {
     arecord -f cd --buffer-time=1 - | aplay --buffer-time=1 -
 }
 
-alias apps='ls -d ~/.local/share/applications/* /usr/local/share/applications/* /usr/share/applications/*'
+alias apps='find ~/.local/share/applications/ /usr/local/share/applications/ /usr/share/applications/ -iname "*.desktop" -print0 | xargs -0 ls -db'
 
 diffjson() {
     executable='diff'
