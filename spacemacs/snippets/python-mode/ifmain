@@ -2,9 +2,12 @@
 # name: ifmain
 # key: ifm
 # --
-def main() -> None:
-    ${0:pass}
+import sys
+
+
+def main() -> int:
+    ${0:return 0}
 
 
 if __name__ == '__main__':
-    main()
+    sys.exit(main())
