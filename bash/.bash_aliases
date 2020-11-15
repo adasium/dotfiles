@@ -15,7 +15,6 @@ alias clip='xclip -selection clipboard'
 alias cp='cp -iv'
 alias mv='mv -iv'
 alias mkdir='mkdir -pv'
-alias l='ls -l'
 
 alias cls="printf '\033c'"
 alias c="python3"
