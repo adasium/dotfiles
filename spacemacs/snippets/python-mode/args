@@ -1,0 +1,19 @@
+# -*- mode: snippet -*-
+# name: get_args
+# key: args
+# --
+
+from dataclasses import dataclass
+from argparse import ArgumentParser
+from argparse import Namespace
+
+
+@dataclass
+class Args(Namespace):
+    key: str = ''
+    value: str = ''
+
+
+def get_args() -> Args:
+    parser = ArgumentParser()
+    return parser.parse_args(namespace=Args())
