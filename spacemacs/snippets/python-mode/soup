@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+# name: soup
+# key: soup
+# --
+import bs4
+import requests
+
+
+def soupify(response: requests.models.Response, parser: str = 'lxml') -> bs4.Tag:
+    return bs4.BeautifulSoup(response.text, parser)
