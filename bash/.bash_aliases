@@ -2,6 +2,7 @@
 if type nvim > /dev/null 2>&1; then
     alias vim="nvim"
 fi
+alias e="emacsclient -n "
 
 alias aliases="vim ~/.bash_aliases && source ~/.bash_aliases"
 alias locals="vim ~/.local_aliases && source ~/.local_aliases"
