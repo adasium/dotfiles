@@ -830,6 +830,8 @@ you should place your code here."
 
   ;; === PYTHON (h)
   (defun chom/python-setup ()
+    (fset 'python-\[\]-get
+          (kmacro-lambda-form [?c ?s ?\] ?\) ?i ?. ?g ?e ?t escape ?f ?\" ?t ?\"] 0 "%d"))
     (define-key evil-insert-state-map (kbd "M-RET") 'importmagic-fix-symbol-at-point)
     (define-key evil-normal-state-map (kbd "M-RET") 'importmagic-fix-symbol-at-point)
     (global-set-key [remap python-indent-dedent-line] 'chom/smart-tab-jump-in-or-indent))
