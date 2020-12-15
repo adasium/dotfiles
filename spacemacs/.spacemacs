@@ -877,6 +877,8 @@ you should place your code here."
 
   (setq enable-local-eval t)
   (put 'py-isort-options 'safe-local-variable #'listp)
+  (put 'python-fill-column 'safe-local-variable #'integerp)
+  (put 'python-formatter 'safe-local-variable #'symbolp)
   ;; ================================== END
   )
 
@@ -918,16 +920,9 @@ This function is called at the very end of Spacemacs initialization."
    '(toml-mode ron-mode racer helm-gtags ggtags flycheck-rust counsel-gtags counsel swiper ivy cargo rust-mode org-plus-contrib evil-unimpaired f s dash doom-dark+-theme))
  '(safe-local-variable-values
    '(
-     (blacken-line-length . 88)
-     (python-fill-column . 88)
-     (python-fill-column . 99)
-     (python-formatter . black)
-     (python-formatter black)
      (flycheck-disabled-checkers . python-flake8)
      (python-format-on-save t)
      (python-sort-imports-on-save t)
-     (python-formatter 'black)
-     (python-fill-column . 90)
      (javascript-backend . tide)
      (javascript-backend . tern)
      (javascript-backend . lsp)))
