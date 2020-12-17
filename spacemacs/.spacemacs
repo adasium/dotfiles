@@ -589,15 +589,15 @@ you should place your code here."
 
   (defun chom/toggle-boolean ()
     (interactive)
-    (cond
-     ((string= (thing-at-point 'word 'no-properties) "True")
-      (chom/kill-thing-at-point 'word)
-      (insert "False"))
-     ((string= (thing-at-point 'word 'no-properties) "False")
-      (chom/kill-thing-at-point 'word)
-      (insert "True"))
-     ((t nil)))
-    )
+    (save-excursion
+      (cond
+       ((string= (thing-at-point 'word 'no-properties) "True")
+        (chom/kill-thing-at-point 'word)
+        (insert "False"))
+       ((string= (thing-at-point 'word 'no-properties) "False")
+        (chom/kill-thing-at-point 'word)
+        (insert "True"))
+       ((t nil)))))
 
   ;; PYTHON
 
