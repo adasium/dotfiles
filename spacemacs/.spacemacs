@@ -830,6 +830,22 @@ you should place your code here."
 
   ;; === PYTHON (h)
   (defun chom/python-setup ()
+    (let ((virtualenv-dir-path (chom/get-python-virtualenv-path)))
+      (if virtualenv-dir-path
+          (progn
+            (message virtualenv-dir-path)
+            ;; Python executable
+            (setq-local python-shell-interpreter (f-join "/" virtualenv-dir-path "bin" "python"))
+            ;; Importmagic
+            (setq-local importmagic-python-interpreter (f-join "/" virtualenv-dir-path "bin" "python"))
+            ;; Linters
+            (setq-local flycheck-python-flake8-executable (f-join "/" virtualenv-dir-path "bin" "flake8"))
+            (setq-local flycheck-python-mypy-executable (f-join "/" virtualenv-dir-path "bin" "mypy"))
+            (setq-local flycheck-python-pylint-executable (f-join "/" virtualenv-dir-path "bin" "pylint"))
+           )
+        )
+      )
+
     (fset 'python-\[\]-get
           (kmacro-lambda-form [?c ?s ?\] ?\) ?i ?. ?g ?e ?t escape ?f ?\" ?t ?\"] 0 "%d"))
     (define-key evil-insert-state-map (kbd "M-RET") 'importmagic-fix-symbol-at-point)
@@ -837,10 +853,8 @@ you should place your code here."
     (global-set-key [remap python-indent-dedent-line] 'chom/smart-tab-jump-in-or-indent))
 
   ;; This hook needs to be used not to make settings overridden by package setup.
-  (add-hook 'python-mode-hook #'pipenv-mode)
   (add-hook 'python-mode-hook 'chom/python-setup t)
-  (add-hook 'python-mode-hook 'display-fill-column-indicator-mode t)
-  (add-hook 'python-mode-hook 'highlight-indent-guides-mode t)
+
 
   ;; === HASKELL (h)
   (defun chom/haskell-setup ()
