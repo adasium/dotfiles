@@ -1,0 +1,14 @@
+# -*- mode: snippet -*-
+# name: debug
+# key: debug
+# --
+import pdb  # pylint: disable=import-outside-toplevel
+import sys  # pylint: disable=import-outside-toplevel
+import traceback  # pylint: disable=import-outside-toplevel
+
+try:
+    $0
+except Exception:  # pylint: disable=broad-except
+    _, _, traceback_ = sys.exc_info()
+    traceback.print_exc()
+    pdb.post_mortem(traceback_)
