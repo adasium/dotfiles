@@ -778,6 +778,7 @@ you should place your code here."
   (global-set-key [remap python-indent-dedent-line] 'chom/smart-tab-jump-in-or-indent)
   (bind-key "C-M-b" 'evil-mc-make-cursor-backward-WORD-end)
   (define-key evil-insert-state-map (kbd "<C-tab>") 'yas-expand)
+  (define-key evil-visual-state-map (kbd "<C-tab>") 'yas-insert-snippet)
   (define-key evil-normal-state-map (kbd "zm") 'hs-hide-level)
   (define-key evil-normal-state-map (kbd ">") 'evil-shift-right-line)
   (define-key evil-normal-state-map (kbd "<") 'evil-shift-left-line)
