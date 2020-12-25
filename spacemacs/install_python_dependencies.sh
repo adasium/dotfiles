@@ -9,9 +9,16 @@ if [ ! -d "$EMACS_DIR" ]; then
 fi
 
 if [ ! -f "$EMACS_ACTIVATE_FILE" ]; then
-    if [ -x "$(command -v virtualenv)" ]; then
-        pip3 install --user virtualenv
+    if ! type virtualenv &> /dev/null; then
+        echo "virtualenv not found in PATH"
+        exit 1
     fi
+    if ! type pip3 &> /dev/null; then
+        echo "pip3 not found in PATH"
+        exit 1
+    fi
+
+    pip3 install --user virtualenv
     echo "Creating virtualenv"
     virtualenv -p python3 "$EMACS_DIR/.venv"
 fi
