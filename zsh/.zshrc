@@ -51,6 +51,7 @@ if [[ $TERM != "eterm-color" ]]; then
 fi
 
 export PYENV_ROOT="$HOME/.pyenv"
+PATH="$HOME/.local/bin:$PATH"
 export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init -)"
 
