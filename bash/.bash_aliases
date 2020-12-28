@@ -69,6 +69,10 @@ diffjson() {
     $executable <(jq -S . $1) <(jq -S . $2)
 }
 
+color() {
+	  grep -E --color=always "$1|$"
+}
+
 alias again='pip install --upgrade pip'
 
 if [[ -f ~/.local_aliases ]]; then
