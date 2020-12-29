@@ -831,20 +831,24 @@ you should place your code here."
 
   ;; === PYTHON (h)
   (defun chom/python-setup ()
-    (setq python-font-lock-keywords-maximum-decoration
-          (append python-font-lock-keywords-maximum-decoration
-                  '(;; this is the full string.
-                    ;; group 1 is the quote type and a closing quote is matched
-                    ;; group 2 is the string part
-                    ("f\\(['\"]\\{1,3\\}\\)\\(.+?\\)\\1"
-                     ;; these are the {keywords}
-                     ("{[^}]*?}"
-                      ;; Pre-match form
-                      (progn (goto-char (match-beginning 0)) (match-end 0))
-                      ;; Post-match form
-                      (goto-char (match-end 0))
-                      ;; face for this match
-                      (0 font-lock-variable-name-face t))))))
+    ;; TODO: run the code only once so that (append) is not run whenever python buffer is opened
+    ;; (setq python-font-lock-keywords-maximum-decoration
+    ;;       (append python-font-lock-keywords-maximum-decoration
+    ;;               '(;; this is the full string.
+    ;;                 ;; group 1 is the quote type and a closing quote is matched
+    ;;                 ;; group 2 is the string part
+    ;;                 ("f\\(['\"]\\{1,3\\}\\)\\(.+?\\)\\1"
+    ;;                  ;; these are the {keywords}
+
+    ;;                  ;; ("{[^}]*?}"
+    ;;                  ("{\\([^}]*?\\)}" ; This regex changes to add a group inside {}
+    ;;                   ;; Pre-match form
+    ;;                   (progn (goto-char (match-beginning 0)) (match-end 0))
+    ;;                   ;; Post-match form
+    ;;                   (goto-char (match-end 0))
+    ;;                   ;; face for this match
+    ;;                   ;; (0 font-lock-variable-name-face t))))))
+    ;;                   (1 font-lock-variable-name-face t))))))  ; this changes to select group 1
     (let ((virtualenv-dir-path (chom/get-python-virtualenv-path)))
       (if virtualenv-dir-path
           (progn
