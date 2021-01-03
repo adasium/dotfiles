@@ -415,6 +415,37 @@ you should place your code here."
   (define-and-bind-text-object "'" "double-quotation-mark" "'" "'")
 
   ;; ================================ FUNCTIONS ============================================
+  ;; === BASH-f
+  ;; https://emacs.stackexchange.com/questions/13128/highlighting-shell-variables-within-quotes
+  (defun sh-script-extra-font-lock-is-in-double-quoted-string ()
+    "Non-nil if point in inside a double-quoted string."
+    (let ((state (syntax-ppss)))
+      (eq (nth 3 state) ?\")))
+
+  (defun sh-script-extra-font-lock-match-var-in-double-quoted-string (limit)
+    "Search for variables in double-quoted strings."
+    (let (res)
+      (while
+          (and (setq res
+                     (re-search-forward
+                      "\\$\\({#?\\)?\\([[:alpha:]_][[:alnum:]_]*\\|[-#?@!]\\)"
+                      limit t))
+               (not (sh-script-extra-font-lock-is-in-double-quoted-string))))
+      res))
+
+  (defvar sh-script-extra-font-lock-keywords
+    '((sh-script-extra-font-lock-match-var-in-double-quoted-string
+       (2 font-lock-variable-name-face prepend))))
+
+  (defun sh-script-extra-font-lock-activate ()
+    (interactive)
+    (font-lock-add-keywords nil sh-script-extra-font-lock-keywords)
+    (if (fboundp 'font-lock-flush)
+        (font-lock-flush)
+      (when font-lock-mode
+        (with-no-warnings
+          (font-lock-fontify-buffer)))))
+
   ;; === MAGIT
   (defun ediff-copy-both-to-C ()
     (interactive)
@@ -814,22 +845,25 @@ you should place your code here."
   ;; (define-key evil-insert-state-map (kbd "C-k") 'evil-previous-line)
 
   ;; ================================ HOOKS ===============================================
-  ;; === MAGIT (h)
+  ;; === BASH-h
+  (add-hook 'sh-mode-hook 'sh-script-extra-font-lock-activate)
+
+  ;; === MAGIT-h
 
   (add-hook 'ediff-keymap-setup-hook 'add-d-to-ediff-mode-map)
 
-  ;; === WEB (h)
+  ;; === WEB-h
   (add-hook 'web-mode-hook 'chom/django)
 
-  ;; === C++ (h)
+  ;; === C++-h
   (add-hook 'c++-mode-hook (lambda()
                              (chom/setup-indent chom/indent-level)))
 
-  ;; === LUA (h)
+  ;; === LUA-h
   (add-hook 'lua-mode-hook (lambda()
                              (chom/setup-indent chom/indent-level)))
 
-  ;; === PYTHON (h)
+  ;; === PYTHON-h
   (defun chom/python-setup ()
     ;; TODO: run the code only once so that (append) is not run whenever python buffer is opened
     ;; (setq python-font-lock-keywords-maximum-decoration
@@ -875,7 +909,7 @@ you should place your code here."
   (add-hook 'python-mode-hook 'chom/python-setup t)
 
 
-  ;; === HASKELL (h)
+  ;; === HASKELL-h
   (defun chom/haskell-setup ()
     (setq-local flycheck-idle-change-delay 3)
     (setq-local flycheck-check-syntax-automatically (quote (save idle-change mode-
@@ -888,10 +922,10 @@ you should place your code here."
   (add-hook 'org-capture-mode-hook 'evil-insert-state t)
   (add-hook 'org-mode-hook 'hl-todo-mode)
 
-  ;; === MARKDOWN (h)
+  ;; === MARKDOWN-h
   ;; (add-hook 'markdown-mode-hook 'vmd-mode)
 
-  ;; === LATEX (h)
+  ;; === LATEX-h
   (add-hook 'doc-view-mode-hook 'auto-revert-mode)
   (add-hook 'LaTeX-mode-hook (lambda()
                                (add-hook 'after-save-hook 'latex/build nil 'make-it-local)
@@ -901,7 +935,7 @@ you should place your code here."
   (add-hook 'LaTeX-mode-hook 'chom/environment-object)
   (remove-hook 'LaTeX-mode-hook 'latex/auto-fill-mode)
 
-  ;; === JSON (h)
+  ;; === JSON-h
   (add-hook 'json-mode-hook (lambda()
                               (setq tab-width 4)))
 
