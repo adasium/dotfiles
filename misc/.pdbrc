@@ -1,0 +1,2 @@
+alias pp __import__('pprint').pprint(%1)
+alias clip __import__('pyperclip').copy(__import__('json').dumps(%1))
