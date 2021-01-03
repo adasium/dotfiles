@@ -24,3 +24,6 @@ ln -sfv $SCRIPT_DIR/bash/.bash_aliases ~
 
 setting_up Cinnamon settings
 ./cinnamon/setup.sh
+
+setting_up misc dotfiles
+./misc/setup.sh
