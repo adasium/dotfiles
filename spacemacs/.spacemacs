@@ -817,6 +817,8 @@ you should place your code here."
   (define-key evil-normal-state-map (kbd "<escape>") 'evil-mc-undo-all-cursors)
   (define-key evil-insert-state-map (kbd "<S-return>") 'evil-open-above)
 
+  (spacemacs/set-leader-keys "by" 'spacemacs/copy-whole-buffer-to-clipboard)
+
   (spacemacs/set-leader-keys-for-major-mode 'python-mode "sb" 'chom/python-eval-buffer)
   (spacemacs/set-leader-keys-for-major-mode 'python-mode "sB" 'chom/python-eval-buffer-switch)
 
