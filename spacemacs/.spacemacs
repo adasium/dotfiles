@@ -886,6 +886,7 @@ you should place your code here."
     ;;                   ;; face for this match
     ;;                   ;; (0 font-lock-variable-name-face t))))))
     ;;                   (1 font-lock-variable-name-face t))))))  ; this changes to select group 1
+    (add-to-list 'flycheck-disabled-checkers 'python-pylint)
     (let ((virtualenv-dir-path (chom/get-python-virtualenv-path)))
       (if virtualenv-dir-path
           (progn
