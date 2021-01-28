@@ -121,6 +121,9 @@ values."
      flycheck-mypy
      highlight-indent-guides
      rainbow-mode
+     (simple-buffer-jump :location (recipe
+                                    :fetcher github
+                                    :repo "dalanicolai/dala-emacs-lisp"))
      )
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
@@ -391,6 +394,7 @@ explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
 
   (add-to-list 'default-frame-alist '(fullscreen . maximized))
+  (load "simple-buffer-jump.el")
 
   ;; =============================== GLOBAL MODES ==========================================
   (global-company-mode)
@@ -844,6 +848,8 @@ you should place your code here."
 
   (define-key evil-normal-state-map (kbd "C-c C-t") 'chom/toggle-boolean)
   (bind-key "C-k" 'chom/test)
+  (setq sbj-buffer-shortcut-set (kbd ";"))
+  (setq sbj-buffer-jump-prefix (kbd ":"))
   ;; (define-key evil-insert-state-map (kbd "C-j") 'evil-next-line)
   ;; (define-key evil-insert-state-map (kbd "C-k") 'evil-previous-line)
 
@@ -990,10 +996,9 @@ This function is called at the very end of Spacemacs initialization."
  '(latex-noindent-environments nil)
  '(lua-indent-level 4 t)
  '(package-selected-packages
-   '(toml-mode ron-mode racer helm-gtags ggtags flycheck-rust counsel-gtags counsel swiper ivy cargo rust-mode org-plus-contrib evil-unimpaired f s dash doom-dark+-theme))
+   '(simple-buffer-jump org-plus-contrib evil-unimpaired f s dash doom-dark+-theme))
  '(safe-local-variable-values
-   '(
-     (flycheck-disabled-checkers . python-flake8)
+   '((flycheck-disabled-checkers . python-flake8)
      (python-format-on-save t)
      (python-sort-imports-on-save t)
      (javascript-backend . tide)
