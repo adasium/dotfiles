@@ -393,6 +393,11 @@ This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
 
+  (setq sbj-buffer-jump-prefix "o")
+  (setq sbj-buffer-shortcut-set "oo")
+  (use-package "simple-buffer-jump")
+  (global-set-key [remap indent-for-tab-command] 'chom/smart-tab-jump-out-or-indent)
+
   (add-to-list 'default-frame-alist '(fullscreen . maximized))
   (load "simple-buffer-jump.el")
 
