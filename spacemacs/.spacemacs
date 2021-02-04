@@ -853,8 +853,6 @@ you should place your code here."
 
   (define-key evil-normal-state-map (kbd "C-c C-t") 'chom/toggle-boolean)
   (bind-key "C-k" 'chom/test)
-  (setq sbj-buffer-shortcut-set (kbd ":"))
-  (setq sbj-buffer-jump-prefix (kbd ";"))
   ;; (define-key evil-insert-state-map (kbd "C-j") 'evil-next-line)
   ;; (define-key evil-insert-state-map (kbd "C-k") 'evil-previous-line)
 
