@@ -1,0 +1,48 @@
+# -*- mode: snippet -*-
+# name: start template
+# key: starttemplate
+# --
+\documentclass{article}
+
+\usepackage[T1]{fontenc}
+\usepackage[polish]{babel}
+\usepackage[utf8]{inputenc}
+
+\usepackage{indentfirst}
+\usepackage{titlesec} % dot after title
+\titlelabel{\thetitle.\quad}
+
+\usepackage{tocloft} % dots between section name and page
+% \renewcommand{\cftpartleader}{\cftdotfill{\cftdotsep}} % for parts
+% \renewcommand{\cftchapleader}{\cftdotfill{\cftdotsep}} % for chapters
+\renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}} % for sections
+\renewcommand{\cftsecaftersnum}{.}
+
+% ToC indent
+\setlength{\cftsecindent}{0em}
+\setlength{\cftsubsecindent}{0em}
+\setlength{\cftsubsubsecindent}{0em}
+
+\usepackage{hyperref} % clickable ToC
+\hypersetup{
+    colorlinks,
+    citecolor=black,
+    filecolor=black,
+    linkcolor=black,
+    urlcolor=black
+}
+
+\author{}
+\title{}
+\date{}
+
+
+\begin{document}
+    \maketitle
+    \tableofcontents
+    \newpage
+    \section{First section}
+
+    \subsection{First subsection}
+
+\end{document}
