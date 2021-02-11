@@ -30,7 +30,9 @@ values."
    dotspacemacs-configuration-layer-path '()
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
-   '(rust
+   '(
+     sql
+     rust
      systemd
      csv
      haskell
@@ -999,7 +1001,7 @@ This function is called at the very end of Spacemacs initialization."
  '(latex-noindent-environments nil)
  '(lua-indent-level 4 t)
  '(package-selected-packages
-   '(simple-buffer-jump org-plus-contrib evil-unimpaired f s dash doom-dark+-theme))
+   '(add-node-modules-path org-plus-contrib evil-unimpaired f s dash doom-dark+-theme))
  '(safe-local-variable-values
    '((flycheck-disabled-checkers . python-flake8)
      (python-format-on-save t)
