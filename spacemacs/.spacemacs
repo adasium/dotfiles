@@ -859,6 +859,9 @@ you should place your code here."
   ;; (define-key evil-insert-state-map (kbd "C-k") 'evil-previous-line)
 
   ;; ================================ HOOKS ===============================================
+  (add-hook 'yas-minor-mode-hook
+            (lambda ()
+              (yas-activate-extra-mode 'fundamental-mode)))
   ;; === BASH-h
   (add-hook 'sh-mode-hook 'sh-script-extra-font-lock-activate)
 
