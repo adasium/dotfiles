@@ -1,0 +1,12 @@
+# -*- mode: snippet -*-
+# name: desktop
+# key: desktop
+# --
+[Desktop Entry]
+Name=Charles
+Type=Application
+Exec=${1:application}
+
+Comment=An application$0
+TryExec=true
+Terminal=false
