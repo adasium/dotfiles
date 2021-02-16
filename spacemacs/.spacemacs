@@ -579,9 +579,11 @@ you should place your code here."
 
   ;; === WEB MODE (f)
   (defun chom/django ()
-    (if (projectile-project-p)
-        (if (file-exists-p (concat (projectile-project-root) "manage.py"))
-            (web-mode-set-engine "django"))))
+    (web-mode-set-engine "django")
+    ;; (if (projectile-project-p)
+    ;;     (if (file-exists-p (concat (projectile-project-root) "manage.py"))
+    ;;         (web-mode-set-engine "django")))
+    )
 
 
   (defun chom/get-python-virtualenv-path ()
