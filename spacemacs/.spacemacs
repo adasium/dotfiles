@@ -401,7 +401,6 @@ you should place your code here."
   (global-set-key [remap indent-for-tab-command] 'chom/smart-tab-jump-out-or-indent)
 
   (add-to-list 'default-frame-alist '(fullscreen . maximized))
-  (load "simple-buffer-jump.el")
 
   ;; =============================== GLOBAL MODES ==========================================
   (global-company-mode)
