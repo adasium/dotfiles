@@ -90,7 +90,7 @@ values."
              python-fill-column 200
              python-lsp-server 'mspyls
              python-formatter 'black
-             python-sort-imports-on-save t
+             python-sort-imports-on-save nil
              python-shell-interpreter "/usr/bin/python3"
              )
      emacs-lisp
