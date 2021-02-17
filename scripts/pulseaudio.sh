@@ -1,7 +1,7 @@
 #!/bin/bash
 # https://github.com/toadjaune/pulseaudio-config
 
-GET_DEFAULT_CMD="tr '\n' '|' | sed -e 's/*\{0,1\}[[:space:]]*index/\n\0/g' | grep '*'"
+GET_DEFAULT_CMD="tr '\n' '|' | sed -e 's/*\{0,1\}[[:space:]]*index/\n\0/g' | grep '* index'"
 DEFAULT_INPUT_CMD="pacmd list-sources | $GET_DEFAULT_CMD | sed 's/|/\n/g' | grep 'name:' | awk -F '<|>' '{print \$2}'"
 DEFAULT_OUTPUT_CMD="pacmd list-sinks | $GET_DEFAULT_CMD | sed 's/|/\n/g' | grep 'name:' | awk -F '<|>' '{print \$2}'"
 
