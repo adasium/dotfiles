@@ -938,6 +938,53 @@ you should place your code here."
 
   ;; === ORG-h
   (add-hook 'org-mode-hook 'chom/org-setup)
+  (evil-define-operator evil-org-> ()
+    "Demote, indent, move column right.
+    In items or headings, demote heading/item.
+    In code blocks, indent lines
+    In tables, move column to the right."
+    :move-point nil
+    (interactive)
+    (end-of-line)
+    (let ((end (point))
+          (beg (progn (beginning-of-line) (point)))
+          (count 1))
+      (cond
+       ;; Work with subtrees and headings
+       ((org-with-limited-levels
+         (or (org-at-heading-p)
+             (save-excursion (goto-char beg) (org-at-heading-p))))
+        (if (> count 0)
+            (org-map-region 'org-do-demote beg end)
+          (org-map-region 'org-do-promote beg end)))
+       ;; Shifting table columns
+       ((and (org-at-table-p)
+             (save-excursion
+               (goto-char beg)
+               (<= (line-beginning-position) end (line-end-position))))
+        (evil-org-table-move-column beg end count))
+       ;; Work with items
+       ((and (org-at-item-p)
+             (<= end (save-excursion (org-end-of-item-list))))
+        (evil-org-indent-items beg end count))
+       ;; Default indentation
+       (t
+        ;; special casing tables
+        (when (and (not (region-active-p)) (org-at-table-p))
+          (setq beg (min beg (org-table-begin)))
+          (setq end (max end (org-table-end))))
+        (evil-shift-right beg end count)))
+      (when (and evil-org-retain-visual-state-on-shift (evil-visual-state-p))
+        (evil-normal-state)
+        (evil-visual-restore))))
+
+  (evil-define-operator evil-org-< ()
+    (interactive)
+    (let ((end (point))
+          (beg (progn (beginning-of-line) (point)))
+          (count 1))
+      (evil-org-> beg end (- (or count 1)))))
+
   (add-hook 'org-capture-mode-hook 'evil-insert-state t)
   (add-hook 'org-mode-hook 'hl-todo-mode)
 
