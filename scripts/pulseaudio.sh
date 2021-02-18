@@ -1,12 +1,12 @@
 #!/bin/bash
 # https://github.com/toadjaune/pulseaudio-config
 
-JOIN_EVERYTHING_WITH="tr '\n'"
+JOIN_EVERYTHING_WITH_PIPE="tr '\n' '|'"
 ADD_NEWLINE_FOR_EACH_DEVICE="sed -e 's/*\{0,1\}[[:space:]]*index/\n\0/g'"
 UNJOIN_BY_PIPE="sed 's/|/\n/g'"
 GREP_DEFAULT="grep '* index'"
 GET_NAME="grep 'name:' | awk -F '<|>' '{print \$2}'"
-GET_DEFAULT="$JOIN_EVERYTHING_WITH '|' | $ADD_NEWLINE_FOR_EACH_DEVICE | $GREP_DEFAULT | $UNJOIN_BY_PIPE | $GET_NAME"
+GET_DEFAULT="$JOIN_EVERYTHING_WITH_PIPE | $ADD_NEWLINE_FOR_EACH_DEVICE | $GREP_DEFAULT | $UNJOIN_BY_PIPE | $GET_NAME"
 
 DEFAULT_INPUT_CMD="pacmd list-sources | $GET_DEFAULT"
 DEFAULT_OUTPUT_CMD="pacmd list-sinks | $GET_DEFAULT"
