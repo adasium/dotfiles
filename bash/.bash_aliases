@@ -79,3 +79,7 @@ if [[ -f ~/.local_aliases ]]; then
     source ~/.local_aliases
 fi
 alias urldecode='python3 -c "import sys; from urllib.parse import unquote; print(unquote(sys.stdin.read()), end=\"\");"'
+
+function brek () {
+    cls && echo "SMOL BREK\n$1 minutes" | cowsay && sowon -p
+}
