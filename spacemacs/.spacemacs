@@ -1056,7 +1056,6 @@ This function is called at the very end of Spacemacs initialization."
  '(safe-local-variable-values
    '((flycheck-disabled-checkers . python-flake8)
      (python-format-on-save t)
-     (python-sort-imports-on-save t)
      (javascript-backend . tide)
      (javascript-backend . tern)
      (javascript-backend . lsp)))
