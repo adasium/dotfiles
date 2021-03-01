@@ -405,6 +405,8 @@ you should place your code here."
   ;; =============================== GLOBAL MODES ==========================================
   (global-company-mode)
   (global-evil-mc-mode)
+  (advice-add 'helm-swoop--edit :after #'evil-mc-mode)
+  (advice-add 'helm-ag--edit :after #'evil-mc-mode)
 
   ;; =========================== OBJECT DEFINITIONS ========================================
   ;; https://stackoverflow.com/questions/18102004/emacs-evil-mode-how-to-create-a-new-text-object-to-select-words-with-any-non-sp/22418983#22418983
