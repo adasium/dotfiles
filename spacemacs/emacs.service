@@ -4,10 +4,9 @@ Documentation=info:emacs man:emacs(1) https://gnu.org/software/emacs/
 
 [Service]
 Type=simple
-ExecStart=/bin/bash -c "source ~/.config/emacs/.venv/bin/activate && /usr/local/bin/emacs --fg-daemon"
+ExecStart=/bin/bash -c "source ~/.config/emacs/.venv/bin/activate && XMODIFIERS=@im=none /usr/local/bin/emacs --fg-daemon"
 ExecStop=/usr/local/bin/emacsclient --eval "(spacemacs/kill-emacs)"
 Restart=no
 
 [Install]
 WantedBy=default.target
-
