@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
-# name: start template
-# key: starttemplate
+# name: template
+# key: template
 # --
 \documentclass{article}
 
