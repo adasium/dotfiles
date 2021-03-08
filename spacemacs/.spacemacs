@@ -928,6 +928,7 @@ you should place your code here."
 
   ;; This hook needs to be used not to make settings overridden by package setup.
   (add-hook 'python-mode-hook 'chom/python-setup t)
+  (add-hook 'python-mode-hook 'display-fill-column-indicator-mode t)
 
 
   ;; === HASKELL-h
@@ -1017,6 +1018,8 @@ you should place your code here."
   (put 'python-fill-column 'safe-local-variable #'integerp)
   (put 'python-formatter 'safe-local-variable #'symbolp)
   (put 'flycheck-flake8-maximum-line-length 'safe-local-variable #'integerp)
+  (put 'fill-column-indicator 'safe-local-variable #'integerp)
+  (put 'display-fill-column-indicator 'safe-local-variable #'symbolp)
   ;; ================================== END
   )
 
