@@ -1016,6 +1016,7 @@ you should place your code here."
   (put 'py-isort-options 'safe-local-variable #'listp)
   (put 'python-fill-column 'safe-local-variable #'integerp)
   (put 'python-formatter 'safe-local-variable #'symbolp)
+  (put 'flycheck-flake8-maximum-line-length 'safe-local-variable #'integerp)
   ;; ================================== END
   )
 
