@@ -399,8 +399,10 @@ you should place your code here."
   (setq sbj-buffer-shortcut-set "oo")
   (use-package "simple-buffer-jump")
   (global-set-key [remap indent-for-tab-command] 'chom/smart-tab-jump-out-or-indent)
+  (spacemacs/toggle-smartparens-globally-off)
 
   (add-to-list 'default-frame-alist '(fullscreen . maximized))
+  (add-hook 'prog-mode-hook 'electric-pair-mode t)
 
   ;; =============================== GLOBAL MODES ==========================================
   (global-company-mode)
