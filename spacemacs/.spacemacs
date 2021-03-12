@@ -1022,6 +1022,9 @@ you should place your code here."
   (put 'flycheck-flake8-maximum-line-length 'safe-local-variable #'integerp)
   (put 'fill-column-indicator 'safe-local-variable #'integerp)
   (put 'display-fill-column-indicator 'safe-local-variable #'symbolp)
+
+  (put 'python-sort-imports-on-save 'safe-local-variable #'symbolp)
+  (put 'python-format-on-save 'safe-local-variable #'symbolp)
   ;; ================================== END
   )
 
