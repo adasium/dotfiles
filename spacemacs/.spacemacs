@@ -471,6 +471,12 @@ you should place your code here."
   (defun add-d-to-ediff-mode-map () (define-key ediff-mode-map (kbd "B") 'ediff-copy-both-to-C))
 
   ;; === ORG-f
+  (defun org-read-date-interactive ()
+    "https://orgmode.org/manual/The-date_002ftime-prompt.html#The-date_002ftime-prompt"
+    (interactive)
+    (require 'org)
+    (insert (org-read-date nil nil nil)))
+
   (defun chom/org-setup ()
     (with-eval-after-load 'org-agenda
       (require 'org-projectile)
@@ -820,7 +826,7 @@ you should place your code here."
   (setq evil-want-Y-yank-to-eol t)
 
   ;; ============================== KEYBINDINGS ===========================================
-
+  ;; https://develop.spacemacs.org/doc/DOCUMENTATION.html#binding-keys
   (global-set-key [remap indent-for-tab-command] 'chom/smart-tab-jump-out-or-indent)
   (global-set-key (kbd "<backtab>") 'chom/smart-tab-jump-in-or-indent)
   (global-set-key [remap python-indent-dedent-line] 'chom/smart-tab-jump-in-or-indent)
@@ -859,6 +865,7 @@ you should place your code here."
   (define-key evil-normal-state-map (kbd "gra") 'evil-mc-make-vertical-cursors)
 
   (define-key evil-normal-state-map (kbd "C-c C-t") 'chom/toggle-boolean)
+  (spacemacs/set-leader-keys "id" 'org-read-date-interactive)
   (bind-key "C-k" 'chom/test)
   ;; (define-key evil-insert-state-map (kbd "C-j") 'evil-next-line)
   ;; (define-key evil-insert-state-map (kbd "C-k") 'evil-previous-line)
@@ -1063,7 +1070,7 @@ This function is called at the very end of Spacemacs initialization."
  '(latex-noindent-environments nil)
  '(lua-indent-level 4 t)
  '(package-selected-packages
-   '(add-node-modules-path org-plus-contrib evil-unimpaired f s dash doom-dark+-theme))
+   '(sublimity minimap add-node-modules-path org-plus-contrib evil-unimpaired f s dash doom-dark+-theme))
  '(safe-local-variable-values
    '((flycheck-disabled-checkers . python-flake8)
      (python-format-on-save t)
