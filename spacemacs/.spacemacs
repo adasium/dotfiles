@@ -814,7 +814,7 @@ you should place your code here."
     (setq TeX-brace-indent-level n)
     (setq tab-width n)
     (setq lua-indent-level n)
-    (setq evil-shift-width n)
+    ;; (setq evil-shift-width n)
     )
   (chom/setup-indent chom/indent-level)
 
@@ -835,8 +835,6 @@ you should place your code here."
   (define-key evil-insert-state-map (kbd "<C-tab>") 'yas-expand)
   (define-key evil-visual-state-map (kbd "<C-tab>") 'yas-insert-snippet)
   (define-key evil-normal-state-map (kbd "zm") 'hs-hide-level)
-  (define-key evil-normal-state-map (kbd ">") 'evil-shift-right-line)
-  (define-key evil-normal-state-map (kbd "<") 'evil-shift-left-line)
   (define-key evil-normal-state-map (kbd "<escape>") 'evil-mc-undo-all-cursors)
   (define-key evil-insert-state-map (kbd "<S-return>") 'evil-open-above)
 
@@ -1066,10 +1064,8 @@ This function is called at the very end of Spacemacs initialization."
      ("tabbing")
      ("thebibliography")
      ("document" chom/LaTeX/indent-tabular)))
- '(evil-shift-width 4)
  '(evil-want-Y-yank-to-eol nil)
  '(latex-noindent-environments nil)
- '(lua-indent-level 4 t)
  '(package-selected-packages
    '(sublimity minimap add-node-modules-path org-plus-contrib evil-unimpaired f s dash doom-dark+-theme))
  '(safe-local-variable-values
