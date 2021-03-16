@@ -791,6 +791,7 @@ you should place your code here."
 
   ;; === vMAGIT
   (setq magit-log-margin '(t "%H:%M %d-%m-%Y" magit-log-margin-width t 20))
+  (setq magit-bury-buffer-function 'magit-mode-quit-window)
 
   ;; === vINDENT
   (setq lsp-enable-indentation t)
@@ -1016,7 +1017,7 @@ you should place your code here."
   (add-hook 'json-mode-hook (lambda()
                               (setq tab-width 4)))
 
-  ;; === WORKAROUNDS
+  ;; === WORKAROUNDS AND PATCHES
   ;; https://github.com/syl20bnr/spacemacs/issues/9756#issuecomment-363436814
   (setq spacemacs-default-jump-handlers
         (remove 'evil-goto-definition spacemacs-default-jump-handlers))
