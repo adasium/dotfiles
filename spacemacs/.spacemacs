@@ -490,7 +490,7 @@ you should place your code here."
   (defun chom/smart-tab-jump-out-or-indent (&optional arg)
     "Smart tab behavior. Jump out quote or brackets, or indent."
     (interactive "P")
-    (if (and (char-after)
+    (if (and (evil-insert-state-p) (char-after)
              (-contains? (list "\"" "'" ")" "}" ";" "|" ">" "]" "`")
                          (make-string 1 (char-after))))
         (forward-char 1)
@@ -499,7 +499,7 @@ you should place your code here."
   (defun chom/smart-tab-jump-in-or-indent (&optional arg)
     "Smart tab behavior. Jump out quote or brackets, or indent."
     (interactive "P")
-    (if (and (char-before)
+    (if (and (evil-insert-state-p) (char-before)
              (-contains? (list "\"" "'" ")" "}" ";" "|" ">" "]" "`") (make-string 1 (char-before))))
         (backward-char 1)
       (indent-for-tab-command arg)))
