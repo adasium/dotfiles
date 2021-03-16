@@ -32,6 +32,7 @@ values."
    dotspacemacs-configuration-layers
    '(
      sql
+     vue
      rust
      systemd
      csv
