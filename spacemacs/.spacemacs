@@ -400,10 +400,10 @@ you should place your code here."
   (setq sbj-buffer-shortcut-set "oo")
   (use-package "simple-buffer-jump")
   (global-set-key [remap indent-for-tab-command] 'chom/smart-tab-jump-out-or-indent)
-  (spacemacs/toggle-smartparens-globally-off)
 
   (add-to-list 'default-frame-alist '(fullscreen . maximized))
   (add-hook 'prog-mode-hook 'electric-pair-mode t)
+  (remove-hook 'prog-mode-hook #'smartparens-mode)
 
   ;; =============================== GLOBAL MODES ==========================================
   (global-company-mode)
@@ -682,29 +682,9 @@ you should place your code here."
   (defun replace-in-string (what with in)
     (replace-regexp-in-string (regexp-quote what) with in nil 'literal))
 
-  (defun chom/magit/repo-url()
-    (car (magit-git-lines "config" "--get" "remote.origin.url")))
-
-  (defun chom/magit/github-ssh-to-https(url)
-    (replace-in-string "git@" "https://" (replace-in-string ":" "/" (replace-in-string ".git" "" url))))
-
-  (defun chom/magit/github-compare(older newer)
-    (concat (chom/magit/github-ssh-to-https (chom/magit/repo-url)) "/compare/" older ".." newer))
-
-  (defun chom/magit/today-github-diff()
-    (interactive)
-    (let ((commits (magit-git-lines "log" "--format=%H"
-                                    (concat "--before=" (format-time-string "%Y-%m-%d"))
-                                    (concat "--after=" (format-time-string "%Y-%m-%d" (time-subtract (current-time) (days-to-time 1)))))))
-      (let ((recent-commit (car commits))
-            (oldest-commit (car (last commits))))
-        (let ((parent-of-oldest-commit (car (magit-git-lines "rev-parse" (concat oldest-commit "^")))))
-          (chom/magit/github-compare oldest-commit recent-commit)))))
-
   (defun chom/test()
     (interactive)
-    (message (chom/magit/today-github-diff))
-    (kill-new (chom/magit/today-github-diff)))
+    (message "hello"))
 
 
   ;; ================================ VARIABLES ============================================
