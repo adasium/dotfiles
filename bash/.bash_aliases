@@ -20,6 +20,7 @@ alias mv='mv -iv'
 alias mkdir='mkdir -pv'
 
 alias cls="printf '\033c'"
+alias clt="cls && tmux clear-history"
 alias c="python3"
 
 alias ..="cd .."
