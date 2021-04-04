@@ -763,7 +763,7 @@ you should place your code here."
   (setq python-emacs-virtualenv-path (substitute-in-file-name "$HOME/.config/emacs/.venv"))
   (setq python-emacs-executable-path (f-join python-emacs-virtualenv-path "bin/python"))
   (setq spacemacs-jump-handlers-python-mode (list 'dumb-jump 'evil-jump-to-tag))
-  (setq importmagic-python-interpreter python-emacs-executable-path)
+  ;; (setq importmagic-python-interpreter python-emacs-executable-path)
   (setq flycheck-flake8rc "setup.cfg")
   (setq flycheck-pylintrc "setup.cfg")
   (setq lsp-pyls-configuration-sources ["flake8"])
@@ -900,7 +900,7 @@ you should place your code here."
             ;; Python executable
             (setq-local python-shell-interpreter (f-join "/" virtualenv-dir-path "bin" "python"))
             ;; Importmagic
-            (setq-local importmagic-python-interpreter (f-join "/" virtualenv-dir-path "bin" "python"))
+            ;; (setq-local importmagic-python-interpreter (f-join "/" virtualenv-dir-path "bin" "python"))
             ;; Linters
             (setq-local flycheck-python-flake8-executable (f-join "/" virtualenv-dir-path "bin" "flake8"))
             (setq-local flycheck-python-mypy-executable (f-join "/" virtualenv-dir-path "bin" "mypy"))
@@ -911,8 +911,8 @@ you should place your code here."
 
     (fset 'python-\[\]-get
           (kmacro-lambda-form [?c ?s ?\] ?\) ?i ?. ?g ?e ?t escape ?f ?\" ?t ?\"] 0 "%d"))
-    (define-key evil-insert-state-map (kbd "M-RET") 'importmagic-fix-symbol-at-point)
-    (define-key evil-normal-state-map (kbd "M-RET") 'importmagic-fix-symbol-at-point)
+    ;; (define-key evil-insert-state-map (kbd "M-RET") 'importmagic-fix-symbol-at-point)
+    ;; (define-key evil-normal-state-map (kbd "M-RET") 'importmagic-fix-symbol-at-point)
     (global-set-key [remap python-indent-dedent-line] 'chom/smart-tab-jump-in-or-indent))
 
   ;; This hook needs to be used not to make settings overridden by package setup.
