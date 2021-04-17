@@ -404,6 +404,7 @@ you should place your code here."
   (add-to-list 'default-frame-alist '(fullscreen . maximized))
   (add-hook 'prog-mode-hook 'electric-pair-mode t)
   (remove-hook 'prog-mode-hook #'smartparens-mode)
+  (remove-hook 'prog-mode-hook #'spacemacs//activate-smartparens)
 
   ;; =============================== GLOBAL MODES ==========================================
   (global-company-mode)
@@ -812,6 +813,9 @@ you should place your code here."
   (global-set-key [remap indent-for-tab-command] 'chom/smart-tab-jump-out-or-indent)
   (global-set-key (kbd "<backtab>") 'chom/smart-tab-jump-in-or-indent)
   (global-set-key [remap python-indent-dedent-line] 'chom/smart-tab-jump-in-or-indent)
+
+  (global-set-key [remap c-indent-line-or-region] 'chom/smart-tab-jump-out-or-indent)
+
   (bind-key "C-M-b" 'evil-mc-make-cursor-backward-WORD-end)
   (define-key evil-insert-state-map (kbd "<C-tab>") 'yas-expand)
   (define-key evil-visual-state-map (kbd "<C-tab>") 'yas-insert-snippet)
