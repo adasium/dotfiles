@@ -692,7 +692,7 @@ you should place your code here."
   (setq projectile-indexing-method 'hybrid)
   (setq dap-python-terminal "gnome-terminal -- ")
   (setq sp-escape-quotes-after-insert nil)
-  (setq dotspacemacs-frame-title-format "%t (%b)")
+  (setq dotspacemacs-frame-title-format "Visual Studio Code - %t - %b")
   (setq lsp-diagnostic-package :none)
   (setq pipenv-executable (executable-find "pipenv"))
   (custom-set-faces
