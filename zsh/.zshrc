@@ -52,6 +52,7 @@ fi
 
 export PYENV_ROOT="$HOME/.pyenv"
 PATH="$HOME/.local/bin:$PATH"
+PATH="$PATH:/opt/bin"
 export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init -)"
 
