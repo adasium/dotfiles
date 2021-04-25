@@ -1,5 +1,30 @@
 #!/bin/bash
-# https://github.com/toadjaune/pulseaudio-config
+# Original script modified for my own needs: https://github.com/toadjaune/pulseaudio-config
+
+# =========== GENERAL INFO ===========
+# The script adds devices making it easier to share audio over microphone (for example music)
+# while still being able to talk.
+
+# ============== USAGE ===============
+# 1. Set default input and output devices (using system app "Sound" or pavucontrol)
+# 2. Run the script: ./pulseaudio.sh
+# 3. Use pavucontrol to change output of the playback (program playing audio) you want to share
+#   - you can use one of the two devices
+#     - SHARED_audio_sharing_script   - redirects to both output and input
+#     - MIC_ONLY_audio_sharing_script - redirects to output only (you won't hear it)
+
+# ========== RESTORE CONFIG ==========
+# To restore previous config you have two options:
+# 1. pulseaudio -k      # kills pulseaudio server, then pulseaudio restarts so original config is loaded
+# 2. ./pulseaudio.sh -t # removes created sinks,
+#                       # it's better for me because I don't have to reconnect my bluetooth headphones
+#                       # but you may need to set default devices manually
+
+# ========== KNOWN PROBLEMS ==========
+# - In Discord input audio may not be picked up unless you switch input device to something else and then back
+# - Changing default input/output device doesn't work while the script is running, if you want to do that
+#   you'll have to restart pulseaudio or run ./pulseaudio.sh -t
+
 
 JOIN_EVERYTHING_WITH_PIPE="tr '\n' '|'"
 ADD_NEWLINE_FOR_EACH_DEVICE="sed -e 's/*\{0,1\}[[:space:]]*index/\n\0/g'"
