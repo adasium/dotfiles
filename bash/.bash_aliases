@@ -86,3 +86,5 @@ alias urldecode='python3 -c "import sys; from urllib.parse import unquote; print
 function brek () {
     cls && echo "SMOL BREK\n$1 minutes" | cowsay && sowon -p
 }
+
+alias trim="sed -e 's/^ *//' -e 's/ *$//'"
