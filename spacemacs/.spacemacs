@@ -124,6 +124,7 @@ values."
      flycheck-mypy
      highlight-indent-guides
      rainbow-mode
+     evil-mc-extras
      (simple-buffer-jump :location (recipe
                                     :fetcher github
                                     :repo "dalanicolai/dala-emacs-lisp"))
@@ -198,6 +199,32 @@ values."
                                 (projects . 7))
    ;; True if the home buffer should respond to resize events.
    dotspacemacs-startup-buffer-responsive t
+   ;; The minimum delay in seconds between number key presses. (default 0.4)
+   dotspacemacs-startup-buffer-multi-digit-delay 0.4
+   ;; Set `read-process-output-max' when startup finishes.
+   ;; This defines how much data is read from a foreign process.
+   ;; Setting this >= 1 MB should increase performance for lsp servers
+   ;; in emacs 27.
+   ;; (default (* 1024 1024))
+   dotspacemacs-read-process-output-max (* 1024 1024)
+   ;; Set `gc-cons-threshold' and `gc-cons-percentage' when startup finishes.
+   ;; This is an advanced option and should not be changed unless you suspect
+   ;; performance issues due to garbage collection operations.
+   ;; (default '(100000000 0.1))
+   dotspacemacs-gc-cons '(100000000 0.1)
+   ;; Name of the Spacemacs dump file. This is the file will be created by the
+   ;; portable dumper in the cache directory under dumps sub-directory.
+   ;; To load it when starting Emacs add the parameter `--dump-file'
+   ;; when invoking Emacs 27.1 executable on the command line, for instance:
+   ;;   ./emacs --dump-file=$HOME/.emacs.d/.cache/dumps/spacemacs-27.1.pdmp
+   ;; (default (format "spacemacs-%s.pdmp" emacs-version))
+   dotspacemacs-emacs-dumper-dump-file (format "spacemacs-%s.pdmp" emacs-version)
+   ;; Name of executable file pointing to emacs 27+. This executable must be
+   ;; in your PATH.
+   ;; (default "emacs")
+   dotspacemacs-emacs-pdumper-executable-file "emacs"
+
+
    ;; Default major mode of the scratch buffer (default `text-mode')
    dotspacemacs-scratch-mode 'text-mode
    ;; List of themes, the first of the list is loaded when spacemacs starts.
@@ -409,6 +436,8 @@ you should place your code here."
   ;; =============================== GLOBAL MODES ==========================================
   (global-company-mode)
   (global-evil-mc-mode)
+  (require 'evil-mc-extras)
+  (global-evil-mc-extras-mode 1)
   (advice-add 'helm-swoop--edit :after #'evil-mc-mode)
   (advice-add 'helm-ag--edit :after #'evil-mc-mode)
 
@@ -726,7 +755,7 @@ you should place your code here."
                            "-tc"))
   (setq split-width-threshold 0)
   (setq split-height-threshold nil)
-  (setq helm-grep-ag-command "rg --color=always --smart-case --no-heading --line-number %s %s %s")
+  (setq helm-grep-ag-command "rg --vimgrep --color=always --smart-case --no-heading --line-number --ignore-file .ignore %s %s %s")
 
 
   (setq yas-snippet-dirs '("~/.emacs.d/private/snippets/"))
@@ -1041,7 +1070,7 @@ This function is called at the very end of Spacemacs initialization."
  '(evil-want-Y-yank-to-eol nil)
  '(latex-noindent-environments nil)
  '(package-selected-packages
-   '(sublimity minimap add-node-modules-path org-plus-contrib evil-unimpaired f s dash doom-dark+-theme))
+   '(evil-mc-extras ripgrep helm-rg sublimity minimap add-node-modules-path org-plus-contrib evil-unimpaired f s dash doom-dark+-theme))
  '(safe-local-variable-values
    '((flycheck-disabled-checkers . python-flake8)
      (python-format-on-save t)
@@ -1064,6 +1093,7 @@ This function is called at the very end of Spacemacs initialization."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(evil-want-Y-yank-to-eol nil)
  '(package-selected-packages
    '(org-plus-contrib evil-unimpaired f s dash doom-dark+-theme)))
 (custom-set-faces
