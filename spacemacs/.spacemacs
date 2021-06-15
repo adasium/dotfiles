@@ -873,7 +873,8 @@ you should place your code here."
 
   (define-key evil-normal-state-map (kbd "K") 'join-line)
 
-
+  (define-key evil-normal-state-map (kbd "C-a") 'evil-numbers/inc-at-pt)
+  (define-key evil-normal-state-map (kbd "C-x") 'evil-numbers/dec-at-pt)
   (define-key evil-normal-state-map (kbd "gra") 'evil-mc-make-vertical-cursors)
 
   (define-key evil-normal-state-map (kbd "C-c C-t") 'chom/toggle-boolean)
