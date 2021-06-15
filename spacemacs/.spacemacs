@@ -124,7 +124,6 @@ values."
      flycheck-mypy
      highlight-indent-guides
      rainbow-mode
-     evil-mc-extras
      (simple-buffer-jump :location (recipe
                                     :fetcher github
                                     :repo "dalanicolai/dala-emacs-lisp"))
@@ -436,8 +435,6 @@ you should place your code here."
   ;; =============================== GLOBAL MODES ==========================================
   (global-company-mode)
   (global-evil-mc-mode)
-  (require 'evil-mc-extras)
-  (global-evil-mc-extras-mode 1)
   (advice-add 'helm-swoop--edit :after #'evil-mc-mode)
   (advice-add 'helm-ag--edit :after #'evil-mc-mode)
 
@@ -463,6 +460,22 @@ you should place your code here."
   ;; ================================ FUNCTIONS ============================================
   ;; === BASH-f
   ;; https://emacs.stackexchange.com/questions/13128/highlighting-shell-variables-within-quotes
+  (defun evil-mc-change-num-at-each-cursor (change-cmd amount)
+    "Run CHANGE-CMD that changes the number at cursor by index times AMOUNT."
+    (evil-mc-make-and-goto-first-cursor)
+    (evil-mc-execute-for-all-cursors
+     (lambda (cursor)
+       (let* ((index (evil-mc-get-cursor-property cursor :index))
+              (value (* index (or (and amount (prefix-numeric-value amount)) 1))))
+         (funcall change-cmd value)))))
+
+  (defun evil-mc-inc-num-at-each-cursor (amount beg end type amount)
+    "Increment the number at each active cursor by the cursor index weighted by AMOUNT."
+    (interactive "*<c><R>")
+    (evil-mc-change-num-at-each-cursor 'evil-numbers/inc-at-pt amount))
+
+  (define-key evil-normal-state-map (kbd "gr+") 'evil-mc-inc-num-at-each-cursor)
+
   (defun sh-script-extra-font-lock-is-in-double-quoted-string ()
     "Non-nil if point in inside a double-quoted string."
     (let ((state (syntax-ppss)))
