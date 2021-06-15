@@ -720,6 +720,7 @@ you should place your code here."
   ;; ================================ VARIABLES ============================================
   (setq projectile-indexing-method 'hybrid)
   (setq dap-python-terminal "gnome-terminal -- ")
+  (setq dap-python-debugger "debugpy")
   (setq sp-escape-quotes-after-insert nil)
   (setq dotspacemacs-frame-title-format "Visual Studio Code - %t - %b")
   (setq lsp-diagnostic-package :none)
@@ -914,6 +915,7 @@ you should place your code here."
             (message virtualenv-dir-path)
             ;; Python executable
             (setq-local python-shell-interpreter (f-join "/" virtualenv-dir-path "bin" "python"))
+            (setq-local dap-python-executable python-shell-interpreter)
             ;; Importmagic
             ;; (setq-local importmagic-python-interpreter (f-join "/" virtualenv-dir-path "bin" "python"))
             ;; Linters
