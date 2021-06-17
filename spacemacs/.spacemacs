@@ -422,6 +422,11 @@ This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
 
+  ;; DIR LOCALS
+
+  ;; make git submodule a separate project
+  ;; (nil . ((eval . (setq projectile-project-root (locate-dominating-file default-directory ".dir-locals.el")))))
+
   (setq sbj-buffer-jump-prefix "o")
   (setq sbj-buffer-shortcut-set "oo")
   (use-package "simple-buffer-jump")
@@ -712,7 +717,33 @@ you should place your code here."
 
   (defun chom/test()
     (interactive)
-    (message "hello"))
+    (message "hello")
+    (let ((current-pos (point))
+          (square-expr-pos (save-excursion
+                             (goto-char (min (point-max)
+                                             (+ (point) 1)))
+                             (re-search-backward "\\[")))
+          (get-expr-pos (save-excursion (goto-char (min (point-max)
+                                                         (+ (point) 1)))
+                                         (re-search-backward "\\.get(")))
+          )
+      (message "%s %s %s" current-pos square-expr-pos get-expr-pos)
+      (if (> square-expr-pos get-expr-pos)
+          (progn
+            ;; (evil-surround-change 93)
+            ;; (execute-kbd-macro (kbd ")"))
+            (call-interactively #'evil-surround-change t (vector "]" ")"))
+            ;; (evil-change (point) (point) 'exclusive nil nil)
+            (insert ".get")
+            ;; (evil-normal-state)
+            )
+        (progn
+          (call-interactively 'evil-surround-change t (vector "]" ")"))
+          (evil-backward-word-begin 2)
+          )
+        )
+      )
+    )
 
 
   ;; ================================ VARIABLES ============================================
