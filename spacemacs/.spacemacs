@@ -390,7 +390,7 @@ values."
    ;; List of search tool executable names. Spacemacs uses the first installed
    ;; tool of the list. Supported tools are `ag', `pt', `ack' and `grep'.
    ;; (default '("ag" "pt" "ack" "grep"))
-   dotspacemacs-search-tools '("ag" "pt" "ack" "grep")
+   dotspacemacs-search-tools '("rg" "ag" "pt" "ack" "grep")
    ;; The default package repository used if no explicit repository has been
    ;; specified with an installed package.
    ;; Not used for now. (default nil)
@@ -720,7 +720,7 @@ you should place your code here."
   (setq dap-python-terminal "gnome-terminal -- ")
   (setq dap-python-debugger "debugpy")
   (setq sp-escape-quotes-after-insert nil)
-  (setq dotspacemacs-frame-title-format "Visual Studio Code - %t - %b")
+  (setq dotspacemacs-frame-title-format "%b - %t - Visual Studio Code")
   (setq lsp-diagnostic-package :none)
   (setq pipenv-executable (executable-find "pipenv"))
   (custom-set-faces
