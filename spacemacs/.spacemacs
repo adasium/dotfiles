@@ -369,7 +369,7 @@ values."
    ;;                       text-mode
    ;;   :size-limit-kb 1000)
    ;; (default nil)
-   dotspacemacs-line-numbers t
+   dotspacemacs-line-numbers 'relative
    ;; Code folding method. Possible values are `evil' and `origami'.
    ;; (default 'evil)
    dotspacemacs-folding-method 'evil
@@ -451,6 +451,16 @@ If there is no region call CMD with the point position."
                                          (:default . chom/evil-mc-execute-call-with-region-or-pos))
                                         (evil-numbers/dec-at-pt
                                          (:default . chom/evil-mc-execute-call-with-region-or-pos))
+                                        (chom/shift-line-right
+                                         (:default . evil-mc-execute-default-call))
+                                        (chom/shift-line-left
+                                         (:default . evil-mc-execute-default-call))
+                                        (chom/smart-tab-jump-out-or-indent
+                                         (:default . evil-mc-execute-default-call))
+                                        (chom/smart-tab-jump-out-or-dedent
+                                         (:default . evil-mc-execute-default-call))
+                                        (clean-aindent--bsunindent
+                                         (:default . evil-mc-execute-default-call-with-count))
                                         ))
 
   (add-to-list 'default-frame-alist '(fullscreen . maximized))
