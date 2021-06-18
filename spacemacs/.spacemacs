@@ -431,6 +431,27 @@ you should place your code here."
   (setq sbj-buffer-shortcut-set "oo")
   (use-package "simple-buffer-jump")
   (global-set-key [remap indent-for-tab-command] 'chom/smart-tab-jump-out-or-indent)
+  (defun chom/evil-mc-execute-with-region-or-pos (cmd)
+    "Execute a CMD with the current register and region.
+If there is no region call CMD with the point position."
+    (evil-mc-with-region region
+        (funcall cmd
+                 region-start
+                 region-end
+                 region-type
+                 evil-this-register)
+      (funcall cmd 1 2)))
+
+  (evil-mc-define-handler chom/evil-mc-execute-call-with-region-or-pos
+    :cursor-clear region
+    (chom/evil-mc-execute-with-region-or-pos (evil-mc-get-command-name)))
+
+  (setq evil-mc-custom-known-commands '(
+                                        (evil-numbers/inc-at-pt
+                                         (:default . chom/evil-mc-execute-call-with-region-or-pos))
+                                        (evil-numbers/dec-at-pt
+                                         (:default . chom/evil-mc-execute-call-with-region-or-pos))
+                                        ))
 
   (add-to-list 'default-frame-alist '(fullscreen . maximized))
   (add-hook 'prog-mode-hook 'electric-pair-mode t)
@@ -718,31 +739,6 @@ you should place your code here."
   (defun chom/test()
     (interactive)
     (message "hello")
-    (let ((current-pos (point))
-          (square-expr-pos (save-excursion
-                             (goto-char (min (point-max)
-                                             (+ (point) 1)))
-                             (re-search-backward "\\[")))
-          (get-expr-pos (save-excursion (goto-char (min (point-max)
-                                                         (+ (point) 1)))
-                                         (re-search-backward "\\.get(")))
-          )
-      (message "%s %s %s" current-pos square-expr-pos get-expr-pos)
-      (if (> square-expr-pos get-expr-pos)
-          (progn
-            ;; (evil-surround-change 93)
-            ;; (execute-kbd-macro (kbd ")"))
-            (call-interactively #'evil-surround-change t (vector "]" ")"))
-            ;; (evil-change (point) (point) 'exclusive nil nil)
-            (insert ".get")
-            ;; (evil-normal-state)
-            )
-        (progn
-          (call-interactively 'evil-surround-change t (vector "]" ")"))
-          (evil-backward-word-begin 2)
-          )
-        )
-      )
     )
 
 
