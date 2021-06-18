@@ -744,6 +744,7 @@ If there is no region call CMD with the point position."
 
   ;; ================================ VARIABLES ============================================
   (setq projectile-indexing-method 'hybrid)
+  (setq projectile-enable-caching t)
   (setq dap-python-terminal "gnome-terminal -- ")
   (setq dap-python-debugger "debugpy")
   (setq sp-escape-quotes-after-insert nil)
