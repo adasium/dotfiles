@@ -736,6 +736,14 @@ If there is no region call CMD with the point position."
   (defun replace-in-string (what with in)
     (replace-regexp-in-string (regexp-quote what) with in nil 'literal))
 
+  (defun chom/shift-line-right()
+    (interactive)
+    (evil-shift-right-line 1))
+
+  (defun chom/shift-line-left()
+    (interactive)
+    (evil-shift-left-line 1))
+
   (defun chom/test()
     (interactive)
     (message "hello")
@@ -904,6 +912,9 @@ If there is no region call CMD with the point position."
   (define-key evil-normal-state-map (kbd "C-a") 'evil-numbers/inc-at-pt)
   (define-key evil-normal-state-map (kbd "C-x") 'evil-numbers/dec-at-pt)
   (define-key evil-normal-state-map (kbd "gra") 'evil-mc-make-vertical-cursors)
+
+  (define-key evil-normal-state-map (kbd ">") 'chom/shift-line-right)
+  (define-key evil-normal-state-map (kbd "<") 'chom/shift-line-left)
 
   (define-key evil-normal-state-map (kbd "C-c C-t") 'chom/toggle-boolean)
   (spacemacs/set-leader-keys "id" 'org-read-date-interactive)
