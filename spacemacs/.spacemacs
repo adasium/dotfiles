@@ -33,11 +33,8 @@ values."
    '(
      sql
      vue
-     rust
      systemd
      csv
-     haskell
-     lua
 
      ;; ----------------------------------------------------------------
      ;; Example of useful layers you may want to use right away.
