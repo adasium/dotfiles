@@ -931,6 +931,8 @@ If there is no region call CMD with the point position."
   (define-key evil-normal-state-map (kbd "C-a") 'evil-numbers/inc-at-pt)
   (define-key evil-normal-state-map (kbd "C-x") 'evil-numbers/dec-at-pt)
   (define-key evil-normal-state-map (kbd "gra") 'evil-mc-make-vertical-cursors)
+  (define-key evil-normal-state-map (kbd "C-S-n") 'evil-mc-skip-and-goto-next-match)
+  (define-key evil-normal-state-map (kbd "C-S-p") 'evil-mc-skip-and-goto-prev-match)
 
   (define-key evil-normal-state-map (kbd ">") 'chom/shift-line-right)
   (define-key evil-normal-state-map (kbd "<") 'chom/shift-line-left)
@@ -939,6 +941,8 @@ If there is no region call CMD with the point position."
 
   (define-key evil-normal-state-map (kbd "RET") 'chom/open-below-and-normal-state)
   (define-key evil-normal-state-map (kbd "<S-return>") 'chom/open-above-and-normal-state)
+  (unbind-key (kbd "C-b") evil-motion-state-map)
+  (unbind-key (kbd "C-f") evil-motion-state-map)
 
   (spacemacs/set-leader-keys "id" 'org-read-date-interactive)
   (bind-key "C-k" 'chom/test)
