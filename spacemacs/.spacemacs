@@ -754,6 +754,18 @@ If there is no region call CMD with the point position."
     (interactive)
     (evil-shift-left-line 1))
 
+  (defun chom/open-below-and-normal-state ()
+    (interactive)
+    (evil-open-below 1)
+    (evil-normal-state)
+    (evil-previous-line))
+
+  (defun chom/open-above-and-normal-state ()
+    (interactive)
+    (evil-open-above 1)
+    (evil-normal-state)
+    (evil-next-line))
+
   (defun chom/test()
     (interactive)
     (message "hello")
@@ -927,6 +939,10 @@ If there is no region call CMD with the point position."
   (define-key evil-normal-state-map (kbd "<") 'chom/shift-line-left)
 
   (define-key evil-normal-state-map (kbd "C-c C-t") 'chom/toggle-boolean)
+
+  (define-key evil-normal-state-map (kbd "RET") 'chom/open-below-and-normal-state)
+  (define-key evil-normal-state-map (kbd "<S-return>") 'chom/open-above-and-normal-state)
+
   (spacemacs/set-leader-keys "id" 'org-read-date-interactive)
   (bind-key "C-k" 'chom/test)
   ;; (define-key evil-insert-state-map (kbd "C-j") 'evil-next-line)
