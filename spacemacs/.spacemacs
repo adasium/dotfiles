@@ -98,7 +98,6 @@ values."
             shell-default-position 'bottom)
 
      ;; PAPERS AND PDF
-     ;; chrome ;; TODO remove if necessary
      (latex
       :variables
       TeX-command-extra-options "-shell-escape"
