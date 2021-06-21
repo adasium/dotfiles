@@ -50,10 +50,12 @@ if [[ $TERM != "eterm-color" ]]; then
     export TERM=xterm-256color
 fi
 
-export PYENV_ROOT="$HOME/.pyenv"
 PATH="$HOME/.local/bin:$PATH"
 PATH="$PATH:/opt/bin"
+
+export PYENV_ROOT="$HOME/.pyenv"
 export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init --path)"
 eval "$(pyenv init -)"
 
 if [ -f ~/.zshrc.local ]; then
