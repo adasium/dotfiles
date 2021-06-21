@@ -1,5 +1,6 @@
 # Path to your oh-my-zsh installation.
 export ZSH="/home/$USER/.oh-my-zsh"
+setopt HIST_IGNORE_DUPS
 bindkey \^U backward-kill-line # Ctrl+u kills from cursor backwards
 ZSH_THEME="agnoster"
 source ~/.bash_aliases
