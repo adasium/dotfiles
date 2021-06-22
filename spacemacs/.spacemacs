@@ -946,8 +946,13 @@ If there is no region call CMD with the point position."
   (define-key evil-normal-state-map (kbd "RET") 'chom/open-below-and-normal-state)
   (define-key evil-normal-state-map (kbd "<S-return>") 'chom/open-above-and-normal-state)
 
+
+  (define-key evil-mc-key-map (kbd "C-t") nil)
+  (evil-define-key 'normal evil-mc-key-map (kbd "C-t") nil)
+  (evil-define-key 'visual evil-mc-key-map (kbd "C-t") nil)
   (define-key evil-normal-state-map (kbd "C-t") 'transpose-chars)
   (define-key evil-insert-state-map (kbd "C-t") 'transpose-chars)
+
   (unbind-key (kbd "C-b") evil-motion-state-map)
   (unbind-key (kbd "C-f") evil-motion-state-map)
 
