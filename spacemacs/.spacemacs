@@ -769,6 +769,11 @@ If there is no region call CMD with the point position."
 
 
   ;; ================================ VARIABLES ============================================
+  ;; (with-eval-after-load 'helm-projectile
+  ;;   ;; (helm-add-action-to-source "Search thru dem" #'helm-multi-swoop helm-projectile-file-actions)
+  ;;   (add-to-list 'helm-projectile-file-actions '("Search thru dem" . helm-multi-swoop))
+  ;;   )
+
   (setq projectile-indexing-method 'hybrid)
   (setq projectile-enable-caching t)
   (setq dap-python-terminal "gnome-terminal -- ")
