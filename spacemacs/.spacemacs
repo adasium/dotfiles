@@ -423,6 +423,8 @@ you should place your code here."
   ;; make git submodule a separate project
   ;; (nil . ((eval . (setq projectile-project-root (locate-dominating-file default-directory ".dir-locals.el")))))
 
+  ;; NOTE: last working commit: 6bafc7269
+
   (setq sbj-buffer-jump-prefix "o")
   (setq sbj-buffer-shortcut-set "oo")
   (use-package "simple-buffer-jump")
