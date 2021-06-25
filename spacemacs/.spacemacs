@@ -540,6 +540,17 @@ If there is no region call CMD with the point position."
     (require 'org)
     (insert (org-read-date nil nil nil)))
 
+  (defface chom/org-mode-label-face
+    '((t :foreground "#fcdb03"))
+    "Face used for labels e.g. @work"
+    :group 'org-mode
+    )
+
+  (defun chom/org-font-setup ()
+    (font-lock-add-keywords nil '(("@[a-zA-Z]+" . 'chom/org-mode-label-face))))
+
+  (add-hook 'org-mode-hook 'chom/org-font-setup)
+
   (defun chom/org-setup ()
     (with-eval-after-load 'org-agenda
       (require 'org-projectile)
