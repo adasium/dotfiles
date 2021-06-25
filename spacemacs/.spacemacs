@@ -771,10 +771,12 @@ If there is no region call CMD with the point position."
 
 
   ;; ================================ VARIABLES ============================================
-  ;; (with-eval-after-load 'helm-projectile
-  ;; (helm-add-action-to-source "Search in files" #'helm-multi-swoop helm-projectile-file-actions)
-  ;; (add-to-list 'helm-projectile-file-actions '("Search thru dem" . helm-multi-swoop)
-  ;; )
+
+  (defun chom/helm-search-action (candidate)
+    (helm-do-ag (projectile-project-root) (helm-marked-candidates)))
+
+  (defvar helm-projectile-file-actions
+    '(("Search in files" . chom/helm-search-action)))
 
   (setq projectile-indexing-method 'hybrid)
   (setq projectile-enable-caching t)
