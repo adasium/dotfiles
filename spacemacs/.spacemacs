@@ -795,6 +795,8 @@ If there is no region call CMD with the point position."
   (setq dap-python-debugger "debugpy")
   (setq sp-escape-quotes-after-insert nil)
   (setq dotspacemacs-frame-title-format "%b - %t - Visual Studio Code")
+  (setq spacemacs-buffer-logo-title "Visual Studio Code")
+  (setq dotspacemacs-startup-banner (substitute-in-file-name "$HOME/dotfiles/spacemacs/icons/vscode-banner.png"))
   (setq lsp-diagnostic-package :none)
   (setq pipenv-executable (executable-find "pipenv"))
   (custom-set-faces
