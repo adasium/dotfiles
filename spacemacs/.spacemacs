@@ -775,9 +775,46 @@ If there is no region call CMD with the point position."
     (evil-normal-state)
     (evil-next-line))
 
-  (defun chom/test()
+  (defun chom/choose-python-version ()
+    (let* ((result (helm :sources (reverse (helm-build-async-source "pyenv versions"
+                                    :candidates-process (lambda ()
+                                                          (start-process "echo" nil "pyenv" "versions" "--bare"))))
+                         :buffer "*helm sync source*"))
+           (python-interpreter (s-concat "python" (s-join "\." (-slice (s-split "\\." result) 0 2)))))
+      python-interpreter))
+
+  (defun chom/change-python-version ()
+    (interactive)
+    (setq-local python-shell-interpreter (chom/choose-python-version)))
+
+
+  (defun chom/create-python-scratch-file ()
+    (interactive)
+    (let* ((is-in-python-project (and (projectile-project-p)
+                                      (eq major-mode 'python-mode)))
+           (python-interpreter (executable-find python-shell-interpreter))
+           (temp-file-name (make-temp-file "scratch-" nil ".py"))
+           (scratch-buffer (find-file temp-file-name)))
+      (with-current-buffer scratch-buffer
+        (python-mode)
+        (if is-in-python-project
+            (setq-local python-shell-interpreter python-interpreter)
+          (setq-local python-shell-interpreter (chom/choose-python-version))
+          )
+        )))
+
+  (defun chom/test ()
     (interactive)
     (message "hello")
+    (let* ((result (helm :sources (helm-build-async-source "pyenv versions"
+                                   :candidates-process (lambda ()
+                                                         (start-process "echo" nil "pyenv" "versions" "--bare")))
+                         :buffer "*helm sync source*"))
+           (python-interpreter (s-concat "python" (s-join "\." (-slice (s-split "\\." result) 0 2))))
+           )
+      (message python-interpreter)
+      (setq-local python-shell-interpreter python-interpreter)
+      )
     )
 
 
@@ -978,6 +1015,7 @@ If there is no region call CMD with the point position."
     "I" #'evil-mc-make-cursor-in-visual-selection-beg)
 
   (spacemacs/set-leader-keys "id" 'org-read-date-interactive)
+  (spacemacs/set-leader-keys "bNs" 'chom/create-python-scratch-file)
   (bind-key "C-k" 'chom/test)
   ;; (define-key evil-insert-state-map (kbd "C-j") 'evil-next-line)
   ;; (define-key evil-insert-state-map (kbd "C-k") 'evil-previous-line)
