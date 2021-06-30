@@ -854,18 +854,8 @@ If there is no region call CMD with the point position."
 
   (defun chom/test ()
     (interactive)
-    (message "hello")
-    (let* ((result (helm :sources (helm-build-async-source "pyenv versions"
-                                   :candidates-process (lambda ()
-                                                         (start-process "echo" nil "pyenv" "versions" "--bare")))
-                         :buffer "*helm sync source*"))
-           (python-interpreter (s-concat "python" (s-join "\." (-slice (s-split "\\." result) 0 2))))
-           )
-      (message python-interpreter)
-      (setq-local python-shell-interpreter python-interpreter)
-      )
+    (message "%s" (projectile-project-root))
     )
-
 
   ;; ================================ VARIABLES ============================================
 
