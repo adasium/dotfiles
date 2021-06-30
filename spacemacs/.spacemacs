@@ -846,7 +846,6 @@ If there is no region call CMD with the point position."
            (temp-file-name (make-temp-file "scratch-" nil ".py"))
            (scratch-buffer (find-file temp-file-name)))
       (with-current-buffer scratch-buffer
-        (python-mode)
         (if is-in-python-project
             (setq-local python-shell-interpreter python-interpreter)
           (setq-local python-shell-interpreter (chom/choose-python-version))
