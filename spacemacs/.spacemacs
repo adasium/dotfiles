@@ -975,6 +975,7 @@ If there is no region call CMD with the point position."
 
   (spacemacs/set-leader-keys-for-major-mode 'python-mode "cd" 'dap-debug)
   (spacemacs/set-leader-keys-for-major-mode 'python-mode "cr" 'dap-debug-recent)
+  (spacemacs/set-leader-keys-for-major-mode 'python-mode "p" 'chom/change-python-version)
 
   (bind-key "M-w" 'er/expand-region)
 
