@@ -593,8 +593,7 @@ If there is no region call CMD with the point position."
   (defface chom/org-mode-label-face
     '((t :foreground "#fcdb03"))
     "Face used for labels e.g. @work"
-    :group 'org-mode
-    )
+    :group 'org-mode)
 
   (defun chom/org-font-setup ()
     (font-lock-add-keywords nil '(("@[a-zA-Z]+" . 'chom/org-mode-label-face))))
@@ -648,8 +647,7 @@ If there is no region call CMD with the point position."
     (evil-mc-pause-cursors)
     (evil-mc-make-cursor-here)
     (evil-forward-WORD-begin)
-    (evil-mc-resume-cursors)
-    )
+    (evil-mc-resume-cursors))
   (bind-key "C-M-w" 'evil-mc-make-cursor-WORD-begin)
 
   (defun evil-mc-make-cursor-backward-WORD-end ()
@@ -657,8 +655,7 @@ If there is no region call CMD with the point position."
     (evil-mc-pause-cursors)
     (evil-mc-make-cursor-here)
     (evil-backward-WORD-end)
-    (evil-mc-resume-cursors)
-    )
+    (evil-mc-resume-cursors))
 
   ;; === LATEX (f)
   (defun chom/LaTeX/indent-tabular ()
@@ -693,32 +690,22 @@ If there is no region call CMD with the point position."
 		                    (1+ any-col)
 		                  beg-col))))))))
 
-
   (setq chom/LaTeX/add-item-environments (list "itemize"))
   (defun chom/LaTeX/add-item-below ()
     (interactive)
     (evil-open-below 1)
     (if (member (LaTeX-current-environment) chom/LaTeX/add-item-environments)
-        (latex-insert-item)
-        )
-    )
+        (latex-insert-item)))
 
   (defun chom/LaTeX/add-item-above ()
     (interactive)
     (evil-open-above 1)
     (if (member (LaTeX-current-environment) chom/LaTeX/add-item-environments)
-        (latex-insert-item)
-      )
-    )
+        (latex-insert-item)))
 
   ;; === WEB MODE (f)
   (defun chom/django ()
-    (web-mode-set-engine "django")
-    ;; (if (projectile-project-p)
-    ;;     (if (file-exists-p (concat (projectile-project-root) "manage.py"))
-    ;;         (web-mode-set-engine "django")))
-    )
-
+    (web-mode-set-engine "django"))
 
   (defun chom/get-python-virtualenv-path ()
     (let ((virtualenv-venv-path (concat (projectile-project-root) ".venv"))
@@ -837,7 +824,6 @@ If there is no region call CMD with the point position."
     (interactive)
     (setq-local python-shell-interpreter (chom/choose-python-version)))
 
-
   (defun chom/create-python-scratch-file ()
     (interactive)
     (let* ((is-in-python-project (and (projectile-project-p)
@@ -848,9 +834,7 @@ If there is no region call CMD with the point position."
       (with-current-buffer scratch-buffer
         (if is-in-python-project
             (setq-local python-shell-interpreter python-interpreter)
-          (setq-local python-shell-interpreter (chom/choose-python-version))
-          )
-        )))
+          (setq-local python-shell-interpreter (chom/choose-python-version))))))
 
   (defun chom/test ()
     (interactive)
@@ -1181,8 +1165,7 @@ If there is no region call CMD with the point position."
   (add-hook 'LaTeX-mode-hook (lambda()
                                (add-hook 'after-save-hook 'latex/build nil 'make-it-local)
                                (define-key evil-normal-state-map (kbd "o") 'chom/LaTeX/add-item-below)
-                               (define-key evil-normal-state-map (kbd "O") 'chom/LaTeX/add-item-above)
-                               ))
+                               (define-key evil-normal-state-map (kbd "O") 'chom/LaTeX/add-item-above)))
   (add-hook 'LaTeX-mode-hook 'chom/environment-object)
   (remove-hook 'LaTeX-mode-hook 'latex/auto-fill-mode)
 
