@@ -1177,13 +1177,13 @@ If there is no region call CMD with the point position."
   ;; https://github.com/syl20bnr/spacemacs/issues/9756#issuecomment-363436814
   (setq spacemacs-default-jump-handlers
         (remove 'evil-goto-definition spacemacs-default-jump-handlers))
-  (defun kadir/helm--collect-matches (orig-fun src-list &rest args)
-    (let ((matches
-           (cl-loop for src in src-list
-                    collect (helm-compute-matches src))))
-      (unless (eq matches t) matches)))
+  ;; (defun kadir/helm--collect-matches (orig-fun src-list &rest args)
+  ;;   (let ((matches
+  ;;          (cl-loop for src in src-list
+  ;;                   collect (helm-compute-matches src))))
+  ;;     (unless (eq matches t) matches)))
 
-  (advice-add 'helm--collect-matches :around #'kadir/helm--collect-matches)
+  ;; (advice-add 'helm--collect-matches :around #'kadir/helm--collect-matches)
 
   (setq enable-local-eval t)
   (put 'py-isort-options 'safe-local-variable #'listp)
