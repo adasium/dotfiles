@@ -899,6 +899,8 @@ If there is no region call CMD with the point position."
   (setq org-hide-leading-stars t)
   (setq org-projectile-file "TODO.org")
   (setq org-default-notes-file "TODO.org")
+  (setq org-todo-keywords '((sequence "TODO" "|" "DONE" "CANCELED")))
+  (setq org-todo-keyword-faces '(("CANCELED" . "#ff6047")))
   (setq org-capture-templates
         '(
           ("t" "Regular TODO" entry (file org-projectile-file)
