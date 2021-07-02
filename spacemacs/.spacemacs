@@ -1039,8 +1039,9 @@ If there is no region call CMD with the point position."
   (evil-define-key 'visual evil-mc-key-map (kbd "C-t") nil)
   (define-key evil-normal-state-map (kbd "C-t") 'transpose-chars)
   (define-key evil-insert-state-map (kbd "C-t") 'transpose-chars)
-  (define-key org-mode-map (kbd "go") 'evil-open-below)
-  (define-key org-mode-map (kbd "gO") 'evil-open-above)
+  (with-eval-after-load 'org-mode
+   (define-key org-mode-map (kbd "go") 'evil-open-below)
+   (define-key org-mode-map (kbd "gO") 'evil-open-above))
   (define-key evil-motion-state-map (kbd "go") nil)
 
   (unbind-key (kbd "C-b") evil-motion-state-map)
