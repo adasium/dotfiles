@@ -841,7 +841,9 @@ If there is no region call CMD with the point position."
            (scratch-buffer (find-file temp-file-name)))
       (with-current-buffer scratch-buffer
         (if is-in-python-project
-            (setq-local python-shell-interpreter python-interpreter)
+            (progn
+              (pyvenv-deactivate)
+              (setq-local python-shell-interpreter python-interpreter))
           (setq-local python-shell-interpreter (chom/choose-python-version))))))
 
   (defun chom/test ()
