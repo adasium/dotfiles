@@ -1041,13 +1041,14 @@ If there is no region call CMD with the point position."
   (spacemacs/set-leader-keys-for-major-mode 'python-mode "oc" 'chom/helm-swoop/classes-top-level)
 
   (spacemacs/set-leader-keys-for-major-mode 'python-mode "cd" 'dap-debug)
+  (spacemacs/set-leader-keys-for-major-mode 'python-mode "C" 'chom/python-execute-file)
   (spacemacs/set-leader-keys-for-major-mode 'python-mode "cr" 'dap-debug-recent)
   (spacemacs/set-leader-keys-for-major-mode 'python-mode "p" 'chom/change-python-version)
 
   (bind-key "M-w" 'er/expand-region)
 
-  (bind-key "M-k" 'spacemacs/move-text-transient-state/move-text-up)
-  (bind-key "M-j" 'spacemacs/move-text-transient-state/move-text-down)
+  ;; (bind-key "M-k" 'spacemacs/move-text-transient-state/move-text-up)
+  ;; (bind-key "M-j" 'spacemacs/move-text-transient-state/move-text-down)
 
   (with-eval-after-load 'magit-status
     (define-key magit-status-mode-map (kbd "RET") 'magit-diff-visit-file-other-window))
