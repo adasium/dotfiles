@@ -78,6 +78,9 @@ values."
             c-c++-enable-rtags-completion nil
             c-c++-enable-clang-format-on-save t
             )
+     ;; (gtags :variables
+     ;;        gtags-enable-by-default nil
+     ;;        )
 
      javascript
      vimscript
