@@ -515,6 +515,8 @@ If there is no region call CMD with the point position."
                                          (:default . evil-mc-execute-default-call-with-count))
                                         (evil-org-append-line
                                          (:default . evil-mc-execute-default-call-with-count))
+                                        (join-line
+                                         (:default . evil-mc-execute-default-call))
                                         ))
 
   (add-to-list 'default-frame-alist '(fullscreen . maximized))
