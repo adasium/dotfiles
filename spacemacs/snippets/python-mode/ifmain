@@ -3,11 +3,12 @@
 # key: ifm
 # --
 import sys
+from typing import List
 
 
-def main() -> int:
+def main(args: List[str]) -> int:
     ${0:return 0}
 
 
 if __name__ == '__main__':
-    sys.exit(main())
+    sys.exit(main(sys.argv[1:]))
