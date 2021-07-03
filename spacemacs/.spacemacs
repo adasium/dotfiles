@@ -1080,6 +1080,9 @@ If there is no region call CMD with the point position."
    (define-key org-mode-map (kbd "gO") 'evil-open-above))
   (define-key evil-motion-state-map (kbd "go") nil)
 
+  (evil-define-key 'normal comint-mode-map (kbd "C-j") 'compilation-next-error)
+  (evil-define-key 'normal comint-mode-map (kbd "C-k") 'compilation-previous-error)
+
   (unbind-key (kbd "C-b") evil-motion-state-map)
   (unbind-key (kbd "C-f") evil-motion-state-map)
 
