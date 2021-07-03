@@ -1083,6 +1083,7 @@ If there is no region call CMD with the point position."
   (evil-define-key 'normal comint-mode-map (kbd "C-j") 'compilation-next-error)
   (evil-define-key 'normal comint-mode-map (kbd "C-k") 'compilation-previous-error)
   (evil-define-key 'normal comint-mode-map (kbd "q") 'spacemacs/delete-window)
+  (evil-define-key 'normal special-mode-map (kbd "q") 'spacemacs/delete-window)
 
   (unbind-key (kbd "C-b") evil-motion-state-map)
   (unbind-key (kbd "C-f") evil-motion-state-map)
