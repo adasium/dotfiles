@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: dirpy
+# key: dirpy
+# --
+((python-mode . ($0)))
