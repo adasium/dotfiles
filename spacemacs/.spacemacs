@@ -1094,6 +1094,7 @@ If there is no region call CMD with the point position."
 
   (spacemacs/set-leader-keys "id" 'org-read-date-interactive)
   (spacemacs/set-leader-keys "bNs" 'chom/create-python-scratch-file)
+  (spacemacs/set-leader-keys-for-major-mode 'python-mode "," 'chom/create-python-scratch-file)
   (bind-key "C-k" 'chom/test)
   ;; (define-key evil-insert-state-map (kbd "C-j") 'evil-next-line)
   ;; (define-key evil-insert-state-map (kbd "C-k") 'evil-previous-line)
