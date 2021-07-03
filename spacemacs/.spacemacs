@@ -428,55 +428,83 @@ you should place your code here."
 
   ;; NOTE: last working commit: 6bafc7269
 
-  (spaceline-toggle-minor-modes-off)
-  (spaceline-define-segment python-version
-    (when (eq 'major-mode 'python-mode)
-     python-shell-interpreter)
-    )
-  (spaceline-compile
-    "chom"
-                                        ; left side
-    '(((persp-name
-        workspace-number
-        window-number)
-       :fallback evil-state
-       :face highlight-face
-       :priority 100)
-      (anzu :priority 95)
-      auto-compile
-      ((buffer-modified buffer-size buffer-id remote-host)
-       :priority 98)
-      (major-mode :priority 79)
-      (process :priority 79)
-      ((flycheck-error flycheck-warning flycheck-info)
-       :when active
-       :priority 89)
-      (minor-modes :when active
-                   :priority 9)
-      (python-version)
-      (mu4e-alert-segment :when active)
-      (erc-track :when active)
-      (version-control :when active
-                       :priority 78)
-      ;;(org-pomodoro :when active)
-      ;;(org-clock :when active)
-      ;;nyan-cat
-      )
-                                        ; right side
-    '(which-function
-      (python-pyvenv :fallback python-pyenv)
-      ;(purpose :priority 94)
-      (battery :when active)
-      (selection-info :priority 95)
-      input-method
-      ((;buffer-encoding-abbrev
-        point-position
-        line-column)
-       :separator " | "
-       :priority 96)
-      (global :when active)))
+  (with-eval-after-load 'spaceline
+    ;; (spaceline-toggle-minor-modes-off)
+    (spaceline-define-segment python-version
+                              (when (eq 'major-mode 'python-mode)
+                                python-shell-interpreter)
+                              )
+    ;; fancy git icon
+    (defadvice vc-mode-line (after strip-backend () activate)
+      (when (stringp vc-mode)
+        (let ((gitlogo (replace-regexp-in-string "^ Git." "  " vc-mode)))
+          (setq vc-mode gitlogo))))
 
-  (setq-default mode-line-format '("%e" (:eval (spaceline-ml-chom))))
+    (spaceline-compile
+     "chom"
+                                        ; left side
+     '(((persp-name
+         workspace-number
+         window-number)
+        :fallback evil-state
+        :face highlight-face
+        :priority 100)
+       (anzu :priority 95)
+       auto-compile
+       ((buffer-modified buffer-size buffer-id remote-host)
+        :priority 98)
+       (major-mode :priority 79)
+       (process :priority 79)
+       ((flycheck-error flycheck-warning flycheck-info)
+        :when active
+        :priority 89)
+       (minor-modes :when active
+                    :priority 9)
+       (python-version)
+       (mu4e-alert-segment :when active)
+       (erc-track :when active)
+       (version-control :when active
+                        :priority 78)
+       ;;(org-pomodoro :when active)
+       ;;(org-clock :when active)
+       ;;nyan-cat
+       )
+                                        ; right side
+     '(which-function
+       (python-pyvenv :fallback python-pyenv)
+                                        ;(purpose :priority 94)
+       (battery :when active)
+       (selection-info :priority 95)
+       input-method
+       ((;buffer-encoding-abbrev
+         point-position
+         line-column)
+        :separator " | "
+        :priority 96)
+       (global :when active)))
+
+    (setq-default mode-line-format '("%e" (:eval (spaceline-ml-chom))))
+    )
+
+  (defun chom/python-execute-file (arg)
+    "Execute a python script in a shell."
+    (interactive "P")
+    ;; set compile command to buffer-file-name
+    ;; universal argument put compile buffer in comint mode
+    (let ((universal-argument t)
+          (compile-command (format "%s %s"
+                                   python-shell-interpreter
+                                   (shell-quote-argument (file-name-nondirectory buffer-file-name)))))
+      (if arg
+          (call-interactively 'compile)
+        (compile compile-command t)
+        (with-current-buffer (get-buffer "*compilation*")
+          (inferior-python-mode)
+
+          (switch-to-buffer-other-window "*compilation*")
+          (end-of-buffer)
+          (evil-normal-state)
+          ))))
 
   (setq sbj-buffer-jump-prefix "o")
   (setq sbj-buffer-shortcut-set "oo")
