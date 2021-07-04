@@ -1,0 +1,14 @@
+# -*- mode: snippet -*-
+# name: dap1
+# key: dap1
+# --
+("${1:Main}"
+ :name "$1"
+ :cwd ,(projectile-project-root)
+ :request "${2:$$(yas-auto-next (yas-choose-value '("launch" "attach")))}"
+ :type "python"${3:$$(if (string= (yas-field-value 2) "attach")
+                         (yas-auto-next nil)
+                         (progn (yas-skip-and-clear-field) ""))
+                         :hostName "${4:localhost}"
+                         :port "${5:nil}"}
+                         )
