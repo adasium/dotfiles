@@ -25,7 +25,7 @@ show-snap-osd=true
 exec='gnome-terminal'
 
 [desktop/background]
-picture-options='stretched'
+picture-options='centered'
 primary-color='#000000000000'
 
 [desktop/background/slideshow]
