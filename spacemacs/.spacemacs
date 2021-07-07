@@ -685,22 +685,24 @@ If there is no region call CMD with the point position."
         (re-search-forward "," end 't)
         (forward-char))
 
-      (if (and expected-closing-char (save-excursion (re-search-forward expected-closing-char end 't)))
+      (if (and expected-closing-char (save-excursion
+                                       (re-search-forward expected-closing-char end 't)))
           (progn
             (evil-mc-make-cursor-here)
-            (re-search-forward expected-closing-char end 't)))
+            (re-search-forward expected-closing-char end 't)
+            (backward-char)
+            ))
       (evil-mc-resume-cursors)))
 
   (defun chom/mc-indent-on-enter-and-normal-mode ()
     (interactive)
-    (evil-mc-execute-for-all-cursors 'newline)
-    ;; (call-interactively 'newline-and-indent)
     (if (evil-mc-has-cursors-p)
         (progn
-          (evil-normal-state)
-          (evil-mc-execute-for-all-cursors 'indent-for-tab-command)
-          ))
-    )
+          (let ((evil-mc-command '((:name . newline-and-indent))))
+            (evil-mc-execute-for-all))
+          (newline-and-indent)
+          (evil-normal-state))
+      (newline-and-indent)))
 
   (defun evil--mc-make-cursor-at-col (startcol _endcol orig-line)
     (move-to-column startcol)
