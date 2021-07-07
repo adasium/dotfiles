@@ -666,6 +666,42 @@ If there is no region call CMD with the point position."
       (indent-for-tab-command arg)))
 
   ;; === MULTIPLE CURSORS (f)
+
+  (defun chom/mc-make-cursors-in-selection (start end)
+    (interactive "r")
+    (let* ((map '(("(" . ")")
+                  ("{" . "}")
+                  ("[" . "]")))
+           (expected-closing-char (or (cdr (assoc (char-to-string (char-after start)) map)))))
+
+      (evil-normal-state)
+      (if expected-closing-char
+          (goto-char (+ start 1))
+        (goto-char start))
+
+      (evil-mc-pause-cursors)
+      (while (save-excursion (re-search-forward "," end 't))
+        (evil-mc-make-cursor-here)
+        (re-search-forward "," end 't)
+        (forward-char))
+
+      (if (and expected-closing-char (save-excursion (re-search-forward expected-closing-char end 't)))
+          (progn
+            (evil-mc-make-cursor-here)
+            (re-search-forward expected-closing-char end 't)))
+      (evil-mc-resume-cursors)))
+
+  (defun chom/mc-indent-on-enter-and-normal-mode ()
+    (interactive)
+    (evil-mc-execute-for-all-cursors 'newline)
+    ;; (call-interactively 'newline-and-indent)
+    (if (evil-mc-has-cursors-p)
+        (progn
+          (evil-normal-state)
+          (evil-mc-execute-for-all-cursors 'indent-for-tab-command)
+          ))
+    )
+
   (defun evil--mc-make-cursor-at-col (startcol _endcol orig-line)
     (move-to-column startcol)
     (unless (= (line-number-at-pos) orig-line)
@@ -879,10 +915,12 @@ If there is no region call CMD with the point position."
 
   (defun chom/test ()
     (interactive)
-    (message "%s" (projectile-project-root))
+    ;; (message "%s" (projectile-project-root))
+    (call-interactively 'chom/mc-make-cursors-in-selection)
     )
 
   ;; ================================ VARIABLES ============================================
+  (setq tab-always-indent nil)
 
   (defun chom/helm-search-action (candidate)
     (helm-do-ag (projectile-project-root) (helm-marked-candidates)))
@@ -1057,7 +1095,9 @@ If there is no region call CMD with the point position."
 
   (define-key evil-normal-state-map (kbd "C-a") 'evil-numbers/inc-at-pt)
   (define-key evil-normal-state-map (kbd "C-x") 'evil-numbers/dec-at-pt)
-  (define-key evil-normal-state-map (kbd "gra") 'evil-mc-make-vertical-cursors)
+  (define-key evil-visual-state-map (kbd "grv") 'evil-mc-make-vertical-cursors)
+  (define-key evil-visual-state-map (kbd "gra") 'chom/mc-make-cursors-in-selection)
+  (define-key evil-visual-state-map (kbd "I") 'chom/mc-make-cursors-in-selection)
   (define-key evil-normal-state-map (kbd "C-S-n") 'evil-mc-skip-and-goto-next-match)
   (define-key evil-normal-state-map (kbd "C-S-p") 'evil-mc-skip-and-goto-prev-match)
 
@@ -1067,6 +1107,8 @@ If there is no region call CMD with the point position."
   (define-key evil-normal-state-map (kbd "C-c C-t") 'chom/toggle-boolean)
 
   (define-key evil-normal-state-map (kbd "RET") 'chom/open-below-and-normal-state)
+  (define-key evil-insert-state-map (kbd "RET") 'chom/mc-indent-on-enter-and-normal-mode)
+
   (define-key evil-normal-state-map (kbd "<S-return>") 'chom/open-above-and-normal-state)
 
 
@@ -1090,7 +1132,8 @@ If there is no region call CMD with the point position."
 
   (evil-define-key 'visual evil-mc-key-map
     "A" #'evil-mc-make-cursor-in-visual-selection-end
-    "I" #'evil-mc-make-cursor-in-visual-selection-beg)
+    "I" nil ;; #'evil-mc-make-cursor-in-visual-selection-beg
+    )
 
   (spacemacs/set-leader-keys "id" 'org-read-date-interactive)
   (spacemacs/set-leader-keys "bNs" 'chom/create-python-scratch-file)
@@ -1286,7 +1329,7 @@ This function is called at the very end of Spacemacs initialization."
  '(evil-want-Y-yank-to-eol nil)
  '(latex-noindent-environments nil)
  '(package-selected-packages
-   '(evil-mc-extras ripgrep helm-rg sublimity minimap add-node-modules-path org-plus-contrib evil-unimpaired f s dash doom-dark+-theme))
+   '(mc-extras nginx-mode evil-mc-extras ripgrep helm-rg sublimity minimap add-node-modules-path org-plus-contrib evil-unimpaired f s dash doom-dark+-theme))
  '(safe-local-variable-values
    '((flycheck-disabled-checkers . python-flake8)
      (python-format-on-save t)
