@@ -67,6 +67,7 @@ values."
      lsp
      dap
 
+     dart
      python
      django
      yaml
@@ -84,6 +85,7 @@ values."
 
      javascript
      vimscript
+     rust
 
      docker
      (python :variables
