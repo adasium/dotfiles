@@ -926,6 +926,7 @@ If there is no region call CMD with the point position."
 
   (defun chom/helm-search-action (candidate)
     (helm-do-ag (projectile-project-root) (helm-marked-candidates)))
+  (setq helm-buffer-max-length 60)
 
   (defvar helm-projectile-file-actions
     '(("Search in files" . chom/helm-search-action)))
