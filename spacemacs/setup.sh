@@ -22,3 +22,5 @@ ln -sfv $SCRIPT_DIR/requirements.txt ~/.config/emacs/
 ln -sfv $SCRIPT_DIR/Pipfile ~/.config/emacs/
 
 ln -sfv $SCRIPT_DIR/icons/vscode.png ~/.local/share/icons/
+
+systemctl --user daemon-reload
