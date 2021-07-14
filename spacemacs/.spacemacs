@@ -1334,7 +1334,7 @@ This function is called at the very end of Spacemacs initialization."
  '(evil-want-Y-yank-to-eol nil)
  '(latex-noindent-environments nil)
  '(package-selected-packages
-   '(mc-extras nginx-mode evil-mc-extras ripgrep helm-rg sublimity minimap add-node-modules-path org-plus-contrib evil-unimpaired f s dash doom-dark+-theme))
+   '(tern org-plus-contrib evil-unimpaired f s dash doom-dark+-theme))
  '(safe-local-variable-values
    '((flycheck-disabled-checkers . python-flake8)
      (python-format-on-save t)

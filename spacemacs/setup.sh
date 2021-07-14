@@ -9,6 +9,11 @@ ln -sfv $SCRIPT_DIR/.spacemacs ~/
 mkdir -vp ~/.emacs.d/private/snippets/
 ln -sfv $SCRIPT_DIR/snippets/* ~/.emacs.d/private/snippets/
 ln -sfv $SCRIPT_DIR/emacs.service ~/.config/systemd/user/
+if command -v emacs; then
+    EMACS_PATH=$(dirname $(command -v emacs))
+    sed -i "s#/usr/local/bin#$EMACS_PATH#" ~/.config/systemd/user/emacs.service
+fi
+
 mkdir -vp ~/.local/share/applications/
 ln -sfv $SCRIPT_DIR/emacsclient.desktop ~/.local/share/applications/
 ln -sfv $SCRIPT_DIR/emacs.desktop ~/.local/share/applications/
