@@ -553,9 +553,9 @@ If there is no region call CMD with the point position."
                                         ))
 
   (add-to-list 'default-frame-alist '(fullscreen . maximized))
-  (add-hook 'prog-mode-hook 'electric-pair-mode t)
-  (remove-hook 'prog-mode-hook #'smartparens-mode)
-  (remove-hook 'prog-mode-hook #'spacemacs//activate-smartparens)
+  ;; (add-hook 'prog-mode-hook 'electric-pair-mode t)
+  ;; (remove-hook 'prog-mode-hook #'smartparens-mode)
+  ;; (remove-hook 'prog-mode-hook #'spacemacs//activate-smartparens)
 
   ;; =============================== GLOBAL MODES ==========================================
   (global-company-mode)
