@@ -924,7 +924,7 @@ If there is no region call CMD with the point position."
     )
 
   ;; ================================ VARIABLES ============================================
-  (setq tab-always-indent nil)
+  (setq tab-always-indent t)
 
   (defun chom/helm-search-action (candidate)
     (helm-do-ag (projectile-project-root) (helm-marked-candidates)))
