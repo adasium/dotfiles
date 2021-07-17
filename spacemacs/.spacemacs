@@ -376,7 +376,7 @@ values."
    dotspacemacs-folding-method 'evil
    ;; If non-nil smartparens-strict-mode will be enabled in programming modes.
    ;; (default nil)
-   dotspacemacs-smartparens-strict-mode nil
+   dotspacemacs-smartparens-strict-mode t
    ;; If non-nil pressing the closing parenthesis `)' key in insert mode passes
    ;; over any automatically added closing parenthesis, bracket, quote, etc…
    ;; This can be temporary disabled by pressing `C-q' before `)'. (default nil)
@@ -924,6 +924,7 @@ If there is no region call CMD with the point position."
     )
 
   ;; ================================ VARIABLES ============================================
+  (setq smartparens-strict-mode t)
   (setq tab-always-indent t)
 
   (defun chom/helm-search-action (candidate)
@@ -1061,6 +1062,10 @@ If there is no region call CMD with the point position."
 
   ;; ============================== KEYBINDINGS ===========================================
   ;; https://develop.spacemacs.org/doc/DOCUMENTATION.html#binding-keys
+  (drag-stuff-mode t)
+  (global-set-key (kbd "M-k") 'drag-stuff-up)
+  (global-set-key (kbd "M-j") 'drag-stuff-down)
+
   (global-set-key [remap indent-for-tab-command] 'chom/smart-tab-jump-out-or-indent)
   (global-set-key (kbd "<backtab>") 'chom/smart-tab-jump-in-or-indent)
   (global-set-key [remap python-indent-dedent-line] 'chom/smart-tab-jump-in-or-indent)
