@@ -822,6 +822,38 @@ If there is no region call CMD with the point position."
     (python-shell-switch-to-shell)
     (evil-insert-state))
 
+  (evil-define-text-object python-inner-class (count &optional beg end type)
+    (re-search-backward "^[[:space:]]*class")
+    (setq beg (point))
+    (forward-word)
+    (let* ((current-indent (current-indentation))
+           (mid (if (= current-indent 0) ""
+                  (format "[[:space:]]\{0, %s\}" current-indent)))
+           (outside-regex (concat "^" mid "[^[:space:]\n]+"))
+           (end-regex (concat "[^[:alpha:]]$")))
+      (if (not (re-search-forward outside-regex nil t))
+          (goto-char (point-max)))
+      (re-search-backward end-regex)
+      (goto-char (match-end 0))
+      (evil-range beg (point))))
+
+  (evil-define-text-object python-inner-function (count &optional beg end type)
+    (re-search-backward "^[[:space:]]*def")
+    (setq beg (point))
+    (forward-word)
+    (let* ((current-indent (current-indentation))
+           (mid (format "[[:space:]]\\{,%s\\}" current-indent))
+           (outside-regex (concat "^" mid "[^[:space:]]"))
+           (end-regex (concat "[^^]$" )))
+      (if (not (re-search-forward outside-regex nil t))
+          (goto-char (point-max)))
+      (re-search-backward end-regex)
+      (goto-char (match-end 0))
+      (evil-range beg (point))))
+
+  (define-key evil-inner-text-objects-map (kbd "c") 'python-inner-class)
+  (define-key evil-inner-text-objects-map (kbd "f") 'python-inner-function)
+
   (defun chom/kill-thing-at-point (thing)
     "Kill the `thing-at-point' for the specified kind of THING.
     https://stackoverflow.com/questions/33442027/how-to-deleteor-kill-the-current-word-in-emacs
