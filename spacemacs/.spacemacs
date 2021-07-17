@@ -1116,7 +1116,7 @@ If there is no region call CMD with the point position."
 
   (define-key evil-normal-state-map (kbd "C-c C-t") 'chom/toggle-boolean)
 
-  (define-key evil-normal-state-map (kbd "RET") 'chom/open-below-and-normal-state)
+  ;; (define-key evil-normal-state-map (kbd "RET") 'chom/open-below-and-normal-state)
   (define-key evil-insert-state-map (kbd "RET") 'chom/mc-indent-on-enter-and-normal-mode)
 
   (define-key evil-normal-state-map (kbd "<S-return>") 'chom/open-above-and-normal-state)
