@@ -1032,6 +1032,10 @@ If there is no region call CMD with the point position."
   (setq font-latex-fontify-script nil)
   (setq LaTeX-item-indent 0)
 
+  (with-eval-after-load 'evil-surround
+    (setq-default evil-surround-pairs-alist
+                  (push '(13 . ("" . "")) evil-surround-pairs-alist)))
+
   ;; === vC/C++
   (setq-default sp-escape-quotes-after-insert nil) ; fix inserting single quotes
 
