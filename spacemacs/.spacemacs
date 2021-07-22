@@ -562,6 +562,7 @@ If there is no region call CMD with the point position."
   (global-evil-mc-mode)
   (advice-add 'helm-swoop--edit :after #'evil-mc-mode)
   (advice-add 'helm-ag--edit :after #'evil-mc-mode)
+  (advice-add 'helm-ag--edit :after #'evil-surround-mode)
 
   ;; =========================== OBJECT DEFINITIONS ========================================
   ;; https://stackoverflow.com/questions/18102004/emacs-evil-mode-how-to-create-a-new-text-object-to-select-words-with-any-non-sp/22418983#22418983
