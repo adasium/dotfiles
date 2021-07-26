@@ -75,7 +75,7 @@ values."
      shell-scripts
      html
      (c-c++ :variables
-            c-c++-backend 'rtags
+            c-c++-backend 'lsp-clangd
             c-c++-enable-rtags-completion nil
             c-c++-enable-clang-format-on-save t
             )
