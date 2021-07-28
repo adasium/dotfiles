@@ -1056,6 +1056,7 @@ If there is no region call CMD with the point position."
   ;; (setq importmagic-python-interpreter python-emacs-executable-path)
   (setq flycheck-flake8rc "setup.cfg")
   (setq flycheck-pylintrc "setup.cfg")
+  (setq flycheck-python-mypy-config '("mypy.ini" "setup.cfg" "pyproject.toml"))
   (setq lsp-pyls-configuration-sources ["flake8"])
   (setq lsp-ui-doc-enable nil)
 
