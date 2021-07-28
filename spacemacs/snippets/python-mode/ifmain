@@ -3,12 +3,13 @@
 # key: ifm
 # --
 import sys
-from typing import List
+from typing import Optional
+from typing import Sequence
 
 
-def main(args: List[str]) -> int:
+def main(args: Optional[Sequence[str]] = None) -> int:
     ${0:return 0}
 
 
 if __name__ == '__main__':
-    sys.exit(main(sys.argv[1:]))
+    sys.exit(main())
