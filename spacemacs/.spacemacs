@@ -1238,9 +1238,17 @@ If there is no region call CMD with the point position."
     ;; (define-key evil-normal-state-map (kbd "M-RET") 'importmagic-fix-symbol-at-point)
     (global-set-key [remap python-indent-dedent-line] 'chom/smart-tab-jump-in-or-indent))
 
+  (defun chom/sort-python-imports ()
+    (interactive)
+    (when (derived-mode-p 'python-mode)
+      (shell-command (concat "reorder-python-imports " (buffer-file-name)))
+      )
+    )
+
   ;; This hook needs to be used not to make settings overridden by package setup.
   (add-hook 'python-mode-hook 'chom/python-setup t)
   (add-hook 'python-mode-hook 'display-fill-column-indicator-mode t)
+  (add-hook 'python-mode-hook (lambda() (add-hook 'after-save-hook 'chom/sort-python-imports nil 'make-it-local)))
 
 
   ;; === HASKELL-h
