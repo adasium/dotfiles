@@ -14,7 +14,7 @@ U = TypeVar('U')
 
 
 def _ident(v: str) -> str:
-return v
+    return v
 
 
 @overload
