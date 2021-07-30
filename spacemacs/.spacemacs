@@ -1241,7 +1241,7 @@ If there is no region call CMD with the point position."
   (defun chom/sort-python-imports ()
     (interactive)
     (when (derived-mode-p 'python-mode)
-      (shell-command (concat "reorder-python-imports " (buffer-file-name)))
+      (shell-command (concat python-emacs-executable-path " -m reorder_python_imports " (buffer-file-name)))
       )
     )
 
