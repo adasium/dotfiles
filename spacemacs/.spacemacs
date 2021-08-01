@@ -957,6 +957,7 @@ If there is no region call CMD with the point position."
     )
 
   ;; ================================ VARIABLES ============================================
+  (setq hs-allow-nesting t)
   (setq smartparens-strict-mode t)
   (setq tab-always-indent t)
 
