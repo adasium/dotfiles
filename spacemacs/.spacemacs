@@ -1215,6 +1215,25 @@ If there is no region call CMD with the point position."
                              (chom/setup-indent chom/indent-level)))
 
   ;; === PYTHON-h
+  (defun chom/import-symbol-under-cursor ()
+    (interactive)
+    (message (thing-at-point 'symbol))
+    (let* ((symbol (thing-at-point 'symbol))
+           (output (shell-command-to-string (concat
+                                             python-emacs-executable-path
+                                             " -m importsorcery"
+                                             " --index " (projectile-project-root)
+                                             " -e .venv __pycache__ .git .mypy_cache"
+                                             " --symbol " (format "%s" symbol)
+                                             " -p " python-shell-interpreter
+                                             ))))
+      ;; (message output)
+      (let ((candidate (helm :sources (helm-build-sync-source "import candidates"
+                                        :candidates (lambda ()
+                                                      (s-split "\n" output)))
+                             :buffer "*helm sync source*")))
+        (message candidate)
+        )))
   (defun chom/python-setup ()
     (add-to-list 'flycheck-disabled-checkers 'python-pylint)
     (let ((virtualenv-dir-path (chom/get-python-virtualenv-path)))
@@ -1236,8 +1255,8 @@ If there is no region call CMD with the point position."
 
     (fset 'python-\[\]-get
           (kmacro-lambda-form [?c ?s ?\] ?\) ?i ?. ?g ?e ?t escape ?f ?\" ?t ?\"] 0 "%d"))
-    ;; (define-key evil-insert-state-map (kbd "M-RET") 'importmagic-fix-symbol-at-point)
-    ;; (define-key evil-normal-state-map (kbd "M-RET") 'importmagic-fix-symbol-at-point)
+    (define-key evil-insert-state-map (kbd "M-RET") 'chom/import-symbol-under-cursor)
+    (define-key evil-normal-state-map (kbd "M-RET") 'chom/import-symbol-under-cursor)
     (global-set-key [remap python-indent-dedent-line] 'chom/smart-tab-jump-in-or-indent))
 
   (defun chom/sort-python-imports ()
