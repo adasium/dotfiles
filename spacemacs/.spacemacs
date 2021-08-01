@@ -957,6 +957,7 @@ If there is no region call CMD with the point position."
     )
 
   ;; ================================ VARIABLES ============================================
+  (setq-default projectile-src-directory nil)
   (setq hs-allow-nesting t)
   (setq smartparens-strict-mode t)
   (setq tab-always-indent t)
@@ -1217,22 +1218,21 @@ If there is no region call CMD with the point position."
   ;; === PYTHON-h
   (defun chom/import-symbol-under-cursor ()
     (interactive)
-    (message (thing-at-point 'symbol))
     (let* ((symbol (thing-at-point 'symbol))
            (output (shell-command-to-string (concat
                                              python-emacs-executable-path
                                              " -m importsorcery"
-                                             " --index " (projectile-project-root)
+                                             " --index " (if projectile-src-directory
+                                                             (f-join (projectile-project-root) projectile-src-directory)
+                                                           (projectile-project-root))
                                              " -e .venv __pycache__ .git .mypy_cache"
                                              " --symbol " (format "%s" symbol)
                                              " -p " python-shell-interpreter
                                              ))))
-      ;; (message output)
       (let ((candidate (helm :sources (helm-build-sync-source "import candidates"
                                         :candidates (lambda ()
                                                       (s-split "\n" output)))
                              :buffer "*helm sync source*")))
-        (message candidate)
         )))
   (defun chom/python-setup ()
     (add-to-list 'flycheck-disabled-checkers 'python-pylint)
@@ -1365,6 +1365,7 @@ If there is no region call CMD with the point position."
   ;; (advice-add 'helm--collect-matches :around #'kadir/helm--collect-matches)
 
   (setq enable-local-eval t)
+  (put 'projectile-src-directory 'safe-local-variable #'stringp)
   (put 'py-isort-options 'safe-local-variable #'listp)
   (put 'python-fill-column 'safe-local-variable #'integerp)
   (put 'python-formatter 'safe-local-variable #'symbolp)
