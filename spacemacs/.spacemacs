@@ -1233,7 +1233,11 @@ If there is no region call CMD with the point position."
                                         :candidates (lambda ()
                                                       (s-split "\n" output)))
                              :buffer "*helm sync source*")))
-        )))
+        (save-excursion
+          (goto-char (point-min))
+          (insert (concat candidate "\n"))
+          ))))
+
   (defun chom/python-setup ()
     (add-to-list 'flycheck-disabled-checkers 'python-pylint)
     (let ((virtualenv-dir-path (chom/get-python-virtualenv-path)))
