@@ -51,12 +51,15 @@ nmap \\ :CtrlP<CR>
 
 " swap lines with Alt+j/Alt+k
 " fix to make arrows work
-let c='a'
-while c <= 'z'
+if !has('nvim')
+  let c='a'
+  while c <= 'z'
   exec "set <A-".c.">=\e".c
   exec "imap \e".c." <A-".c.">"
   let c = nr2char(1+char2nr(c))
-endw
+  endw
+endif
+
 set timeout ttimeoutlen=50
 " actual mappings
 nnoremap <silent><A-j> :m .+1<CR>==
