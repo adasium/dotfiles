@@ -1370,6 +1370,7 @@ If there is no region call CMD with the point position."
 
   (setq enable-local-eval t)
   (put 'projectile-src-directory 'safe-local-variable #'stringp)
+  (put 'lsp-python-ms-extra-paths 'safe-local-variable #'stringp)
   (put 'py-isort-options 'safe-local-variable #'listp)
   (put 'python-fill-column 'safe-local-variable #'integerp)
   (put 'python-formatter 'safe-local-variable #'symbolp)
