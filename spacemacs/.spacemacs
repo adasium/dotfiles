@@ -1231,7 +1231,7 @@ If there is no region call CMD with the point position."
                                              " -p " python-shell-interpreter
                                              " --current-file " (buffer-file-name))))
            (candidates (s-split "\n" output))
-           (filtered-candidates (-filter (lambda (import) (not (or (eq import "") (eq 0 (string-to-number import))))) candidates)))
+           (filtered-candidates (-filter (lambda (import) (string-match-p (regexp-quote "import") import)) candidates)))
       (if filtered-candidates
           (progn
             (let ((candidate (helm :sources (helm-build-sync-source "import candidates"
