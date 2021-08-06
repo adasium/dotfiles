@@ -1236,13 +1236,14 @@ If there is no region call CMD with the point position."
       (-filter (lambda (import) (and (eq import ""))) candidates)
       (if candidates
           (progn
-            (message "%s" candidates)
             (let ((candidate (helm :sources (helm-build-sync-source "import candidates"
                                       :candidates candidates)
                                    :buffer "*helm sync source*")))
               (if candidate
                   (save-excursion
                     (goto-char (point-min))
+                    (while (string-prefix-p "#" (thing-at-point 'char))
+                      (evil-next-line))
                     (insert (concat candidate "\n"))))
               )))))
 
