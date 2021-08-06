@@ -1229,12 +1229,10 @@ If there is no region call CMD with the point position."
                                              " -e .venv __pycache__ .git .mypy_cache"
                                              " --symbol " (format "%s" symbol)
                                              " -p " python-shell-interpreter
-                                             " --current-file " (buffer-file-name)
-                                             )))
+                                             " --current-file " (buffer-file-name))))
            (candidates (s-split "\n" output))
-           )
-      (-filter (lambda (import) (and (eq import ""))) candidates)
-      (if candidates
+           (filtered-candidates (-filter (lambda (import) (not (or (eq import "") (eq 0 (string-to-number import))))) candidates)))
+      (if filtered-candidates
           (progn
             (let ((candidate (helm :sources (helm-build-sync-source "import candidates"
                                       :candidates candidates)
@@ -1244,8 +1242,8 @@ If there is no region call CMD with the point position."
                     (goto-char (point-min))
                     (while (string-prefix-p "#" (thing-at-point 'char))
                       (evil-next-line))
-                    (insert (concat candidate "\n"))))
-              )))))
+                    (insert (concat candidate "\n"))))))
+        (message "No candidates for symbol %s" symbol))))
 
   (defun chom/python-setup ()
     (add-to-list 'flycheck-disabled-checkers 'python-pylint)
