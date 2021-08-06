@@ -953,7 +953,8 @@ If there is no region call CMD with the point position."
   (defun chom/test ()
     (interactive)
     ;; (message "%s" (projectile-project-root))
-    (call-interactively 'chom/mc-make-cursors-in-selection)
+    ;; (call-interactively 'chom/mc-make-cursors-in-selection)
+    (message (buffer-file-name))
     )
 
   ;; ================================ VARIABLES ============================================
@@ -1228,15 +1229,22 @@ If there is no region call CMD with the point position."
                                              " -e .venv __pycache__ .git .mypy_cache"
                                              " --symbol " (format "%s" symbol)
                                              " -p " python-shell-interpreter
-                                             ))))
-      (let ((candidate (helm :sources (helm-build-sync-source "import candidates"
-                                        :candidates (lambda ()
-                                                      (s-split "\n" output)))
-                             :buffer "*helm sync source*")))
-        (save-excursion
-          (goto-char (point-min))
-          (insert (concat candidate "\n"))
-          ))))
+                                             " --current-file " (buffer-file-name)
+                                             )))
+           (candidates (s-split "\n" output))
+           )
+      (-filter (lambda (import) (and (eq import ""))) candidates)
+      (if candidates
+          (progn
+            (message "%s" candidates)
+            (let ((candidate (helm :sources (helm-build-sync-source "import candidates"
+                                      :candidates candidates)
+                                   :buffer "*helm sync source*")))
+              (if candidate
+                  (save-excursion
+                    (goto-char (point-min))
+                    (insert (concat candidate "\n"))))
+              )))))
 
   (defun chom/python-setup ()
     (add-to-list 'flycheck-disabled-checkers 'python-pylint)
