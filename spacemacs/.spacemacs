@@ -958,6 +958,7 @@ If there is no region call CMD with the point position."
     )
 
   ;; ================================ VARIABLES ============================================
+  (setq display-line-numbers-width-start t)
   (setq-default projectile-src-directory nil)
   (setq hs-allow-nesting t)
   (setq smartparens-strict-mode t)
