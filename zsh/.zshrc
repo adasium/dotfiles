@@ -58,6 +58,8 @@ export PYENV_ROOT="$HOME/.pyenv"
 export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init --path)"
 
+export PYTHONSTARTUP=~/.pythonrc.py
+
 if [ -f ~/.zshrc.local ]; then
     source ~/.zshrc.local
 fi
