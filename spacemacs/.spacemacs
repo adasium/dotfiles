@@ -1285,7 +1285,7 @@ If there is no region call CMD with the point position."
   ;; This hook needs to be used not to make settings overridden by package setup.
   (add-hook 'python-mode-hook 'chom/python-setup t)
   (add-hook 'python-mode-hook 'display-fill-column-indicator-mode t)
-  (add-hook 'python-mode-hook (lambda() (add-hook 'after-save-hook 'chom/sort-python-imports nil 'make-it-local)))
+  ;; (add-hook 'python-mode-hook (lambda() (add-hook 'after-save-hook 'chom/sort-python-imports nil 'make-it-local)))
 
 
   ;; === HASKELL-h
