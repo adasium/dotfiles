@@ -1136,7 +1136,13 @@ If there is no region call CMD with the point position."
   (spacemacs/set-leader-keys-for-major-mode 'python-mode "cr" 'dap-debug-recent)
   (spacemacs/set-leader-keys-for-major-mode 'python-mode "p" 'chom/change-python-version)
 
-  (bind-key "M-w" 'er/expand-region)
+  (define-key python-mode-map (kbd "C-j") nil)
+  (bind-key "C-j" 'er/expand-region)
+  (defun chom/er/shrink-region()
+    (interactive)
+    (er/expand-region -1))
+  (bind-key "C-k" 'chom/er/shrink-region)
+
 
   ;; (bind-key "M-k" 'spacemacs/move-text-transient-state/move-text-up)
   ;; (bind-key "M-j" 'spacemacs/move-text-transient-state/move-text-down)
@@ -1187,6 +1193,19 @@ If there is no region call CMD with the point position."
     "A" #'evil-mc-make-cursor-in-visual-selection-end
     "I" nil ;; #'evil-mc-make-cursor-in-visual-selection-beg
     )
+
+  (with-eval-after-load 'lsp-mode
+    (define-key lsp-mode-map (kbd "<C-down-mouse-1>") 'spacemacs/jump-to-definition)
+    (define-key lsp-mode-map (kbd "<double-mouse-1>") 'spacemacs/jump-to-definition)
+    )
+  (define-key evil-motion-state-map (kbd "<double-down-mouse-1>") nil)
+  (define-key evil-motion-state-map (kbd "<double-mouse-1>") nil)
+  (define-key evil-motion-state-map (kbd "<down-mouse-1>") nil)
+  (define-key global-map (kbd "<down-mouse-1>") nil)
+
+  (define-key evil-motion-state-map (kbd "<mouse-8>") 'evil-jump-backward)
+  (define-key evil-motion-state-map (kbd "<mouse-9>") 'evil-jump-forward)
+
 
   (spacemacs/set-leader-keys "id" 'org-read-date-interactive)
   (spacemacs/set-leader-keys "bNs" 'chom/create-python-scratch-file)
@@ -1366,8 +1385,11 @@ If there is no region call CMD with the point position."
 
   ;; === WORKAROUNDS AND PATCHES
   ;; https://github.com/syl20bnr/spacemacs/issues/9756#issuecomment-363436814
-  (setq spacemacs-default-jump-handlers
-        (remove 'evil-goto-definition spacemacs-default-jump-handlers))
+  ;; (setq spacemacs-default-jump-handlers
+  ;;       (remove 'evil-goto-definition spacemacs-default-jump-handlers))
+
+  ;; (setq spacemacs-default-jump-handlers '(evil-goto-definition))
+
   ;; (defun kadir/helm--collect-matches (orig-fun src-list &rest args)
   ;;   (let ((matches
   ;;          (cl-loop for src in src-list
