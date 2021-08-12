@@ -1,0 +1,14 @@
+# -*- mode: snippet -*-
+# name: python
+# key: py
+# --
+
+# Byte-compiled
+__pycache__/
+
+# Environments
+.venv/
+.env
+
+# mypy
+.mypy_cache/
