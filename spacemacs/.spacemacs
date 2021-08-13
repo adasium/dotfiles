@@ -964,6 +964,13 @@ If there is no region call CMD with the point position."
   (setq smartparens-strict-mode t)
   (setq tab-always-indent t)
 
+  (defun chom/helm-search-in-selected-files ()
+    (interactive)
+    (helm-mark-all)
+    (with-helm-alive-p
+      (helm-run-after-exit (lambda ()
+                             (helm-do-ag (projectile-project-root) (helm-marked-candidates))))))
+
   (defun chom/helm-search-action (candidate)
     (helm-do-ag (projectile-project-root) (helm-marked-candidates)))
   (setq helm-buffer-max-length 60)
@@ -1105,6 +1112,7 @@ If there is no region call CMD with the point position."
 
   ;; ============================== KEYBINDINGS ===========================================
   ;; https://develop.spacemacs.org/doc/DOCUMENTATION.html#binding-keys
+  (define-key helm-projectile-find-file-map (kbd "C-'") 'chom/helm-search-in-selected-files)
   (drag-stuff-mode t)
   (global-set-key (kbd "M-k") 'drag-stuff-up)
   (global-set-key (kbd "M-j") 'drag-stuff-down)
