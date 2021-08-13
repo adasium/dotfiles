@@ -1145,8 +1145,6 @@ If there is no region call CMD with the point position."
   (spacemacs/set-leader-keys-for-major-mode 'python-mode "cr" 'dap-debug-recent)
   (spacemacs/set-leader-keys-for-major-mode 'python-mode "p" 'chom/change-python-version)
 
-  (with-eval-after-load 'python-mode
-   (define-key python-mode-map (kbd "C-j") nil))
   (bind-key "C-j" 'er/expand-region)
   (defun chom/er/shrink-region()
     (interactive)
@@ -1276,6 +1274,7 @@ If there is no region call CMD with the point position."
         (message "No candidates for symbol %s" symbol))))
 
   (defun chom/python-setup ()
+    (define-key python-mode-map (kbd "C-j") nil)
     (add-to-list 'flycheck-disabled-checkers 'python-pylint)
     (let ((virtualenv-dir-path (chom/get-python-virtualenv-path)))
       (if virtualenv-dir-path
