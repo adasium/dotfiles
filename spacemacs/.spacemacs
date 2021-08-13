@@ -1145,7 +1145,8 @@ If there is no region call CMD with the point position."
   (spacemacs/set-leader-keys-for-major-mode 'python-mode "cr" 'dap-debug-recent)
   (spacemacs/set-leader-keys-for-major-mode 'python-mode "p" 'chom/change-python-version)
 
-  (define-key python-mode-map (kbd "C-j") nil)
+  (with-eval-after-load 'python-mode
+   (define-key python-mode-map (kbd "C-j") nil))
   (bind-key "C-j" 'er/expand-region)
   (defun chom/er/shrink-region()
     (interactive)
