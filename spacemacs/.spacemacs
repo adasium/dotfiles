@@ -1062,14 +1062,14 @@ If there is no region call CMD with the point position."
   (setq lsp-disabled-clients '(pyls))
   (setq python-indent-guess-indent-offset-verbose nil)
   (setq python-emacs-virtualenv-path (substitute-in-file-name "$HOME/.config/emacs/.venv"))
-  (setq python-emacs-executable-path (f-join python-emacs-virtualenv-path "bin/python"))
+  (setq python-emacs-executable-path (f-join python-emacs-virtualenv-path "bin" "python"))
   (setq spacemacs-jump-handlers-python-mode (list 'dumb-jump 'evil-jump-to-tag))
-  ;; (setq importmagic-python-interpreter python-emacs-executable-path)
   (setq flycheck-flake8rc "setup.cfg")
   (setq flycheck-pylintrc "setup.cfg")
   (setq-default flycheck-disabled-checkers '(python-pycompile))
   (setq flycheck-python-mypy-config '("mypy.ini" "setup.cfg" "pyproject.toml"))
   (setq lsp-pyls-configuration-sources ["flake8"])
+  (setq-default flycheck-python-flake8-executable python-emacs-executable-path)
   (setq lsp-ui-doc-enable nil)
 
   ;; === vMAGIT
@@ -1112,7 +1112,8 @@ If there is no region call CMD with the point position."
 
   ;; ============================== KEYBINDINGS ===========================================
   ;; https://develop.spacemacs.org/doc/DOCUMENTATION.html#binding-keys
-  (define-key helm-projectile-find-file-map (kbd "C-'") 'chom/helm-search-in-selected-files)
+  (with-eval-after-load 'helm-projectile
+   (define-key helm-projectile-find-file-map (kbd "C-'") 'chom/helm-search-in-selected-files))
   (drag-stuff-mode t)
   (global-set-key (kbd "M-k") 'drag-stuff-up)
   (global-set-key (kbd "M-j") 'drag-stuff-down)
@@ -1282,12 +1283,9 @@ If there is no region call CMD with the point position."
             ;; Python executable
             (setq-local python-shell-interpreter (f-join "/" virtualenv-dir-path "bin" "python"))
             (setq-local dap-python-executable python-shell-interpreter)
-            ;; Importmagic
-            ;; (setq-local importmagic-python-interpreter (f-join "/" virtualenv-dir-path "bin" "python"))
             ;; Linters
-            (setq-local flycheck-python-flake8-executable (f-join "/" virtualenv-dir-path "bin" "flake8"))
-            (setq-local flycheck-python-mypy-executable (f-join "/" virtualenv-dir-path "bin" "mypy"))
-            (setq-local flycheck-python-pylint-executable (f-join "/" virtualenv-dir-path "bin" "pylint"))
+            ;; (setq-local flycheck-python-mypy-executable (f-join "/" virtualenv-dir-path "bin" "mypy"))
+            ;; (setq-local flycheck-python-pylint-executable (f-join "/" virtualenv-dir-path "bin" "pylint"))
            )
         )
       )
