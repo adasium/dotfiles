@@ -1,0 +1,14 @@
+# -*- mode: snippet -*-
+# name: mypy
+# key: mypy
+# --
+[tool.mypy]
+python_version = "3.8"
+warn_return_any = true
+warn_unused_configs = true
+plugins =
+
+[[tool.mypy.overrides]]
+module = [
+]
+ignore_missing_imports = true
