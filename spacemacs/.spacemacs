@@ -1268,7 +1268,8 @@ If there is no region call CMD with the point position."
               (if candidate
                   (save-excursion
                     (goto-char (point-min))
-                    (while (string-prefix-p "#" (thing-at-point 'char))
+                    (while (or (string-prefix-p "#" (thing-at-point 'char))
+                               (string-prefix-p "from __future__ import" (thing-at-point 'line)))
                       (evil-next-line))
                     (insert (concat candidate "\n"))))))
         (message "No candidates for symbol %s" symbol))))
