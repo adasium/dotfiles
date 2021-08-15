@@ -1067,7 +1067,7 @@ If there is no region call CMD with the point position."
   (setq flycheck-flake8rc "setup.cfg")
   (setq flycheck-pylintrc "setup.cfg")
   (setq-default flycheck-disabled-checkers '(python-pycompile))
-  (setq flycheck-python-mypy-config '("mypy.ini" "setup.cfg" "pyproject.toml"))
+  (setq flycheck-python-mypy-config '("mypy.ini" "pyproject.toml" "setup.cfg"))
   (setq lsp-pyls-configuration-sources ["flake8"])
   (setq-default flycheck-python-flake8-executable python-emacs-executable-path)
   (setq lsp-ui-doc-enable nil)
@@ -1145,11 +1145,11 @@ If there is no region call CMD with the point position."
   (spacemacs/set-leader-keys-for-major-mode 'python-mode "cr" 'dap-debug-recent)
   (spacemacs/set-leader-keys-for-major-mode 'python-mode "p" 'chom/change-python-version)
 
-  (bind-key "C-j" 'er/expand-region)
+  (bind-key "C-k" 'er/expand-region)
   (defun chom/er/shrink-region()
     (interactive)
     (er/expand-region -1))
-  (bind-key "C-k" 'chom/er/shrink-region)
+  (bind-key "C-j" 'chom/er/shrink-region)
 
 
   ;; (bind-key "M-k" 'spacemacs/move-text-transient-state/move-text-up)
