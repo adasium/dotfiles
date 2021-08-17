@@ -3,3 +3,4 @@ alias dd d;;ll
 alias ijson __import__('json')
 alias curl print("curl -X {method} -H {headers} -d '{data}' '{uri}'".format(method=%1.method, headers=" -H ".join(['"{0}: {1}"'.format(k, v) for k, v in %1.headers.items()]), data=%1.body, uri=%1.url))
 alias copy __import__('pyperclip').copy(__import__('json').dumps(%1))
+alias save_mail with open(%2, 'w+') as f: f.write(%1.as_string())
