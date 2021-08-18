@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+# name: logging
+# key: l
+# --
+import logging
+logging.basicConfig(
+    level=logging.NOTSET,
+    format='[%(asctime)s] [%(levelname)8s] --- %(message)s',
+)
+logger = logging.getLogger()
