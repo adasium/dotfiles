@@ -1323,6 +1323,18 @@ If there is no region call CMD with the point position."
     (chom/python-font-setup)
     )
 
+  (defun chom/python-remove-unused-imports ()
+    (interactive)
+    (call-process python-emacs-executable-path
+                  nil
+                  0
+                  nil
+                  "-m"
+                  "autoflake"
+                  "--in-place"
+                  "--remove-unused-variables"
+                  (buffer-file-name)))
+
   (defun chom/sort-python-imports ()
     (interactive)
     (when (derived-mode-p 'python-mode)
