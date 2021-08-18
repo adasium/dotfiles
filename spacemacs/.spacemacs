@@ -640,6 +640,29 @@ If there is no region call CMD with the point position."
   (defun chom/org-font-setup ()
     (font-lock-add-keywords nil '(("@[a-zA-Z]+" . 'chom/org-mode-label-face))))
 
+  (defface chom/python-mode-logger-info-face
+    '((t :foreground "#34eb52"))
+    "Face used for labels e.g. @work"
+    :group 'python-mode)
+
+  (defface chom/python-mode-logger-warn-face
+    '((t :foreground "#fcdb03"))
+    "Face used for labels e.g. @work"
+    :group 'python-mode)
+
+  (defface chom/python-mode-logger-debug-face
+    '((t :foreground "#eb4c34"))
+    "Face used for labels e.g. @work"
+    :group 'python-mode)
+
+
+  (defun chom/python-font-setup ()
+    (font-lock-add-keywords nil '(("logger.info" . 'chom/python-mode-logger-info-face)
+                                  ("logger.warn" . 'chom/python-mode-logger-warn-face)
+                                  ("logger.debug" . 'chom/python-mode-logger-debug-face))))
+
+
+
   (add-hook 'org-mode-hook 'chom/org-font-setup)
 
   (defun chom/org-setup ()
@@ -1218,7 +1241,7 @@ If there is no region call CMD with the point position."
   (spacemacs/set-leader-keys "id" 'org-read-date-interactive)
   (spacemacs/set-leader-keys "bNs" 'chom/create-python-scratch-file)
   (spacemacs/set-leader-keys-for-major-mode 'python-mode "," 'chom/create-python-scratch-file)
-  (bind-key "C-k" 'chom/test)
+  ;; (bind-key "C-k" 'chom/test)
   ;; (define-key evil-insert-state-map (kbd "C-j") 'evil-next-line)
   ;; (define-key evil-insert-state-map (kbd "C-k") 'evil-previous-line)
 
@@ -1285,7 +1308,8 @@ If there is no region call CMD with the point position."
             (setq-local python-shell-interpreter (f-join "/" virtualenv-dir-path "bin" "python"))
             (setq-local dap-python-executable python-shell-interpreter)
             ;; Linters
-            ;; (setq-local flycheck-python-mypy-executable (f-join "/" virtualenv-dir-path "bin" "mypy"))
+            (setq-local flycheck-python-mypy-executable (f-join "/" virtualenv-dir-path "bin" "mypy"))
+            (setq-local flycheck-python-mypy-executable (f-join "/" virtualenv-dir-path "bin" "flake8"))
             ;; (setq-local flycheck-python-pylint-executable (f-join "/" virtualenv-dir-path "bin" "pylint"))
            )
         )
@@ -1295,7 +1319,9 @@ If there is no region call CMD with the point position."
           (kmacro-lambda-form [?c ?s ?\] ?\) ?i ?. ?g ?e ?t escape ?f ?\" ?t ?\"] 0 "%d"))
     (define-key evil-insert-state-map (kbd "M-RET") 'chom/import-symbol-under-cursor)
     (define-key evil-normal-state-map (kbd "M-RET") 'chom/import-symbol-under-cursor)
-    (global-set-key [remap python-indent-dedent-line] 'chom/smart-tab-jump-in-or-indent))
+    (global-set-key [remap python-indent-dedent-line] 'chom/smart-tab-jump-in-or-indent)
+    (chom/python-font-setup)
+    )
 
   (defun chom/sort-python-imports ()
     (interactive)
