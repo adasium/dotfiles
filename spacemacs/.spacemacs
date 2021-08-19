@@ -642,24 +642,26 @@ If there is no region call CMD with the point position."
 
   (defface chom/python-mode-logger-info-face
     '((t :foreground "#34eb52"))
-    "Face used for labels e.g. @work"
     :group 'python-mode)
 
   (defface chom/python-mode-logger-warn-face
     '((t :foreground "#fcdb03"))
-    "Face used for labels e.g. @work"
     :group 'python-mode)
 
   (defface chom/python-mode-logger-debug-face
     '((t :foreground "#eb4c34"))
-    "Face used for labels e.g. @work"
+    :group 'python-mode)
+
+  (defface chom/python-mode-logger-error-face
+    '((t :foreground "#ff0000"))
     :group 'python-mode)
 
 
   (defun chom/python-font-setup ()
     (font-lock-add-keywords nil '(("logger.info" . 'chom/python-mode-logger-info-face)
                                   ("logger.warn" . 'chom/python-mode-logger-warn-face)
-                                  ("logger.debug" . 'chom/python-mode-logger-debug-face))))
+                                  ("logger.debug" . 'chom/python-mode-logger-debug-face)
+                                  ("logger.error" . 'chom/python-mode-logger-error-face))))
 
 
 
