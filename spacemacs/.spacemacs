@@ -584,6 +584,12 @@ If there is no region call CMD with the point position."
   (define-and-bind-text-object "'" "double-quotation-mark" "'" "'")
 
   ;; ================================ FUNCTIONS ============================================
+  (defun chom/buffer-face-mode-dart ()
+    "https://emacs.stackexchange.com/questions/3038/using-a-different-font-for-each-major-mode"
+    (interactive)
+    (setq buffer-face-mode-face '(:family "Ubuntu Mono" :height 100 :width semi-condensed))
+    (buffer-face-mode))
+
   ;; === BASH-f
   ;; https://emacs.stackexchange.com/questions/13128/highlighting-shell-variables-within-quotes
 
@@ -1252,6 +1258,7 @@ If there is no region call CMD with the point position."
   ;; (define-key evil-insert-state-map (kbd "C-k") 'evil-previous-line)
 
   ;; ================================ HOOKS ===============================================
+  (add-hook 'dart-mode-hook 'chom/buffer-face-mode-dart)
   (add-hook 'yas-minor-mode-hook
             (lambda ()
               (yas-activate-extra-mode 'fundamental-mode)))
