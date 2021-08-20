@@ -642,18 +642,22 @@ If there is no region call CMD with the point position."
 
   (defface chom/python-mode-logger-info-face
     '((t :foreground "#34eb52"))
+    "Face used for logger.info in python-mode"
     :group 'python-mode)
 
   (defface chom/python-mode-logger-warn-face
     '((t :foreground "#fcdb03"))
+    "Face used for logger.warn in python-mode"
     :group 'python-mode)
 
   (defface chom/python-mode-logger-debug-face
     '((t :foreground "#eb4c34"))
+    "Face used for logger.debug in python-mode"
     :group 'python-mode)
 
   (defface chom/python-mode-logger-error-face
     '((t :foreground "#ff0000"))
+    "Face used for logger.error in python-mode"
     :group 'python-mode)
 
 
