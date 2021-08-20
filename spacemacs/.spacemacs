@@ -586,6 +586,12 @@ If there is no region call CMD with the point position."
   (define-and-bind-text-object "'" "double-quotation-mark" "'" "'")
 
   ;; ================================ FUNCTIONS ============================================
+  (defun chom/dired-enter-dir ()
+    (interactive)
+    (let ((dir (dired-get-filename)))
+      (if (file-directory-p dir)
+          (dired-find-file))))
+
   (defun chom/dired ()
     (interactive)
     (dired (file-name-directory (buffer-file-name))))
@@ -1237,6 +1243,7 @@ If there is no region call CMD with the point position."
   (evil-define-key 'normal dired-mode-map (kbd "a") 'evil-append)
   (define-key evil-normal-state-map (kbd "-") 'chom/dired)
   (define-key dired-mode-map (kbd "C-h") 'dired-up-directory)
+  (define-key dired-mode-map (kbd "C-l") 'chom/dired-enter-dir)
   (define-key evil-motion-state-map (kbd "-") nil)
 
   (unbind-key (kbd "C-b") evil-motion-state-map)
