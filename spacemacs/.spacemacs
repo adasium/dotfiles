@@ -110,7 +110,7 @@ values."
 
      ;; OTHER
      git
-     (ranger :variables ranger-show-preview t)
+     ;; (ranger :variables ranger-show-preview t)
 
      multiple-cursors
      version-control
@@ -586,6 +586,10 @@ If there is no region call CMD with the point position."
   (define-and-bind-text-object "'" "double-quotation-mark" "'" "'")
 
   ;; ================================ FUNCTIONS ============================================
+  (defun chom/dired ()
+    (interactive)
+    (dired (file-name-directory (buffer-file-name))))
+
   (defun chom/buffer-face-mode-dart ()
     "https://emacs.stackexchange.com/questions/3038/using-a-different-font-for-each-major-mode"
     (interactive)
@@ -1230,6 +1234,10 @@ If there is no region call CMD with the point position."
   (evil-define-key 'normal comint-mode-map (kbd "C-k") 'compilation-previous-error)
   (evil-define-key 'normal comint-mode-map (kbd "q") 'spacemacs/delete-window)
   (evil-define-key 'normal special-mode-map (kbd "q") 'spacemacs/delete-window)
+  (evil-define-key 'normal dired-mode-map (kbd "a") 'evil-append)
+  (define-key evil-normal-state-map (kbd "-") 'chom/dired)
+  (define-key dired-mode-map (kbd "C-h") 'dired-up-directory)
+  (define-key evil-motion-state-map (kbd "-") nil)
 
   (unbind-key (kbd "C-b") evil-motion-state-map)
   (unbind-key (kbd "C-f") evil-motion-state-map)
