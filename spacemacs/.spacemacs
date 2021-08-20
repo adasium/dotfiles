@@ -587,7 +587,7 @@ If there is no region call CMD with the point position."
   (defun chom/buffer-face-mode-dart ()
     "https://emacs.stackexchange.com/questions/3038/using-a-different-font-for-each-major-mode"
     (interactive)
-    (setq buffer-face-mode-face '(:family "Ubuntu Mono" :height 100 :width semi-condensed))
+    (setq buffer-face-mode-face '(:family "Fira Code" :height 90))
     (buffer-face-mode))
 
   ;; === BASH-f
