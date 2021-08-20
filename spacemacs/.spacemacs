@@ -552,6 +552,10 @@ If there is no region call CMD with the point position."
                                          (:default . evil-mc-execute-default-call))
                                         (string-inflection-underscore
                                          (:default . evil-mc-execute-default-call))
+                                        (dired-next-line
+                                         (:default . evil-mc-execute-default-call-with-count))
+                                        (dired-previous-line
+                                         (:default . evil-mc-execute-default-call-with-count))
                                         ))
 
   (add-to-list 'default-frame-alist '(fullscreen . maximized))
@@ -1243,6 +1247,7 @@ If there is no region call CMD with the point position."
   (evil-define-key 'normal dired-mode-map (kbd "a") 'evil-append)
   (define-key evil-normal-state-map (kbd "-") 'chom/dired)
   (define-key dired-mode-map (kbd "C-h") 'dired-up-directory)
+  (define-key dired-mode-map (kbd "<tab>") 'describe-key)
   (define-key dired-mode-map (kbd "C-l") 'chom/dired-enter-dir)
   (define-key evil-motion-state-map (kbd "-") nil)
 
