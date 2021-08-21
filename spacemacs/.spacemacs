@@ -552,6 +552,10 @@ If there is no region call CMD with the point position."
                                          (:default . evil-mc-execute-default-call))
                                         (string-inflection-underscore
                                          (:default . evil-mc-execute-default-call))
+                                        (string-inflection-camelcase
+                                         (:default . evil-mc-execute-default-call))
+                                        (string-inflection-lower-camelcase
+                                         (:default . evil-mc-execute-default-call))
                                         (dired-next-line
                                          (:default . evil-mc-execute-default-call-with-count))
                                         (dired-previous-line
@@ -567,6 +571,7 @@ If there is no region call CMD with the point position."
   (global-company-mode)
   (global-evil-mc-mode)
   (advice-add 'helm-swoop--edit :after #'evil-mc-mode)
+  (advice-add 'dired :after #'undo-tree-mode)
   (advice-add 'helm-ag--edit :after #'evil-mc-mode)
   (advice-add 'helm-ag--edit :after #'evil-surround-mode)
 
@@ -1249,8 +1254,9 @@ If there is no region call CMD with the point position."
   (define-key dired-mode-map (kbd "C-h") 'dired-up-directory)
   (define-key dired-mode-map (kbd "<tab>") 'describe-key)
   (define-key dired-mode-map (kbd "C-l") 'chom/dired-enter-dir)
+  (define-key dired-mode-map (kbd "~") 'evil-invert-char)
+  (define-key dired-mode-map (kbd "<backspace>") 'sp-backward-delete-char)
   (define-key evil-motion-state-map (kbd "-") nil)
-
   (unbind-key (kbd "C-b") evil-motion-state-map)
   (unbind-key (kbd "C-f") evil-motion-state-map)
 
