@@ -687,11 +687,17 @@ If there is no region call CMD with the point position."
     "Face used for logger.error in python-mode"
     :group 'python-mode)
 
+  (defface chom/python-mode-logger-exception-face
+    '((t :foreground "#ff7a92"))
+    "Face used for logger.exception in python-mode"
+    :group 'python-mode)
+
 
   (defun chom/python-font-setup ()
     (font-lock-add-keywords nil '(("logger.info" . 'chom/python-mode-logger-info-face)
                                   ("logger.warn" . 'chom/python-mode-logger-warn-face)
                                   ("logger.debug" . 'chom/python-mode-logger-debug-face)
+                                  ("logger.exception" . 'chom/python-mode-logger-exception-face)
                                   ("logger.error" . 'chom/python-mode-logger-error-face))))
 
 
@@ -1062,6 +1068,7 @@ If there is no region call CMD with the point position."
 
   ;; == MARKDOWN VARIABLES
   (setq markdown-toc-header-toc-start "<!-- markdown-toc start -->")
+  (setq markdown-toc-header-toc-title "## Table of Contents")
 
   ;; == PYTHON VARIABLES
 
