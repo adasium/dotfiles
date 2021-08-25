@@ -19,15 +19,13 @@ def _ident(v: str) -> str:
 
 @overload
 def getenv(name: str) -> str: ...
-
 @overload
 def getenv(name: str, as_: Type[bool]) -> bool: ...
-
 @overload
 def getenv(name: str, as_: Type[str] = str) -> str: ...
-
 @overload
 def getenv(name: str, as_: Callable[[str], T]) -> T: ...
+
 
 def getenv(name: str, as_: Callable[[str], T] | Type[bool] | Type[str] = str) -> T | bool | str:
     value = os.environ[name]
