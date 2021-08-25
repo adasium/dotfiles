@@ -1357,7 +1357,7 @@ If there is no region call CMD with the point position."
             (setq-local dap-python-executable python-shell-interpreter)
             ;; Linters
             (setq-local flycheck-python-mypy-executable (f-join "/" virtualenv-dir-path "bin" "mypy"))
-            (setq-local flycheck-python-mypy-executable (f-join "/" virtualenv-dir-path "bin" "flake8"))
+            (setq-local flycheck-python-flake8-executable (f-join "/" virtualenv-dir-path "bin" "flake8"))
             ;; (setq-local flycheck-python-pylint-executable (f-join "/" virtualenv-dir-path "bin" "pylint"))
            )
         )
