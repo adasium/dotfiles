@@ -928,18 +928,6 @@ If there is no region call CMD with the point position."
           (kill-region (car bounds) (cdr bounds))
         (error "No %s at point" thing))))
 
-  (defun chom/toggle-boolean ()
-    (interactive)
-    (save-excursion
-      (cond
-       ((string= (thing-at-point 'word 'no-properties) "True")
-        (chom/kill-thing-at-point 'word)
-        (insert "False"))
-       ((string= (thing-at-point 'word 'no-properties) "False")
-        (chom/kill-thing-at-point 'word)
-        (insert "True"))
-       ((t nil)))))
-
   ;; PYTHON
 
   (defun chom/helm-swoop/functions-methods()
@@ -1016,9 +1004,7 @@ If there is no region call CMD with the point position."
 
 
 
-  (defvar chom/toggle-thing-alist '(
-                              ;; ("True" . "False")
-                              )
+  (defvar chom/toggle-thing-alist '()
     "nil means it expects visual selection to specify source.
 Otherwise it expects a thing, e.g. 'symbol"
     )
@@ -1273,8 +1259,6 @@ Otherwise it expects a thing, e.g. 'symbol"
 
   (define-key evil-normal-state-map (kbd ">") 'chom/shift-line-right)
   (define-key evil-normal-state-map (kbd "<") 'chom/shift-line-left)
-
-  (define-key evil-normal-state-map (kbd "C-c C-t") 'chom/toggle-boolean)
 
   ;; (define-key evil-normal-state-map (kbd "RET") 'chom/open-below-and-normal-state)
   (define-key evil-insert-state-map (kbd "RET") 'chom/mc-indent-on-enter-and-normal-mode)
