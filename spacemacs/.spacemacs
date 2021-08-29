@@ -1030,12 +1030,13 @@ Otherwise it expects a thing, e.g. 'symbol"
   (defun chom/toggle-thing ()
     "https://github.com/dalanicolai/dala-emacs-lisp/blob/master/evil-switch.el"
     (interactive)
+    (save-excursion
       (let* ((match (chom/toggle-thing--find-match)))
         (when match
           (let ((bounds (if (and (equal (car match) 'visual) (use-region-p))
                             (cons (region-beginning) (region-end))
                           (bounds-of-thing-at-point (car match)))))
-            (replace-regexp (cadr match) (cddr match) nil (car bounds) (cdr bounds))))))
+              (replace-regexp (cadr match) (cddr match) nil (car bounds) (cdr bounds)))))))
 
   (defun chom/test ()
     (interactive)
