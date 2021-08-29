@@ -560,6 +560,8 @@ If there is no region call CMD with the point position."
                                          (:default . evil-mc-execute-default-call-with-count))
                                         (dired-previous-line
                                          (:default . evil-mc-execute-default-call-with-count))
+                                        (chom/toggle-thing
+                                         (:default . evil-mc-execute-default-call))
                                         ))
 
   (add-to-list 'default-frame-alist '(fullscreen . maximized))
@@ -1012,11 +1014,50 @@ If there is no region call CMD with the point position."
               (setq-local python-shell-interpreter python-interpreter))
           (setq-local python-shell-interpreter (chom/choose-python-version))))))
 
+
+
+  (defvar chom/toggle-thing-alist '(
+                              ;; ("True" . "False")
+                              )
+    "nil means it expects visual selection to specify source.
+Otherwise it expects a thing, e.g. 'symbol"
+    )
+  (setq chom/toggle-thing-alist '(
+                                  (symbol . ("true" . "false"))
+                                  (symbol . ("True" . "False"))
+                                  (symbol . ("false" . "true"))
+                                  (symbol . ("False" . "True"))
+                                  ;; (visual . ("\\.get(\\(.*\\))" . ".pop(\\1)"))
+                                  (visual . ("\\[\\(.*\\)\\]" . ".get(\\1)"))
+                                  ))
+
+  (defun chom/toggle-thing--find-match ()
+    (find-if (lambda (x) (or (and
+                              (equal (car x) 'visual)
+                              (use-region-p)
+                              (string-match (cadr x)
+                                            (buffer-substring-no-properties
+                                             (region-beginning) (region-end))))
+                             (and (thing-at-point (car x))
+                                  (string-match (cadr x) (thing-at-point (car x))))))
+             chom/toggle-thing-alist))
+
+  (defun chom/toggle-thing ()
+    "https://github.com/dalanicolai/dala-emacs-lisp/blob/master/evil-switch.el"
+    (interactive)
+      (let* ((match (chom/toggle-thing--find-match)))
+        (when match
+          (let ((bounds (if (and (equal (car match) 'visual) (use-region-p))
+                            (cons (region-beginning) (region-end))
+                          (bounds-of-thing-at-point (car match)))))
+            (replace-regexp (cadr match) (cddr match) nil (car bounds) (cdr bounds))))))
+
   (defun chom/test ()
     (interactive)
     ;; (message "%s" (projectile-project-root))
     ;; (call-interactively 'chom/mc-make-cursors-in-selection)
-    (message (buffer-file-name))
+    ;; (message "%s" (thing-at-point 'sexp))
+    (chom/toggle-thing)
     )
 
   ;; ================================ VARIABLES ============================================
@@ -1288,7 +1329,7 @@ If there is no region call CMD with the point position."
   (spacemacs/set-leader-keys "id" 'org-read-date-interactive)
   (spacemacs/set-leader-keys "bNs" 'chom/create-python-scratch-file)
   (spacemacs/set-leader-keys-for-major-mode 'python-mode "," 'chom/create-python-scratch-file)
-  ;; (bind-key "C-k" 'chom/test)
+  (bind-key "C-l" 'chom/toggle-thing)
   ;; (define-key evil-insert-state-map (kbd "C-j") 'evil-next-line)
   ;; (define-key evil-insert-state-map (kbd "C-k") 'evil-previous-line)
 
