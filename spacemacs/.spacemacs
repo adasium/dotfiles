@@ -1027,7 +1027,6 @@ Otherwise it expects a thing, e.g. 'symbol"
                                   (symbol . ("True" . "False"))
                                   (symbol . ("false" . "true"))
                                   (symbol . ("False" . "True"))
-                                  ;; (visual . ("\\.get(\\(.*\\))" . ".pop(\\1)"))
                                   (visual . ("\\[\\(.*\\)\\]" . ".get(\\1)"))
                                   ))
 
