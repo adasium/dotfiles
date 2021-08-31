@@ -527,6 +527,20 @@ If there is no region call CMD with the point position."
     :cursor-clear region
     (chom/evil-mc-execute-with-region-or-pos (evil-mc-get-command-name)))
 
+  (defun chom/evil-mc-execute-with-region (cmd)
+    (evil-mc-with-region region
+        (funcall cmd
+                 region-start
+                 region-end
+                 region-type
+                 evil-this-register
+                 )))
+
+  (evil-mc-define-handler chom/evil-mc-execute-call-with-region
+    :cursor-clear region
+    (chom/evil-mc-execute-with-region (evil-mc-get-command-name)))
+
+
   (setq evil-mc-custom-known-commands '(
                                         (evil-numbers/inc-at-pt
                                          (:default . chom/evil-mc-execute-call-with-region-or-pos))
@@ -561,7 +575,8 @@ If there is no region call CMD with the point position."
                                         (dired-previous-line
                                          (:default . evil-mc-execute-default-call-with-count))
                                         (chom/toggle-thing
-                                         (:default . evil-mc-execute-default-call))
+                                         (:default . evil-mc-execute-default-call)
+                                         (visual . chom/evil-mc-execute-call-with-region))
                                         ))
 
   (add-to-list 'default-frame-alist '(fullscreen . maximized))
@@ -1013,35 +1028,36 @@ Otherwise it expects a thing, e.g. 'symbol"
                                   (symbol . ("True" . "False"))
                                   (symbol . ("false" . "true"))
                                   (symbol . ("False" . "True"))
+                                  (visual . ("test" . "tested"))
                                   (visual . ("\\[\\(.*\\)\\]" . ".get(\\1)"))
                                   (visual . (".get(\\(.*\\),.*)" . "[\\1]"))
                                   (visual . (".get(\\(.*\\))" . "[\\1]"))
                                   ))
 
-  (defun chom/toggle-thing--find-match ()
+  (defun chom/toggle-thing--find-match (beg end)
+    (message "%s" (buffer-substring-no-properties beg end))
     (find-if (lambda (x) (or (and
                               (equal (car x) 'visual)
                               (use-region-p)
                               (string-match (cadr x)
-                                            (buffer-substring-no-properties
-                                             (region-beginning) (region-end))))
+                                            (buffer-substring-no-properties beg end)))
                              (and (thing-at-point (car x))
                                   (string-match (cadr x) (thing-at-point (car x))))))
              chom/toggle-thing-alist))
 
-  (defun chom/toggle-thing ()
+  (defun chom/toggle-thing (beg end)
     "https://github.com/dalanicolai/dala-emacs-lisp/blob/master/evil-switch.el"
-    (interactive)
-    (save-excursion
-      (let* ((match (chom/toggle-thing--find-match)))
-        (when match
-          (let ((bounds (if (and (equal (car match) 'visual) (use-region-p))
-                            (cons (region-beginning) (region-end))
-                          (bounds-of-thing-at-point (car match)))))
+    (interactive "r")
+    (let* ((match (chom/toggle-thing--find-match beg end)))
 
-            (goto-char (car bounds))
-            (if (re-search-forward (cadr match) (cdr bounds) nil)
-              (replace-match (cddr match))))))))
+      (when match
+        (let ((bounds (if (and (equal (car match) 'visual) (use-region-p))
+                          (cons beg end)
+                        (bounds-of-thing-at-point (car match)))))
+
+          (goto-char (car bounds))
+          (if (re-search-forward (cadr match) (cdr bounds) nil)
+              (replace-match (cddr match)))))))
 
   (defun chom/test ()
     (interactive)
