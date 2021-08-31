@@ -561,7 +561,7 @@ If there is no region call CMD with the point position."
                                         (dired-previous-line
                                          (:default . evil-mc-execute-default-call-with-count))
                                         (chom/toggle-thing
-                                         (:default . chom/evil-mc-execute-call-with-region-or-pos))
+                                         (:default . evil-mc-execute-default-call))
                                         ))
 
   (add-to-list 'default-frame-alist '(fullscreen . maximized))
