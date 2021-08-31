@@ -561,7 +561,7 @@ If there is no region call CMD with the point position."
                                         (dired-previous-line
                                          (:default . evil-mc-execute-default-call-with-count))
                                         (chom/toggle-thing
-                                         (:default . evil-mc-execute-default-call))
+                                         (:default . chom/evil-mc-execute-call-with-region-or-pos))
                                         ))
 
   (add-to-list 'default-frame-alist '(fullscreen . maximized))
@@ -1038,7 +1038,10 @@ Otherwise it expects a thing, e.g. 'symbol"
           (let ((bounds (if (and (equal (car match) 'visual) (use-region-p))
                             (cons (region-beginning) (region-end))
                           (bounds-of-thing-at-point (car match)))))
-              (replace-regexp (cadr match) (cddr match) nil (car bounds) (cdr bounds)))))))
+
+            (goto-char (car bounds))
+            (if (re-search-forward (cadr match) (cdr bounds) nil)
+              (replace-match (cddr match))))))))
 
   (defun chom/test ()
     (interactive)
