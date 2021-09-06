@@ -1019,12 +1019,13 @@ If there is no region call CMD with the point position."
 
 
 
+  ;; === TOGGLE THING
   (defvar chom/toggle-thing-alist '()
     "nil means it expects visual selection to specify source.
 Otherwise it expects a thing, e.g. 'symbol"
     )
 
-  (defun chom/toggle-thing/key ()
+  (defun chom/toggle-thing/get ()
     (when (evil-normal-state-p)
       (evil-visual-state)
       (evil-find-char 1 (string-to-char ")"))
@@ -1034,7 +1035,7 @@ Otherwise it expects a thing, e.g. 'symbol"
       (activate-mark)))
 
   (setq chom/pre-toggle-thing-alist '(
-                                      (symbol . ("get" . chom/toggle-thing/key))
+                                      (symbol . ("get" . chom/toggle-thing/get))
                                       ))
   (setq chom/toggle-thing-alist '(
                                   (symbol . ("true" . "false"))
@@ -1078,6 +1079,8 @@ Otherwise it expects a thing, e.g. 'symbol"
                 (goto-char (car bounds))
                 (if (re-search-forward (cadr match) (cdr bounds) nil)
                     (replace-match (cddr match)))))))))
+
+  ;; === TOGGLE THING END
 
   (defun chom/test ()
     (interactive)
