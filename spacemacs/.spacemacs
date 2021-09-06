@@ -1023,6 +1023,19 @@ If there is no region call CMD with the point position."
     "nil means it expects visual selection to specify source.
 Otherwise it expects a thing, e.g. 'symbol"
     )
+
+  (defun chom/toggle-thing/key ()
+    (when (evil-normal-state-p)
+      (evil-visual-state)
+      (evil-find-char 1 (string-to-char ")"))
+      (set-mark (point))
+      (exchange-point-and-mark)
+      (evil-find-char-backward 1 (string-to-char "."))
+      (activate-mark)))
+
+  (setq chom/pre-toggle-thing-alist '(
+                                      (symbol . ("get" . chom/toggle-thing/key))
+                                      ))
   (setq chom/toggle-thing-alist '(
                                   (symbol . ("true" . "false"))
                                   (symbol . ("True" . "False"))
@@ -1034,30 +1047,37 @@ Otherwise it expects a thing, e.g. 'symbol"
                                   (visual . (".get(\\(.*\\))" . "[\\1]"))
                                   ))
 
-  (defun chom/toggle-thing--find-match (beg end)
-    (message "%s" (buffer-substring-no-properties beg end))
-    (find-if (lambda (x) (or (and
-                              (equal (car x) 'visual)
-                              (use-region-p)
-                              (string-match (cadr x)
-                                            (buffer-substring-no-properties beg end)))
-                             (and (thing-at-point (car x))
-                                  (string-match (cadr x) (thing-at-point (car x))))))
-             chom/toggle-thing-alist))
+  (defun chom/toggle-thing--find-match (source)
+    (let ((beg (region-beginning))
+          (end (region-end)))
+      (find-if (lambda (x) (or (and
+                                (equal (car x) 'visual)
+                                (use-region-p)
+                                (string-match (cadr x)
+                                              (buffer-substring-no-properties beg end)))
+                               (and (thing-at-point (car x))
+                                    (string-match (cadr x) (thing-at-point (car x))))))
+               source)))
 
-  (defun chom/toggle-thing (beg end)
+  (defun chom/toggle-thing ()
     "https://github.com/dalanicolai/dala-emacs-lisp/blob/master/evil-switch.el"
-    (interactive "r")
-    (let* ((match (chom/toggle-thing--find-match beg end)))
-
-      (when match
-        (let ((bounds (if (and (equal (car match) 'visual) (use-region-p))
-                          (cons beg end)
-                        (bounds-of-thing-at-point (car match)))))
-
-          (goto-char (car bounds))
-          (if (re-search-forward (cadr match) (cdr bounds) nil)
-              (replace-match (cddr match)))))))
+    (interactive)
+    (let ((beg (region-beginning))
+          (end (region-end))
+          (pre-action (chom/toggle-thing--find-match chom/pre-toggle-thing-alist)))
+      (if pre-action
+          (funcall (cddr pre-action)))
+      (let* ((beg (region-beginning))
+             (end (region-end))
+             (match (chom/toggle-thing--find-match chom/toggle-thing-alist)))
+        (if match
+            (progn
+              (let ((bounds (if (and (equal (car match) 'visual) (use-region-p))
+                                (cons beg end)
+                              (bounds-of-thing-at-point (car match)))))
+                (goto-char (car bounds))
+                (if (re-search-forward (cadr match) (cdr bounds) nil)
+                    (replace-match (cddr match)))))))))
 
   (defun chom/test ()
     (interactive)
