@@ -1029,7 +1029,7 @@ Otherwise it expects a thing, e.g. 'symbol"
     (when (evil-normal-state-p)
       (evil-visual-state)
       (evil-find-char 1 (string-to-char ")"))
-      (set-mark (point))
+      (evil-forward-char)  ;; don't know why but it works
       (exchange-point-and-mark)
       (evil-find-char-backward 1 (string-to-char "."))
       (activate-mark)))
@@ -1048,9 +1048,10 @@ Otherwise it expects a thing, e.g. 'symbol"
                                   (visual . (".get(\\(.*\\))" . "[\\1]"))
                                   ))
 
-  (defun chom/toggle-thing--find-match (source)
-    (let ((beg (region-beginning))
-          (end (region-end)))
+  (defun chom/toggle-thing--find-match (source &optional beg end)
+    (let ((beg (or beg (region-beginning)))
+          (end (or end (region-end))))
+      (setq deactivate-mark nil)
       (find-if (lambda (x) (or (and
                                 (equal (car x) 'visual)
                                 (use-region-p)
@@ -1070,13 +1071,14 @@ Otherwise it expects a thing, e.g. 'symbol"
           (funcall (cddr pre-action)))
       (let* ((beg (region-beginning))
              (end (region-end))
-             (match (chom/toggle-thing--find-match chom/toggle-thing-alist)))
+             (match (chom/toggle-thing--find-match chom/toggle-thing-alist beg end)))
         (if match
             (progn
               (let ((bounds (if (and (equal (car match) 'visual) (use-region-p))
                                 (cons beg end)
                               (bounds-of-thing-at-point (car match)))))
                 (goto-char (car bounds))
+                (setq deactivate-mark  nil)
                 (if (re-search-forward (cadr match) (cdr bounds) nil)
                     (replace-match (cddr match)))))))))
 
