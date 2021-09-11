@@ -712,6 +712,7 @@ If there is no region call CMD with the point position."
 
   (defun chom/python-font-setup ()
     (font-lock-add-keywords nil '(("logger.info" . 'chom/python-mode-logger-info-face)
+                                  ("logger.warning" . 'chom/python-mode-logger-warn-face)
                                   ("logger.warn" . 'chom/python-mode-logger-warn-face)
                                   ("logger.debug" . 'chom/python-mode-logger-debug-face)
                                   ("logger.exception" . 'chom/python-mode-logger-exception-face)
