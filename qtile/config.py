@@ -23,11 +23,17 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
-
 from typing import List  # noqa: F401
 
-from libqtile import bar, layout, widget
-from libqtile.config import Click, Drag, Group, Key, Match, Screen
+from libqtile import bar
+from libqtile import layout
+from libqtile import widget
+from libqtile.config import Click
+from libqtile.config import Drag
+from libqtile.config import Group
+from libqtile.config import Key
+from libqtile.config import Match
+from libqtile.config import Screen
 from libqtile.lazy import lazy
 from libqtile.utils import guess_terminal
 
@@ -121,11 +127,16 @@ layouts = [
 ]
 
 widget_defaults = dict(
-    font='sans',
-    fontsize=12,
+    font="Fira Code",
+    fontsize=14,
     padding=3,
 )
+
 extension_defaults = widget_defaults.copy()
+
+
+class VolumeWidget(widget.PulseVolume):
+    pass
 
 
 screens = [
@@ -135,20 +146,32 @@ screens = [
                 widget.CurrentLayout(),
                 widget.GroupBox(),
                 widget.Prompt(),
-                widget.WindowName(),
+                widget.TaskList(
+                    highlight_method='block',
+                    # I need this for windows without icons:
+                    unfocused_border='#333333',
+                ),
                 widget.Chord(
                     chords_colors={
                         'launch': ("#ff0000", "#ffffff"),
                     },
                     name_transform=lambda name: name.upper(),
                 ),
-                widget.TextBox("default config", name="default"),
-                widget.TextBox("Press &lt;M-r&gt; to spawn", foreground="#d75f5f"),
                 widget.Systray(),
-                widget.Clock(format='%Y-%m-%d %a %I:%M %p'),
-                widget.QuickExit(),
+                widget.Sep(),
+                widget.TextBox("CPU", name="cpu_label"),
+                widget.CPUGraph(),
+                widget.TextBox("MEM", name="memory_label"),
+                widget.MemoryGraph(),
+                widget.Sep(),
+                VolumeWidget(
+                    fmt=" {: <3}",
+                    volume_app="pavucontrol",
+                ),
+                widget.Sep(),
+                widget.Clock(format='%H:%M\n%Y-%m-%d'),
             ],
-            24,
+            32,
         ),
     ),
 ]
