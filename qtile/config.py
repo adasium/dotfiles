@@ -143,13 +143,14 @@ screens = [
     Screen(
         bottom=bar.Bar(
             [
-                widget.CurrentLayout(),
-                widget.GroupBox(),
+                # widget.CurrentLayout(),
+                # widget.GroupBox(),
                 widget.Prompt(),
                 widget.TaskList(
                     highlight_method='block',
                     # I need this for windows without icons:
                     unfocused_border='#333333',
+                    max_title_width=300,
                 ),
                 widget.Chord(
                     chords_colors={
