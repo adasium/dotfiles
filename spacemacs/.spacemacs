@@ -1309,7 +1309,7 @@ Otherwise it expects a thing, e.g. 'symbol"
   (define-key evil-normal-state-map (kbd "<") 'chom/shift-line-left)
 
   ;; (define-key evil-normal-state-map (kbd "RET") 'chom/open-below-and-normal-state)
-  (define-key evil-insert-state-map (kbd "RET") 'chom/mc-indent-on-enter-and-normal-mode)
+  ;; (define-key evil-insert-state-map (kbd "RET") 'chom/mc-indent-on-enter-and-normal-mode)
 
   (define-key evil-normal-state-map (kbd "<S-return>") 'chom/open-above-and-normal-state)
 
