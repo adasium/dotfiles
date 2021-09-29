@@ -709,6 +709,11 @@ If there is no region call CMD with the point position."
     "Face used for logger.exception in python-mode"
     :group 'python-mode)
 
+  (defface chom/python-mode-assert-face
+    '((t :foreground "#ff00e1"))
+    "Face used for assert keyword in python-mode"
+    :group 'python-mode)
+
 
   (defun chom/python-font-setup ()
     (font-lock-add-keywords nil '(("logger.info" . 'chom/python-mode-logger-info-face)
@@ -716,7 +721,9 @@ If there is no region call CMD with the point position."
                                   ("logger.warn" . 'chom/python-mode-logger-warn-face)
                                   ("logger.debug" . 'chom/python-mode-logger-debug-face)
                                   ("logger.exception" . 'chom/python-mode-logger-exception-face)
-                                  ("logger.error" . 'chom/python-mode-logger-error-face))))
+                                  ("logger.error" . 'chom/python-mode-logger-error-face)
+                                  ("assert" . 'chom/python-mode-assert-face)
+                                  )))
 
 
 
@@ -1420,7 +1427,12 @@ Otherwise it expects a thing, e.g. 'symbol"
   (defun chom/python-setup ()
     (define-key python-mode-map (kbd "C-j") nil)
     (add-to-list 'flycheck-disabled-checkers 'python-pylint)
-    (let ((virtualenv-dir-path (chom/get-python-virtualenv-path)))
+    (let ((virtualenv-dir-path (chom/get-python-virtualenv-path))
+          (tools '("mypy" "flake8")))
+      (dolist (tool tools)
+        (let ((flycheck-python-tool-executable (make-symbol (concat "flycheck-python-" tool "-executable"))))
+          (setq-local flycheck-python-tool-executable (f-join python-emacs-virtualenv-path "bin" "mypy"))))
+
       (if virtualenv-dir-path
           (progn
             (message virtualenv-dir-path)
@@ -1433,6 +1445,7 @@ Otherwise it expects a thing, e.g. 'symbol"
                         (if (file-executable-p (f-join "/" virtualenv-dir-path "bin" "mypy"))
                             (f-join "/" virtualenv-dir-path "bin" "mypy")
                           (f-join python-emacs-virtualenv-path "bin" "mypy")))
+
             (setq-local flycheck-python-flake8-executable
                         (if (file-executable-p (f-join "/" virtualenv-dir-path "bin" "flake8"))
                             (f-join "/" virtualenv-dir-path "bin" "flake8")
