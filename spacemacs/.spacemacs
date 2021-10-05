@@ -1203,7 +1203,7 @@ Otherwise it expects a thing, e.g. 'symbol"
   (ispell-hunspell-add-multi-dic "en_GB,en_US,pl_PL,de_DE")
 
   ;; === vPYTHON
-  (setq lsp-disabled-clients '(pyls))
+  (setq lsp-disabled-clients '(pyls mspyls))
   (setq python-indent-guess-indent-offset-verbose nil)
   (setq python-emacs-virtualenv-path (substitute-in-file-name "$HOME/.config/emacs/.venv"))
   (setq python-emacs-executable-path (f-join python-emacs-virtualenv-path "bin" "python"))
@@ -1271,6 +1271,7 @@ Otherwise it expects a thing, e.g. 'symbol"
   (bind-key "C-M-b" 'evil-mc-make-cursor-backward-WORD-end)
   (define-key evil-insert-state-map (kbd "<C-tab>") 'yas-expand)
   (define-key evil-visual-state-map (kbd "<C-tab>") 'yas-insert-snippet)
+  (define-key evil-normal-state-map (kbd "<C-tab>") 'yas-insert-snippet)
   (define-key evil-normal-state-map (kbd "zm") 'hs-hide-level)
   (define-key evil-normal-state-map (kbd "<escape>") 'evil-mc-undo-all-cursors)
   (define-key evil-insert-state-map (kbd "<S-return>") 'evil-open-above)
@@ -1431,7 +1432,7 @@ Otherwise it expects a thing, e.g. 'symbol"
           (tools '("mypy" "flake8")))
       (dolist (tool tools)
         (let ((flycheck-python-tool-executable (make-symbol (concat "flycheck-python-" tool "-executable"))))
-          (setq-local flycheck-python-tool-executable (f-join python-emacs-virtualenv-path "bin" "mypy"))))
+          `(setq-local ,flycheck-python-tool-executable (f-join python-emacs-virtualenv-path "bin" "mypy"))))
 
       (if virtualenv-dir-path
           (progn
