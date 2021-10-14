@@ -1042,8 +1042,18 @@ Otherwise it expects a thing, e.g. 'symbol"
       (evil-find-char-backward 1 (string-to-char "."))
       (activate-mark)))
 
+  (defun chom/toggle-thing/ret ()
+    (when (evil-normal-state-p)
+      (evil-visual-state)
+      (call-interactively 'evil-inner-symbol)
+      (evil-find-char 1 (string-to-char "="))
+      (evil-forward-char)  ;; don't know why but it works
+      (activate-mark)
+      ))
+
   (setq chom/pre-toggle-thing-alist '(
                                       (symbol . ("get" . chom/toggle-thing/get))
+                                      (symbol . ("[a-zA-Z_]+" . chom/toggle-thing/ret))
                                       ))
   (setq chom/toggle-thing-alist '(
                                   (symbol . ("true" . "false"))
@@ -1054,6 +1064,7 @@ Otherwise it expects a thing, e.g. 'symbol"
                                   (visual . ("\\[\\(.*\\)\\]" . ".get(\\1)"))
                                   (visual . (".get(\\(.*\\),.*)" . "[\\1]"))
                                   (visual . (".get(\\(.*\\))" . "[\\1]"))
+                                  (visual . ("[a-zA-Z_]+ =" . "return"))
                                   ))
 
   (defun chom/toggle-thing--find-match (source &optional beg end)
