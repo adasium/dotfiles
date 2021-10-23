@@ -125,9 +125,8 @@ values."
      flycheck-mypy
      highlight-indent-guides
      rainbow-mode
-     (simple-buffer-jump :location (recipe
-                                    :fetcher github
-                                    :repo "dalanicolai/dala-emacs-lisp"))
+     (simple-buffer-jump :location (recipe :fetcher github :repo "dalanicolai/dala-emacs-lisp"))
+     (helm-gitignore :location (recipe :fetcher github :repo "HanshenWang/helm-gitignore"))
      )
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
@@ -1643,7 +1642,7 @@ This function is called at the very end of Spacemacs initialization."
  '(evil-want-Y-yank-to-eol nil)
  '(latex-noindent-environments nil)
  '(package-selected-packages
-   '(tern org-plus-contrib evil-unimpaired f s dash doom-dark+-theme))
+   '(git-modes tern org-plus-contrib evil-unimpaired f s dash doom-dark+-theme))
  '(safe-local-variable-values
    '((flycheck-disabled-checkers . python-flake8)
      (python-format-on-save t)
