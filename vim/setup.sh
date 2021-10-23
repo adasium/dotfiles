@@ -8,3 +8,4 @@ curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
 ln -sfv $SCRIPT_DIR/.vimrc ~/
 ln -sfv $SCRIPT_DIR/.config ~/.vim/
 ln -sfv $SCRIPT_DIR/UltiSnips ~/.vim/
+vim -c PlugInstall +qall
