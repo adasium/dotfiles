@@ -1,6 +1,6 @@
 # Path to your oh-my-zsh installation.
 export ZSH="/home/$USER/.oh-my-zsh"
-export EDITOR="vim"
+export EDITOR="emacsclient -c -a vim"
 setopt HIST_IGNORE_DUPS
 unsetopt correct_all
 bindkey \^U backward-kill-line # Ctrl+u kills from cursor backwards
