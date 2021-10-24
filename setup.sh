@@ -20,7 +20,7 @@ setting_up Tmux
 ln -sfv $SCRIPT_DIR/tmux/.tmux.conf ~
 
 setting_up ZSH
-ln -sfv $SCRIPT_DIR/zsh/.zshrc ~
+./zsh/setup.sh
 
 setting_up Bash aliases
 ln -sfv $SCRIPT_DIR/bash/.bash_aliases ~
