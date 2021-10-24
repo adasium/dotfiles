@@ -62,7 +62,19 @@ testmic() {
     arecord -f cd --buffer-time=1 - | aplay --buffer-time=1 -
 }
 
-alias apps='find ~/.local/share/applications/ /usr/local/share/applications/ /usr/share/applications/ -iname "*.desktop" -print0 | xargs -0 ls -db'
+apps() {
+    desktop_file_dirs=(
+        "$HOME/.local/share/applications/"
+        "/usr/local/share/applications/"
+        "/usr/share/applications/"
+    )
+    for dir in ${desktop_file_dirs[@]}; do
+        if [ ! -d $dir ]; then
+            desktop_file_dirs=(${desktop_file_dirs[@]/$dir})
+        fi
+    done
+    find ${desktop_file_dirs[@]} -iname "*.desktop" -print0 | xargs -0 ls -db
+}
 
 diffjson() {
     executable='diff'
@@ -82,9 +94,5 @@ if [[ -f ~/.local_aliases ]]; then
     source ~/.local_aliases
 fi
 alias urldecode='python3 -c "import sys; from urllib.parse import unquote; print(unquote(sys.stdin.read()), end=\"\");"'
-
-function brek () {
-    cls && echo "SMOL BREK\n$1 minutes" | cowsay && sowon -p
-}
 
 alias trim="sed -e 's/^ *//' -e 's/ *$//'"
