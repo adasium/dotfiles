@@ -85,6 +85,17 @@ unlink () {
     done < "${1:-/dev/stdin}"
 }
 
+recodeifneeded() {
+    for file in *; do
+        if enca -p -L polish $file | grep -q UTF; then
+            echo "$file is already UTF"
+        else
+            echo "converting $file"
+            recode windows-1250..utf-8 $file
+        fi
+    done
+}
+
 diffjson() {
     executable='diff'
     if command -v 'colordiff' &> /dev/null; then

@@ -21,6 +21,8 @@ util_packages=(
     tldr
     tmux
     stow
+    recode
+    enca
 )
 fonts=(
     ttf-fira-code
