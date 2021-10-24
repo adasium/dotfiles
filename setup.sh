@@ -7,6 +7,9 @@ setting_up() {
     echo $SEP Setting up $@ $SEP
 }
 
+setting_up system
+./system/setup.sh
+
 setting_up Vim
 ./vim/setup.sh
 
