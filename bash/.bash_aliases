@@ -76,6 +76,15 @@ apps() {
     find ${desktop_file_dirs[@]} -iname "*.desktop" -print0 | xargs -0 ls -db
 }
 
+alias first='head -n 1'
+
+unlink () {
+    while read line
+    do
+        readlink -f "$line"
+    done < "${1:-/dev/stdin}"
+}
+
 diffjson() {
     executable='diff'
     if command -v 'colordiff' &> /dev/null; then
