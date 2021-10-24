@@ -20,6 +20,7 @@ util_packages=(
     fzf
     tldr
     tmux
+    stow
 )
 fonts=(
     ttf-fira-code
