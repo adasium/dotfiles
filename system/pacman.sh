@@ -29,6 +29,7 @@ yay_fonts=(
 )
 yay_other=(
     # xow  # seems to fail (2021-10-24)
+    jdk-openjdk
 )
 # zusammen
 pacman_all=(
