@@ -2,13 +2,12 @@
 
 SCRIPT_DIR=$(dirname $(realpath -s $0))
 
-# TODO: check if directory exists and contains .git, otherwise remove it
 if [ -d "$HOME/.emacs.d" ] && [ ! -d "$HOME/.emacs.d/.git" ]; then
     echo "Found Emacs config. Removing ~/.emacs.d"
     rm -rf ~/.emacs.d
 fi
 
-if [ -d "$HOME/.emacs.d" ] && [ -d "$HOME/.emacs.d/.git" ]; then
+if [ ! -d "$HOME/.emacs.d" ] && [ ! -d "$HOME/.emacs.d/.git" ]; then
     git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d
 else
     echo "Spacemacs is already installed"
@@ -36,3 +35,6 @@ ln -sfv $SCRIPT_DIR/Pipfile ~/.config/emacs/
 ln -sfv $SCRIPT_DIR/icons/vscode.png ~/.local/share/icons/
 
 systemctl --user daemon-reload
+systemctl --user enable emacs
+
+./install_python_dependencies.sh
