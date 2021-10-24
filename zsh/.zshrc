@@ -2,6 +2,7 @@
 export ZSH="/home/$USER/.oh-my-zsh"
 export EDITOR="vim"
 setopt HIST_IGNORE_DUPS
+unsetopt correct_all
 bindkey \^U backward-kill-line # Ctrl+u kills from cursor backwards
 ZSH_THEME="agnoster"
 source ~/.bash_aliases
