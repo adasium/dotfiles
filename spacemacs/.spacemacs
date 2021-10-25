@@ -1052,7 +1052,7 @@ Otherwise it expects a thing, e.g. 'symbol"
 
   (setq chom/pre-toggle-thing-alist '(
                                       (symbol . ("get" . chom/toggle-thing/get))
-                                      (symbol . ("[a-zA-Z_]+" . chom/toggle-thing/ret))
+                                      ;; (symbol . ("[a-zA-Z_]+" . chom/toggle-thing/ret))
                                       ))
   (setq chom/toggle-thing-alist '(
                                   (symbol . ("true" . "false"))
