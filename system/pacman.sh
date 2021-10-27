@@ -23,6 +23,7 @@ util_packages=(
     stow
     recode
     enca
+    jq
 )
 fonts=(
     ttf-fira-code
