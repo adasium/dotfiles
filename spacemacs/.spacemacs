@@ -127,6 +127,7 @@ values."
      rainbow-mode
      (simple-buffer-jump :location (recipe :fetcher github :repo "dalanicolai/dala-emacs-lisp"))
      (helm-gitignore :location (recipe :fetcher github :repo "HanshenWang/helm-gitignore"))
+     ;; (compat :location (recipe :fetcher github :repo "phikal/compat.el"))
      )
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
