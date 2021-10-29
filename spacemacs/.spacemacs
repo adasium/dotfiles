@@ -1439,11 +1439,9 @@ Otherwise it expects a thing, e.g. 'symbol"
   (defun chom/python-setup ()
     (define-key python-mode-map (kbd "C-j") nil)
     (add-to-list 'flycheck-disabled-checkers 'python-pylint)
-    (let ((virtualenv-dir-path (chom/get-python-virtualenv-path))
-          (tools '("mypy" "flake8")))
-      (dolist (tool tools)
-        (let ((flycheck-python-tool-executable (make-symbol (concat "flycheck-python-" tool "-executable"))))
-          `(setq-local ,flycheck-python-tool-executable (f-join python-emacs-virtualenv-path "bin" "mypy"))))
+    (let ((virtualenv-dir-path (chom/get-python-virtualenv-path)))
+      (setq-local flycheck-python-flake8-executable (f-join python-emacs-virtualenv-path "bin" "flake8"))
+      (setq-local flycheck-python-mypy-executable (f-join python-emacs-virtualenv-path "bin" "mypy"))
 
       (if virtualenv-dir-path
           (progn
