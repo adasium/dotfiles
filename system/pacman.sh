@@ -25,6 +25,7 @@ util_packages=(
     enca
     jq
     xclip
+    colordiff
 )
 fonts=(
     ttf-fira-code
