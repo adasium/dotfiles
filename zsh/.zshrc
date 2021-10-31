@@ -39,6 +39,10 @@ PROMPT="$PROMPT
 $ "
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+# https://github.com/junegunn/fzf/issues/546#issuecomment-213344845
+# Remap CTRL-T to CTRL-X CTRL-T
+bindkey '^X^T' fzf-file-widget
+bindkey '^T' transpose-chars
 
 #determines search program for fzf
 if type ag &> /dev/null; then
