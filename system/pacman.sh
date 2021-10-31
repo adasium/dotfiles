@@ -26,6 +26,7 @@ util_packages=(
     jq
     xclip
     colordiff
+    flameshot
 )
 fonts=(
     ttf-fira-code
