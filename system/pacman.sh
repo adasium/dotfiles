@@ -24,6 +24,7 @@ util_packages=(
     recode
     enca
     jq
+    colordiff
     xclip
     colordiff
     flameshot
