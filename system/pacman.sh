@@ -27,6 +27,7 @@ util_packages=(
     xclip
     colordiff
     flameshot
+    texlive-most
 )
 fonts=(
     ttf-fira-code
