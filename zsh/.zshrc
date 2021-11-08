@@ -3,7 +3,6 @@ export ZSH="/home/$USER/.oh-my-zsh"
 export EDITOR="emacsclient -c -a vim"
 setopt HIST_IGNORE_DUPS
 unsetopt correct_all
-bindkey \^U backward-kill-line # Ctrl+u kills from cursor backwards
 ZSH_THEME="agnoster"
 source ~/.bash_aliases
 # Uncomment the following line to disable bi-weekly auto-update checks.
@@ -26,6 +25,7 @@ plugins=(
 )
 
 source $ZSH/oh-my-zsh.sh
+bindkey \^U backward-kill-line # after oh-my-zsh
 
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
