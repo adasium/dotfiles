@@ -1350,7 +1350,9 @@ Otherwise it expects a thing, e.g. 'symbol"
   (define-key dired-mode-map (kbd "C-h") 'dired-up-directory)
   (define-key dired-mode-map (kbd "C-l") 'chom/dired-enter-dir)
   (define-key dired-mode-map (kbd "ę") 'wdired-change-to-wdired-mode)
-  (define-key wdired-mode-map (kbd "π") 'wdired-abort-changes)
+  (with-eval-after-load "wdired"
+    (define-key wdired-mode-map (kbd "π") 'wdired-abort-changes)
+    )
   (define-key evil-motion-state-map (kbd "-") nil)
   (unbind-key (kbd "C-b") evil-motion-state-map)
   (unbind-key (kbd "C-f") evil-motion-state-map)
