@@ -29,6 +29,8 @@ util_packages=(
     colordiff
     flameshot
     texlive-most
+    docker
+    docker-compose
 )
 fonts=(
     ttf-fira-code
