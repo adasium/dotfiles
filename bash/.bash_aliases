@@ -116,3 +116,4 @@ fi
 alias urldecode='python3 -c "import sys; from urllib.parse import unquote; print(unquote(sys.stdin.read()), end=\"\");"'
 
 alias trim="sed -e 's/^ *//' -e 's/ *$//'"
+alias open='xdg-open'
