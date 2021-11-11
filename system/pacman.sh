@@ -31,6 +31,7 @@ util_packages=(
     texlive-most
     docker
     docker-compose
+    pdftk
 )
 fonts=(
     ttf-fira-code
