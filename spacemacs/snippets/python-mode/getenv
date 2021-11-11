@@ -10,11 +10,6 @@ from typing import TypeVar
 
 
 T = TypeVar('T')
-U = TypeVar('U')
-
-
-def _ident(v: str) -> str:
-    return v
 
 
 @overload
