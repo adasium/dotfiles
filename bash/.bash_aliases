@@ -117,3 +117,4 @@ alias urldecode='python3 -c "import sys; from urllib.parse import unquote; print
 
 alias trim="sed -e 's/^ *//' -e 's/ *$//'"
 alias open='xdg-open'
+alias please='sudo'
