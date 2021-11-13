@@ -1,0 +1,11 @@
+# -*- mode: snippet -*-
+# name: dec
+# key: dec
+# --
+
+def periodic(args):
+    def periodic_decorator(func):
+        def periodic_inner(*args, **kwargs):
+            return func(*args, **kwargs)
+        return periodic_inner
+    return periodic_decorator
