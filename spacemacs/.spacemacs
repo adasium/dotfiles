@@ -91,7 +91,7 @@ values."
      (python :variables
              python-backend 'lsp
              python-fill-column 200
-             python-lsp-server 'mspyls
+             python-lsp-server 'pylsp
              python-formatter 'black
              python-sort-imports-on-save nil
              python-shell-interpreter "/usr/bin/python3"
