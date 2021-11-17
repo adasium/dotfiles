@@ -1342,6 +1342,14 @@ Otherwise it expects a thing, e.g. 'symbol"
    (define-key org-mode-map (kbd "gO") 'evil-open-above))
   (define-key evil-motion-state-map (kbd "go") nil)
 
+  (evil-define-key 'normal helm-ls-git-rebase-todo-mode-map (kbd "p") 'helm-ls-git-rebase-pick)
+  (evil-define-key 'normal helm-ls-git-rebase-todo-mode-map (kbd "r") 'helm-ls-git-rebase-reword)
+  (evil-define-key 'normal helm-ls-git-rebase-todo-mode-map (kbd "e") 'helm-ls-git-rebase-edit)
+  (evil-define-key 'normal helm-ls-git-rebase-todo-mode-map (kbd "s") 'helm-ls-git-rebase-squash)
+  (evil-define-key 'normal helm-ls-git-rebase-todo-mode-map (kbd "f") 'helm-ls-git-rebase-fixup)
+  (evil-define-key 'normal helm-ls-git-rebase-todo-mode-map (kbd "x") 'helm-ls-git-rebase-exec)
+  (evil-define-key 'normal helm-ls-git-rebase-todo-mode-map (kbd "d") 'helm-ls-git-rebase-drop)
+
   (evil-define-key 'normal comint-mode-map (kbd "C-j") 'compilation-next-error)
   (evil-define-key 'normal comint-mode-map (kbd "C-k") 'compilation-previous-error)
   (evil-define-key 'normal comint-mode-map (kbd "q") 'spacemacs/delete-window)
