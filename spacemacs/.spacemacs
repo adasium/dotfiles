@@ -124,7 +124,6 @@ values."
      doom-themes
      flycheck-mypy
      highlight-indent-guides
-     rainbow-mode
      (simple-buffer-jump :location (recipe :fetcher github :repo "dalanicolai/dala-emacs-lisp"))
      (helm-gitignore :location (recipe :fetcher github :repo "HanshenWang/helm-gitignore"))
      ;; (compat :location (recipe :fetcher github :repo "phikal/compat.el"))
@@ -583,6 +582,8 @@ If there is no region call CMD with the point position."
   ;; (add-hook 'prog-mode-hook 'electric-pair-mode t)
   ;; (remove-hook 'prog-mode-hook #'smartparens-mode)
   ;; (remove-hook 'prog-mode-hook #'spacemacs//activate-smartparens)
+  (remove-hook 'prog-mode-hook #'highlight-parentheses-mode)
+
 
   ;; =============================== GLOBAL MODES ==========================================
   (global-company-mode)
@@ -1111,6 +1112,8 @@ Otherwise it expects a thing, e.g. 'symbol"
     )
 
   ;; ================================ VARIABLES ============================================
+  (show-smartparens-global-mode -1)
+  (setq show-paren-highlight nil)
   (setq display-line-numbers-width-start t)
   (setq-default projectile-src-directory nil)
   (setq hs-allow-nesting t)
