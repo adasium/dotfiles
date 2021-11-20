@@ -90,11 +90,11 @@ values."
      docker
      (python :variables
              python-backend 'lsp
-             python-fill-column 200
+             python-fill-column 120
              python-lsp-server 'pylsp
              python-formatter 'black
              python-sort-imports-on-save nil
-             python-shell-interpreter "/usr/bin/python3"
+             python-shell-interpreter "python3"
              )
      emacs-lisp
      (markdown :variables markdown-live-preview-engine 'vmd)
@@ -583,6 +583,8 @@ If there is no region call CMD with the point position."
   ;; (remove-hook 'prog-mode-hook #'smartparens-mode)
   ;; (remove-hook 'prog-mode-hook #'spacemacs//activate-smartparens)
   (remove-hook 'prog-mode-hook #'highlight-parentheses-mode)
+  (remove-hook 'python-mode-hook #'importmagic-mode)
+  (remove-hook 'python-mode-hook #'turn-on-evil-matchit-mode)
 
 
   ;; =============================== GLOBAL MODES ==========================================
@@ -1235,6 +1237,7 @@ Otherwise it expects a thing, e.g. 'symbol"
 
   ;; === vINDENT
   (setq lsp-enable-indentation t)
+  (setq lsp-enable-snippet nil)
   (setq chom/indent-level 4)
   (defun chom/setup-indent (n)
     (setq python-tab-width n)
@@ -1262,7 +1265,6 @@ Otherwise it expects a thing, e.g. 'symbol"
   ;; === vOTHER
 	(setq powerline-default-separator 'nil)
   (setq vc-follow-symlinks t)
-  (setq avy-timeout-seconds 0.3)
   (setq company-dabbrev-downcase 0)
   (setq company-idle-delay 0.1)
   (setq evil-want-Y-yank-to-eol t)
