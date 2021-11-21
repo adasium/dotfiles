@@ -614,6 +614,8 @@ If there is no region call CMD with the point position."
   (define-and-bind-text-object "'" "double-quotation-mark" "'" "'")
 
   ;; ================================ FUNCTIONS ============================================
+  (evil-add-command-properties #'evil-append-line :jump t)
+
   (defun chom/dired-enter-dir ()
     (interactive)
     (let ((dir (dired-get-filename)))
