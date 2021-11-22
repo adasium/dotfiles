@@ -1116,6 +1116,7 @@ Otherwise it expects a thing, e.g. 'symbol"
     )
 
   ;; ================================ VARIABLES ============================================
+  (setq-default TeX-engine 'xetex)
   (show-smartparens-global-mode -1)
   (setq show-paren-highlight nil)
   (setq display-line-numbers-width-start t)
@@ -1581,8 +1582,11 @@ Otherwise it expects a thing, e.g. 'symbol"
 
   ;; === LATEX-h
   (add-hook 'doc-view-mode-hook 'auto-revert-mode)
+  (defun chom/LaTeX/build-on-save ()
+    (if (= (file-name-extension (buffer-file-name)) "tex")
+        (add-hook 'after-save-hook 'latex/build nil 'make-it-local)))
   (add-hook 'LaTeX-mode-hook (lambda()
-                               (add-hook 'after-save-hook 'latex/build nil 'make-it-local)
+                               (chom/LaTeX/build-on-save)
                                (define-key evil-normal-state-map (kbd "o") 'chom/LaTeX/add-item-below)
                                (define-key evil-normal-state-map (kbd "O") 'chom/LaTeX/add-item-above)))
   (add-hook 'LaTeX-mode-hook 'chom/environment-object)
