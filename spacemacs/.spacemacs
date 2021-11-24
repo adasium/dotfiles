@@ -1288,6 +1288,7 @@ Otherwise it expects a thing, e.g. 'symbol"
 
   (bind-key "C-M-b" 'evil-mc-make-cursor-backward-WORD-end)
   (define-key evil-insert-state-map (kbd "<C-tab>") 'yas-expand)
+  (define-key evil-insert-state-map (kbd "C-k") nil)
   (define-key evil-visual-state-map (kbd "<C-tab>") 'yas-insert-snippet)
   (define-key evil-normal-state-map (kbd "<C-tab>") 'yas-insert-snippet)
   (define-key evil-normal-state-map (kbd "zm") 'hs-hide-level)
