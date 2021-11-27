@@ -20,7 +20,7 @@ if [ ! -f "$EMACS_ACTIVATE_FILE" ]; then
 
     pip3 install --user virtualenv
     echo "Creating virtualenv"
-    virtualenv -p python3.8 "$EMACS_DIR/.venv"
+    virtualenv -p python3.9 "$EMACS_DIR/.venv"
 fi
 
 echo "Activating virtualenv"
