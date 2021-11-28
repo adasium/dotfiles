@@ -85,7 +85,6 @@ values."
 
      javascript
      vimscript
-     rust
 
      docker
      (python :variables
@@ -96,6 +95,9 @@ values."
              python-sort-imports-on-save nil
              python-shell-interpreter "python3"
              )
+     (rust :variables
+           rust-backend 'lsp
+           )
      emacs-lisp
      (markdown :variables markdown-live-preview-engine 'vmd)
      (shell :variables
@@ -126,6 +128,7 @@ values."
      highlight-indent-guides
      (simple-buffer-jump :location (recipe :fetcher github :repo "dalanicolai/dala-emacs-lisp"))
      (helm-gitignore :location (recipe :fetcher github :repo "HanshenWang/helm-gitignore"))
+     (rustic :location (recipe :fetcher github :repo "brotzeit/rustic"))
      ;; (compat :location (recipe :fetcher github :repo "phikal/compat.el"))
      )
    ;; A list of packages that cannot be updated.
@@ -576,6 +579,8 @@ If there is no region call CMD with the point position."
                                         (chom/toggle-thing
                                          (:default . evil-mc-execute-default-call)
                                          (visual . chom/evil-mc-execute-call-with-region))
+                                        (latex/font-bold
+                                         (:default . evil-mc-execute-default-call))
                                         ))
 
   (add-to-list 'default-frame-alist '(fullscreen . maximized))
@@ -1660,7 +1665,7 @@ This function is called at the very end of Spacemacs initialization."
  '(evil-want-Y-yank-to-eol nil)
  '(latex-noindent-environments nil)
  '(package-selected-packages
-   '(git-modes tern org-plus-contrib evil-unimpaired f s dash doom-dark+-theme))
+   '(rustic org-plus-contrib evil-unimpaired f s dash doom-dark+-theme))
  '(safe-local-variable-values
    '((flycheck-disabled-checkers . python-flake8)
      (python-format-on-save t)
