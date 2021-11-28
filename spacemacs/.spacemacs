@@ -590,7 +590,9 @@ If there is no region call CMD with the point position."
   (remove-hook 'prog-mode-hook #'highlight-parentheses-mode)
   (remove-hook 'python-mode-hook #'importmagic-mode)
   (remove-hook 'python-mode-hook #'turn-on-evil-matchit-mode)
-
+  (remove-hook 'before-save-hook #'spacemacs//python-sort-imports)
+  (setq-default rust-before-save-hook nil)
+  (setq-default rust-after-save-hook nil)
 
   ;; =============================== GLOBAL MODES ==========================================
   (global-company-mode)
