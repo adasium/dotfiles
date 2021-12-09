@@ -937,7 +937,7 @@ If there is no region call CMD with the point position."
       (evil-range beg (point))))
 
   (evil-define-text-object python-inner-function (count &optional beg end type)
-    (re-search-backward "^[[:space:]]*def")
+    (re-search-backward "^[[:space:]]*\\(?:async \\)?def")
     (setq beg (point))
     (forward-word)
     (let* ((current-indent (current-indentation))
