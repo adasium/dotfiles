@@ -431,6 +431,8 @@ you should place your code here."
   ;; (nil . ((eval . (setq projectile-project-root (locate-dominating-file default-directory ".dir-locals.el")))))
 
   ;; NOTE: last working commit: 6bafc7269
+  ;; NOTE: XCompose env variables
+  ;; export GTK_IM_MODULE=uim; export QT_IM_MODULE=uim; export XMODIFIERS=@im=uim;
 
   (with-eval-after-load 'spaceline
     ;; (spaceline-toggle-minor-modes-off)
