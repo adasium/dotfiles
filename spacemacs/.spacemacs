@@ -583,6 +583,8 @@ If there is no region call CMD with the point position."
                                          (visual . chom/evil-mc-execute-call-with-region))
                                         (latex/font-bold
                                          (:default . evil-mc-execute-default-call))
+                                        (sp-backward-kill-word
+                                         (:default . evil-mc-execute-default-call-with-count))
                                         ))
 
   (add-to-list 'default-frame-alist '(fullscreen . maximized))
@@ -602,6 +604,7 @@ If there is no region call CMD with the point position."
   (advice-add 'helm-swoop--edit :after #'evil-mc-mode)
   (advice-add 'helm-ag--edit :after #'evil-mc-mode)
   (advice-add 'helm-ag--edit :after #'evil-surround-mode)
+  (advice-add 'python-mode :after #'evil-mc-mode)
 
   ;; =========================== OBJECT DEFINITIONS ========================================
   ;; https://stackoverflow.com/questions/18102004/emacs-evil-mode-how-to-create-a-new-text-object-to-select-words-with-any-non-sp/22418983#22418983
