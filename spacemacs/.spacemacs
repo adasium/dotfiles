@@ -1199,6 +1199,7 @@ Otherwise it expects a thing, e.g. 'symbol"
   (setq yas-snippet-dirs '("~/.emacs.d/private/snippets/"))
 
   ;; === ORG VARIABLES
+  (setq org-enable-valign t)
   (setq org-hide-leading-stars t)
   (setq org-projectile-file "TODO.org")
   (setq org-default-notes-file "TODO.org")
