@@ -8,14 +8,15 @@ scanner {
 
 layout {
   style = "frame"
-  label {
-    interval = 300000
-    css = "* { font: 0.5cm Fira Code; font-weight: 700; -GtkWidget-vexpand: true; -GtkWidget-hexpand: true; -GtkWidget-align: 0.5;}"
-    value = Str(WthrTemp.val,1)
-  }
+  css = "* { border: none; box-shadow: none; }"
   image {
     interval = 300000
-    css = "* { min-width: 0.3cm; min-height: 0.3cm; -GtkWidget-vexpand: true;}"
-    value = '/usr/share/sfwbar/icons/weather/'+$WthrCond+'.svg'
+    css = "* { min-width: 1.0cm; min-height: 1.0cm; -GtkWidget-vexpand: true;  }"
+    value = '/usr/local/share/sfwbar/icons/weather/'+$WthrCond+'.svg'
+  }
+  label {
+    interval = 300000
+    css = "* { font: 0.3cm Fira Code; font-weight: 700; -GtkWidget-vexpand: true; -GtkWidget-hexpand: true; -GtkWidget-align: 0.5;  }"
+    value = Str(WthrTemp.val,1)
   }
 }
