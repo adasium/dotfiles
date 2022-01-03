@@ -5,11 +5,16 @@ scanner {
 }
 
 layout {
-  style = "frame"
+  style = "pager"
   css = "* { border: none; box-shadow: none; }"
   label {
     interval = 50
-    css = "* { font: 0.3cm Fira Code; font-weight: 700; -GtkWidget-vexpand: true; -GtkWidget-hexpand: true; -GtkWidget-align: 0.5;  }"
-    value = Volume
+    value = Str(Volume.val, 0)
+    action[1] = "cinnamon-settings sound"
+    action[2] = "pamixer -t"
+    action[3] = "pavucontrol"
+    action[5] = "pamixer -d 5"
+    action[4] = "pamixer -i 5"
+    css = "* { min-width: 2cm; min-height: 1cm; font: 0.3cm Fira Code; font-weight: 700; -GtkWidget-vexpand: true; -GtkWidget-hexpand: true; -GtkWidget-align: 0.5; }"
   }
 }
