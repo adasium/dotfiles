@@ -689,7 +689,7 @@ If there is no region call CMD with the point position."
     (let ((ISSUEKEY "[[:lower:]]+_[[:digit:]]+"))
       (when (string-match-p ISSUEKEY (magit-get-current-branch))
         (insert
-         (string-inflection-upcase-function
+         (upcase
           (string-inflection-kebab-case-function
            (replace-regexp-in-string
             (concat ".*?\\(" ISSUEKEY "\\).*")
