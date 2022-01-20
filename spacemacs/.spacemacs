@@ -686,7 +686,7 @@ If there is no region call CMD with the point position."
   (defun add-d-to-ediff-mode-map () (define-key ediff-mode-map (kbd "B") 'ediff-copy-both-to-C))
   (defun chom/git-commit-setup ()
     ;; https://emacs.stackexchange.com/a/28541
-    (let ((ISSUEKEY "[[:lower:]]+_[[:digit:]]+"))
+    (let ((ISSUEKEY "[[:upper:]]+_[[:digit:]]+"))
       (when (string-match-p ISSUEKEY (magit-get-current-branch))
         (insert
          (upcase
