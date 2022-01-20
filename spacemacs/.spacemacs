@@ -61,7 +61,7 @@ values."
      syntax-checking
 
      ;; SEARCH
-     helm
+     ivy
      imenu-list
 
      ;; LANGUAGE-RELATED
