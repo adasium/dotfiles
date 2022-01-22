@@ -20,16 +20,22 @@ menu("mymenu") {
 }
 
 layout {
-  style = "pager"
-  css = "* { border: none; box-shadow: none; }"
-  label {
-    interval = 50
-    value = Str(Volume.val, 0)
-    action[1] = "cinnamon-settings sound"
-    action[2] = "pavucontrol"
-    action[3] = Function "SoundMenu"
-    action[5] = "pamixer -d 5"
-    action[4] = "pamixer -i 5"
+    style = "pager"
     css = "* { min-width: 2cm; font: 0.3cm Fira Code; font-weight: 700; -GtkWidget-vexpand: true; -GtkWidget-hexpand: true; -GtkWidget-align: 0.5; }"
-  }
+    interval = 50
+    grid {
+        action[1] = "cinnamon-settings sound"
+        action[2] = "pavucontrol"
+        action[3] = Function "SoundMenu"
+        action[5] = "pamixer -d 5"
+        action[4] = "pamixer -i 5"
+        label {
+            css = "* { min-width: 0.7cm; font: 0.3cm Fira Code; font-weight: 700; -GtkWidget-vexpand: true; -GtkWidget-hexpand: true; -GtkWidget-align: 1; }"
+            value = Str(Volume.val, 0)
+        }
+        image {
+            css = "* { min-width: 1.0cm; min-height: 1.0cm; -GtkWidget-vexpand: true;  }"
+            value = '/usr/share/icons/Papirus-Dark/24x24/actions/speaker.svg'
+        }
+    }
 }
