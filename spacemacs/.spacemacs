@@ -32,6 +32,7 @@ values."
    dotspacemacs-configuration-layers
    '(
      typescript
+     racket
      sql
      vue
      systemd
@@ -130,6 +131,7 @@ values."
      (simple-buffer-jump :location (recipe :fetcher github :repo "dalanicolai/dala-emacs-lisp"))
      (helm-gitignore :location (recipe :fetcher github :repo "HanshenWang/helm-gitignore"))
      (rustic :location (recipe :fetcher github :repo "brotzeit/rustic"))
+     (valign :location (recipe :fetcher github :repo "casouri/valign"))
      ;; (compat :location (recipe :fetcher github :repo "phikal/compat.el"))
      )
    ;; A list of packages that cannot be updated.
