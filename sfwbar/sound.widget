@@ -4,6 +4,21 @@ scanner {
   }
 }
 
+function("SoundMenu") {
+    MenuClear "DynamicMenu"
+    PipeRead "$HOME/.config/sfwbar/scripts/construct_sound_menu.sh"
+    Menu "DynamicMenu"
+}
+
+menu("mymenu") {
+    item("item1", Exec "alacritty -e top")
+    item("item2", SwayCmd "focus next")
+    separator
+    submenu("sub") {
+        item("item3", Exec "something else")
+    }
+}
+
 layout {
   style = "pager"
   css = "* { border: none; box-shadow: none; }"
@@ -11,10 +26,10 @@ layout {
     interval = 50
     value = Str(Volume.val, 0)
     action[1] = "cinnamon-settings sound"
-    action[2] = "pamixer -t"
-    action[3] = "pavucontrol"
+    action[2] = "pavucontrol"
+    action[3] = Function "SoundMenu"
     action[5] = "pamixer -d 5"
     action[4] = "pamixer -i 5"
-    css = "* { min-width: 2cm; min-height: 1cm; font: 0.3cm Fira Code; font-weight: 700; -GtkWidget-vexpand: true; -GtkWidget-hexpand: true; -GtkWidget-align: 0.5; }"
+    css = "* { min-width: 2cm; font: 0.3cm Fira Code; font-weight: 700; -GtkWidget-vexpand: true; -GtkWidget-hexpand: true; -GtkWidget-align: 0.5; }"
   }
 }
