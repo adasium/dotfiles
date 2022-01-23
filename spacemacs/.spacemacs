@@ -1144,6 +1144,13 @@ Otherwise it expects a thing, e.g. 'symbol"
     )
 
   ;; ================================ VARIABLES ============================================
+  (setq npmloc (substitute-in-file-name "$HOME/.emacs.d/.cache/lsp/"))
+  (setq lsp-clients-angular-language-server-command
+        '("node"
+          (f-join npmloc "/@angular/language-server")
+          "--ngProbeLocations" npmloc
+          "--tsProbeLocations" npmloc
+          "--stdio"))
   (setq-default TeX-engine 'xetex)
   (show-smartparens-global-mode -1)
   (setq show-paren-highlight nil)
