@@ -22,7 +22,6 @@ menu("mymenu") {
 layout {
     style = "pager"
     css = "* { min-width: 1cm; font: 0.3cm Fira Code; font-weight: 700; -GtkWidget-vexpand: true; -GtkWidget-align: 0.5; }"
-    interval = 50
     grid {
         action[1] = "cinnamon-settings sound"
         action[2] = "pavucontrol"
