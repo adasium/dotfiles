@@ -130,7 +130,6 @@ values."
      flycheck-mypy
      highlight-indent-guides
      (simple-buffer-jump :location (recipe :fetcher github :repo "dalanicolai/dala-emacs-lisp"))
-     (helm-gitignore :location (recipe :fetcher github :repo "HanshenWang/helm-gitignore"))
      (rustic :location (recipe :fetcher github :repo "brotzeit/rustic"))
      (valign :location (recipe :fetcher github :repo "casouri/valign"))
      ;; (compat :location (recipe :fetcher github :repo "phikal/compat.el"))
@@ -307,19 +306,6 @@ values."
    dotspacemacs-auto-save-file-location 'cache
    ;; Maximum number of rollback slots to keep in the cache. (default 5)
    dotspacemacs-max-rollback-slots 5
-   ;; If non nil, `helm' will try to minimize the space it uses. (default nil)
-   dotspacemacs-helm-resize nil
-   ;; if non nil, the helm header is hidden when there is only one source.
-   ;; (default nil)
-   dotspacemacs-helm-no-header nil
-   ;; define the position to display `helm', options are `bottom', `top',
-   ;; `left', or `right'. (default 'bottom)
-   dotspacemacs-helm-position 'bottom
-   ;; Controls fuzzy matching in helm. If set to `always', force fuzzy matching
-   ;; in all non-asynchronous sources. If set to `source', preserve individual
-   ;; source settings. Else, disable fuzzy matching in all sources.
-   ;; (default 'always)
-   dotspacemacs-helm-use-fuzzy 'always
    ;; If non nil the paste micro-state is enabled. When enabled pressing `p`
    ;; several times cycle between the kill ring content. (default nil)
    dotspacemacs-enable-paste-transient-state nil
@@ -605,9 +591,6 @@ If there is no region call CMD with the point position."
   ;; =============================== GLOBAL MODES ==========================================
   (global-company-mode)
   (global-evil-mc-mode)
-  (advice-add 'helm-swoop--edit :after #'evil-mc-mode)
-  (advice-add 'helm-ag--edit :after #'evil-mc-mode)
-  (advice-add 'helm-ag--edit :after #'evil-surround-mode)
   (advice-add 'python-mode :after #'evil-mc-mode)
 
   ;; =========================== OBJECT DEFINITIONS ========================================
@@ -984,20 +967,6 @@ If there is no region call CMD with the point position."
           (kill-region (car bounds) (cdr bounds))
         (error "No %s at point" thing))))
 
-  ;; PYTHON
-
-  (defun chom/helm-swoop/functions-methods()
-    (interactive)
-    (helm-swoop :query "^\\ \\ \\ \\ def\\ "))
-
-  (defun chom/helm-swoop/functions-all()
-    (interactive)
-    (helm-swoop :query "^\\ *def\\ "))
-
-  (defun chom/helm-swoop/classes-top-level()
-    (interactive)
-    (helm-swoop :query "^class\\ "))
-
   ;; STORAGE
   (defun storage/storage1 ()
     (interactive)
@@ -1031,14 +1000,6 @@ If there is no region call CMD with the point position."
     (evil-open-above 1)
     (evil-normal-state)
     (evil-next-line))
-
-  (defun chom/choose-python-version ()
-    (let* ((result (helm :sources (reverse (helm-build-async-source "pyenv versions"
-                                    :candidates-process (lambda ()
-                                                          (start-process "echo" nil "pyenv" "versions" "--bare"))))
-                         :buffer "*helm sync source*"))
-           (python-interpreter (s-concat "python" (s-join "\." (-slice (s-split "\\." result) 0 2)))))
-      python-interpreter))
 
   (defun chom/change-python-version ()
     (interactive)
@@ -1161,20 +1122,6 @@ Otherwise it expects a thing, e.g. 'symbol"
   (setq smartparens-strict-mode t)
   (setq tab-always-indent t)
 
-  (defun chom/helm-search-in-selected-files ()
-    (interactive)
-    (helm-mark-all)
-    (with-helm-alive-p
-      (helm-run-after-exit (lambda ()
-                             (helm-do-ag (projectile-project-root) (helm-marked-candidates))))))
-
-  (defun chom/helm-search-action (candidate)
-    (helm-do-ag (projectile-project-root) (helm-marked-candidates)))
-  (setq helm-buffer-max-length 60)
-
-  (defvar helm-projectile-file-actions
-    '(("Search in files" . chom/helm-search-action)))
-
   (setq projectile-indexing-method 'hybrid)
   (setq projectile-enable-caching t)
   (setq dap-python-terminal "gnome-terminal -- ")
@@ -1217,9 +1164,6 @@ Otherwise it expects a thing, e.g. 'symbol"
                            "-tc"))
   (setq split-width-threshold 0)
   (setq split-height-threshold nil)
-  (setq helm-grep-ag-command "rg --vimgrep --color=always --smart-case --no-heading --line-number --ignore-file .ignore %s %s %s")
-
-
   (setq yas-snippet-dirs '("~/.emacs.d/private/snippets/"))
 
   ;; === ORG VARIABLES
@@ -1311,8 +1255,6 @@ Otherwise it expects a thing, e.g. 'symbol"
 
   ;; ============================== KEYBINDINGS ===========================================
   ;; https://develop.spacemacs.org/doc/DOCUMENTATION.html#binding-keys
-  (with-eval-after-load 'helm-projectile
-   (define-key helm-projectile-find-file-map (kbd "C-'") 'chom/helm-search-in-selected-files))
   (drag-stuff-mode t)
   (global-set-key (kbd "M-k") 'drag-stuff-up)
   (global-set-key (kbd "M-j") 'drag-stuff-down)
@@ -1336,10 +1278,6 @@ Otherwise it expects a thing, e.g. 'symbol"
 
   (spacemacs/set-leader-keys-for-major-mode 'python-mode "sb" 'chom/python-eval-buffer)
   (spacemacs/set-leader-keys-for-major-mode 'python-mode "sB" 'chom/python-eval-buffer-switch)
-
-  (spacemacs/set-leader-keys-for-major-mode 'python-mode "of" 'chom/helm-swoop/functions-methods)
-  (spacemacs/set-leader-keys-for-major-mode 'python-mode "oF" 'chom/helm-swoop/functions-all)
-  (spacemacs/set-leader-keys-for-major-mode 'python-mode "oc" 'chom/helm-swoop/classes-top-level)
 
   (spacemacs/set-leader-keys-for-major-mode 'python-mode "cd" 'dap-debug)
   (spacemacs/set-leader-keys-for-major-mode 'python-mode "C" 'chom/python-execute-file)
@@ -1387,14 +1325,6 @@ Otherwise it expects a thing, e.g. 'symbol"
    (define-key org-mode-map (kbd "go") 'evil-open-below)
    (define-key org-mode-map (kbd "gO") 'evil-open-above))
   (define-key evil-motion-state-map (kbd "go") nil)
-
-  (evil-define-key 'normal helm-ls-git-rebase-todo-mode-map (kbd "p") 'helm-ls-git-rebase-pick)
-  (evil-define-key 'normal helm-ls-git-rebase-todo-mode-map (kbd "r") 'helm-ls-git-rebase-reword)
-  (evil-define-key 'normal helm-ls-git-rebase-todo-mode-map (kbd "e") 'helm-ls-git-rebase-edit)
-  (evil-define-key 'normal helm-ls-git-rebase-todo-mode-map (kbd "s") 'helm-ls-git-rebase-squash)
-  (evil-define-key 'normal helm-ls-git-rebase-todo-mode-map (kbd "f") 'helm-ls-git-rebase-fixup)
-  (evil-define-key 'normal helm-ls-git-rebase-todo-mode-map (kbd "x") 'helm-ls-git-rebase-exec)
-  (evil-define-key 'normal helm-ls-git-rebase-todo-mode-map (kbd "d") 'helm-ls-git-rebase-drop)
 
   (evil-define-key 'normal comint-mode-map (kbd "C-j") 'compilation-next-error)
   (evil-define-key 'normal comint-mode-map (kbd "C-k") 'compilation-previous-error)
@@ -1475,19 +1405,7 @@ Otherwise it expects a thing, e.g. 'symbol"
                                              " --current-file " (buffer-file-name))))
            (candidates (s-split "\n" output))
            (filtered-candidates (-filter (lambda (import) (string-match-p (regexp-quote "import") import)) candidates)))
-      (if filtered-candidates
-          (progn
-            (let ((candidate (helm :sources (helm-build-sync-source "import candidates"
-                                      :candidates candidates)
-                                   :buffer "*helm sync source*")))
-              (if candidate
-                  (save-excursion
-                    (goto-char (point-min))
-                    (while (or (string-prefix-p "#" (thing-at-point 'char))
-                               (string-prefix-p "from __future__ import" (thing-at-point 'line)))
-                      (evil-next-line))
-                    (insert (concat candidate "\n"))))))
-        (message "No candidates for symbol %s" symbol))))
+      ))
 
   (defun chom/python-setup ()
     (define-key python-mode-map (kbd "C-j") nil)
@@ -1635,20 +1553,6 @@ Otherwise it expects a thing, e.g. 'symbol"
                               (setq tab-width 4)))
 
   ;; === WORKAROUNDS AND PATCHES
-  ;; https://github.com/syl20bnr/spacemacs/issues/9756#issuecomment-363436814
-  ;; (setq spacemacs-default-jump-handlers
-  ;;       (remove 'evil-goto-definition spacemacs-default-jump-handlers))
-
-  ;; (setq spacemacs-default-jump-handlers '(evil-goto-definition))
-
-  ;; (defun kadir/helm--collect-matches (orig-fun src-list &rest args)
-  ;;   (let ((matches
-  ;;          (cl-loop for src in src-list
-  ;;                   collect (helm-compute-matches src))))
-  ;;     (unless (eq matches t) matches)))
-
-  ;; (advice-add 'helm--collect-matches :around #'kadir/helm--collect-matches)
-
   (setq enable-local-eval t)
   (put 'projectile-src-directory 'safe-local-variable #'stringp)
   (put 'lsp-python-ms-extra-paths 'safe-local-variable #'stringp)
@@ -1699,7 +1603,8 @@ This function is called at the very end of Spacemacs initialization."
  '(package-selected-packages
    '(rustic org-plus-contrib evil-unimpaired f s dash doom-dark+-theme))
  '(safe-local-variable-values
-   '((flycheck-disabled-checkers . python-flake8)
+   '((counsel-find-file-ignore-regexp . "^test")
+     (flycheck-disabled-checkers . python-flake8)
      (python-format-on-save t)
      (javascript-backend . tide)
      (javascript-backend . tern)
