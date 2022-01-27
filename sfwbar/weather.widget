@@ -17,7 +17,7 @@ layout {
     }
     image {
       interval = 300000
-      css = "* { min-width: 1.0cm; min-height: 1.0cm; -GtkWidget-vexpand: true;  }"
+      css = "* { min-width: 1.0cm; min-height: 1.0cm; -GtkWidget-vexpand: true; padding-bottom: 1mm; }"
       value = '/usr/local/share/sfwbar/icons/weather/'+$WthrCond+'.svg'
     }
   }
