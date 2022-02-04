@@ -119,4 +119,10 @@ alias trim="sed -e 's/^ *//' -e 's/ *$//'"
 alias open='xdg-open'
 alias please='sudo'
 
-alias rf='rg --files | rg'
+rf() {
+    if [ "$#" -ne 1 ]; then
+        rg --files
+    else
+        rg --files | rg $@
+    fi
+}
