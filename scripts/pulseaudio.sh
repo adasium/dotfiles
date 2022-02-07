@@ -26,15 +26,16 @@
 #   you'll have to restart pulseaudio or run ./pulseaudio.sh -t
 
 
+ADD_NEWLINE_FOR_EACH_DEVICE="sed -e 's/\(Source\|Sink\)/\n\0/g'"
+REMOVE_EMPTY_LINES="sed -e '/^$/d'"
 JOIN_EVERYTHING_WITH_PIPE="tr '\n' '|'"
-ADD_NEWLINE_FOR_EACH_DEVICE="sed -e 's/*\{0,1\}[[:space:]]*index/\n\0/g'"
 UNJOIN_BY_PIPE="sed 's/|/\n/g'"
-GREP_DEFAULT="grep '* index'"
-GET_NAME="grep 'name:' | awk -F '<|>' '{print \$2}'"
-GET_DEFAULT="$JOIN_EVERYTHING_WITH_PIPE | $ADD_NEWLINE_FOR_EACH_DEVICE | $GREP_DEFAULT | $UNJOIN_BY_PIPE | $GET_NAME"
+GREP_DEFAULT="grep 'State: RUNNING'"
+GET_NAME="grep 'Name:' | awk -F ' ' '{print \$2}'"
+GET_DEFAULT="$REMOVE_EMPTY_LINES | $JOIN_EVERYTHING_WITH_PIPE | $ADD_NEWLINE_FOR_EACH_DEVICE | $GREP_DEFAULT | $UNJOIN_BY_PIPE | $GET_NAME"
 
-DEFAULT_INPUT_CMD="pacmd list-sources | $GET_DEFAULT"
-DEFAULT_OUTPUT_CMD="pacmd list-sinks | $GET_DEFAULT"
+DEFAULT_INPUT_CMD="pactl list sources | $GET_DEFAULT"
+DEFAULT_OUTPUT_CMD="pactl list sinks | $GET_DEFAULT"
 
 LATENCY_MSEC=5
 
@@ -86,4 +87,4 @@ fi
 
 # Applications like Discord will probably not be able to set monitor device as input.
 # We workaround it by setting virtual2.monitor as default input which makes it default in the app.
-pacmd set-default-source $MIC_SINK_NAME.monitor
+pactl set-default-source $MIC_SINK_NAME.monitor
