@@ -1,6 +1,7 @@
 #!/bin/bash
 
 SCREENS=($(xrandr | awk '/ connected/ {print $1}'))
+WACOM_SCREEN=$(cat /tmp/.wacom_screen)
 
 SCREEN_FOUND=false
 for item in "${SCREENS[@]}"; do
@@ -20,4 +21,5 @@ if [[ $WACOM_SCREEN == '' ]]; then
 fi
 echo $WACOM_SCREEN
 export WACOM_SCREEN
+echo $WACOM_SCREEN > /tmp/.wacom_screen
 xsetwacom set "$(xsetwacom --list devices | grep stylus | awk -F "id:" '{print $1}' | awk '{$1=$1};1' )" MapToOutput "$WACOM_SCREEN"
