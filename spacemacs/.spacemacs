@@ -1106,6 +1106,7 @@ Otherwise it expects a thing, e.g. 'symbol"
     )
 
   ;; ================================ VARIABLES ============================================
+  (setq ivy-initial-inputs-alist nil)
   (setq npmloc (substitute-in-file-name "$HOME/.emacs.d/.cache/lsp/"))
   (setq lsp-clients-angular-language-server-command
         '("node"
