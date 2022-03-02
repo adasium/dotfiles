@@ -613,6 +613,16 @@ If there is no region call CMD with the point position."
   (define-and-bind-text-object "'" "double-quotation-mark" "'" "'")
 
   ;; ================================ FUNCTIONS ============================================
+  (defun chom/projectile-copy-file-path-as-python-import ()
+    "Copy and show file path as python import"
+    (interactive)
+    (if-let (file-path (spacemacs--projectile-file-path))
+        (progn
+          (setq file-path (replace-regexp-in-string "/" "." (replace-regexp-in-string "src/" "" (file-name-sans-extension file-path))))
+          (kill-new file-path)
+          (message "%s" file-path))
+      (message "WARNING: Current buffer is not visiting a file!")))
+
   (evil-add-command-properties #'evil-append-line :jump t)
 
   (defun chom/dired-enter-dir ()
@@ -1276,6 +1286,7 @@ Otherwise it expects a thing, e.g. 'symbol"
   (define-key evil-insert-state-map (kbd "<S-return>") 'evil-open-above)
 
   (spacemacs/set-leader-keys "by" 'spacemacs/copy-whole-buffer-to-clipboard)
+  (spacemacs/set-leader-keys "fyp" 'chom/projectile-copy-file-path-as-python-import)
 
   (spacemacs/set-leader-keys-for-major-mode 'python-mode "sb" 'chom/python-eval-buffer)
   (spacemacs/set-leader-keys-for-major-mode 'python-mode "sB" 'chom/python-eval-buffer-switch)
