@@ -31,6 +31,7 @@ values."
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
    '(
+     graphviz
      nginx
      typescript
      racket
@@ -131,7 +132,7 @@ values."
      highlight-indent-guides
      (simple-buffer-jump :location (recipe :fetcher github :repo "dalanicolai/dala-emacs-lisp"))
      (rustic :location (recipe :fetcher github :repo "brotzeit/rustic"))
-     (valign :location (recipe :fetcher github :repo "casouri/valign"))
+     ;; (valign :location (recipe :fetcher github :repo "casouri/valign"))
      ;; (compat :location (recipe :fetcher github :repo "phikal/compat.el"))
      )
    ;; A list of packages that cannot be updated.
@@ -1613,7 +1614,7 @@ This function is called at the very end of Spacemacs initialization."
  '(evil-want-Y-yank-to-eol nil)
  '(latex-noindent-environments nil)
  '(package-selected-packages
-   '(rustic org-plus-contrib evil-unimpaired f s dash doom-dark+-theme))
+   '(graphviz-dot-mode org-plus-contrib evil-unimpaired f s dash doom-dark+-theme))
  '(safe-local-variable-values
    '((counsel-find-file-ignore-regexp . "^test")
      (flycheck-disabled-checkers . python-flake8)
