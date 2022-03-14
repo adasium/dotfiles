@@ -116,7 +116,6 @@ fi
 alias urldecode='python3 -c "import sys; from urllib.parse import unquote; print(unquote(sys.stdin.read()), end=\"\");"'
 
 alias trim="sed -e 's/^ *//' -e 's/ *$//'"
-alias open='xdg-open'
 alias please='sudo'
 
 rf() {
@@ -124,5 +123,14 @@ rf() {
         rg --files
     else
         rg --files | rg $@
+    fi
+}
+
+open() {
+    extension="${1##*.}"
+    filename_no_ext="${1%.*}"
+    echo "$1 -> $filename_no_ext.svg"
+    if [ "$extension" = "dot" ]; then
+        dot -Tsvg $1 -o "$filename_no_ext.svg" && xdg-open "$filename_no_ext.svg"
     fi
 }
