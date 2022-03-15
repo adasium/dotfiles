@@ -127,10 +127,17 @@ rf() {
 }
 
 open() {
+    filename="$1"
     extension="${1##*.}"
     filename_no_ext="${1%.*}"
-    echo "$1 -> $filename_no_ext.svg"
     if [ "$extension" = "dot" ]; then
+        echo "$1 -> $filename_no_ext.svg"
+        echo "Opening with `xdg-open`"
         dot -Tsvg $1 -o "$filename_no_ext.svg" && xdg-open "$filename_no_ext.svg"
+    elif [ "$extension" = "svg" ]; then
+        display $filename
+        echo "Opening with `display` (imagemagick)"
+    else
+        echo "No program found for $extension extension"
     fi
 }
