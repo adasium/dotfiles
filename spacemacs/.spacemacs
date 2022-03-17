@@ -1262,7 +1262,7 @@ Otherwise it expects a thing, e.g. 'symbol"
   ;; === vOTHER
 	(setq powerline-default-separator 'nil)
   (setq vc-follow-symlinks t)
-  (setq company-dabbrev-downcase 0)
+  (setq company-dabbrev-downcase nil)
   (setq company-idle-delay 0.1)
   (setq evil-want-Y-yank-to-eol t)
 
