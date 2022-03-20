@@ -682,11 +682,20 @@ If there is no region call CMD with the point position."
                       (ediff-get-region-contents ediff-current-difference 'A ediff-control-buffer)
                       (ediff-get-region-contents ediff-current-difference 'B ediff-control-buffer))))
   (defun add-d-to-ediff-mode-map () (define-key ediff-mode-map (kbd "B") 'ediff-copy-both-to-C))
+
+  (defun chom/util/get-buffer-lines ()
+    (split-string
+     (buffer-substring (point-min) (point-max))))
+
   (defun chom/git-commit-setup ()
     ;; https://emacs.stackexchange.com/a/28541
-    ;; (message ">> %s" (buffer-substring (point-min) (point-max)))
     (let ((ISSUEKEY "[[:upper:]]+-[[:digit:]]+"))
-      (when (string-match-p ISSUEKEY (magit-get-current-branch))
+      (when
+          (and
+           (string-match-p ISSUEKEY (magit-get-current-branch))
+           (not (string-match-p
+                 (string-join (list ISSUEKEY ":.*"))
+                 (first (chom/util/get-buffer-lines)))))
         (insert
          (upcase
           (string-inflection-kebab-case-function
