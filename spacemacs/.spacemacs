@@ -576,6 +576,8 @@ If there is no region call CMD with the point position."
                                          (:default . evil-mc-execute-default-call))
                                         (sp-backward-kill-word
                                          (:default . evil-mc-execute-default-call-with-count))
+                                        (string-inflection-upcase
+                                         (:default . evil-mc-execute-default-call))
                                         ))
 
   (add-to-list 'default-frame-alist '(fullscreen . maximized))
