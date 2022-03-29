@@ -1129,6 +1129,8 @@ Otherwise it expects a thing, e.g. 'symbol"
     )
 
   ;; ================================ VARIABLES ============================================
+  (setq lsp-headerline-breadcrumb-path-warning-face '((t (:inherit lsp-headerline-breadcrumb-path-face :underline nil))))
+  (setq lsp-headerline-breadcrumb-symbols-warning-face '((t (:inherit lsp-headerline-breadcrumb-symbols-face :underline nil))))
   (setq undo-tree-history-directory-alist '(("." . "~/.emacs.d/undo")))
   (setq ivy-wrap t)
   (setq ivy-initial-inputs-alist nil)
