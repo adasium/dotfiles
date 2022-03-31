@@ -1165,7 +1165,7 @@ Otherwise it expects a thing, e.g. 'symbol"
     )
 
   ;; ================================ VARIABLES ============================================
-  (setq ivy-more-chars-alist '((counsel-grep . 2) (t . 1)))
+  (setq ivy-more-chars-alist '((counsel-grep . 2) (t . 2)))
   (setq ivy-on-del-error-function #'ignore)
   (setq lsp-headerline-breadcrumb-path-warning-face '((t (:inherit lsp-headerline-breadcrumb-path-face :underline nil))))
   (setq lsp-headerline-breadcrumb-symbols-warning-face '((t (:inherit lsp-headerline-breadcrumb-symbols-face :underline nil))))
