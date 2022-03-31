@@ -616,6 +616,11 @@ If there is no region call CMD with the point position."
   (define-and-bind-text-object "'" "double-quotation-mark" "'" "'")
 
   ;; ================================ FUNCTIONS ============================================
+  (defun chom/kill-buffer-and-window ()
+    (interactive)
+    (spacemacs/kill-this-buffer)
+    (spacemacs/delete-window))
+
   (defun chom/projectile-copy-file-path-as-python-import ()
     "Copy and show file path as python import"
     (interactive)
@@ -1303,6 +1308,7 @@ Otherwise it expects a thing, e.g. 'symbol"
   (define-key evil-insert-state-map (kbd "<S-return>") 'evil-open-above)
 
   (spacemacs/set-leader-keys "by" 'spacemacs/copy-whole-buffer-to-clipboard)
+  (spacemacs/set-leader-keys "Bd" 'chom/kill-buffer-and-window)
   (spacemacs/set-leader-keys "fyp" 'chom/projectile-copy-file-path-as-python-import)
 
   (spacemacs/set-leader-keys-for-major-mode 'python-mode "sb" 'chom/python-eval-buffer)
