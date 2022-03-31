@@ -623,7 +623,6 @@ If there is no region call CMD with the point position."
     (let ((files (if (ivy-state-dynamic-collection ivy-last)
                      (funcall (ivy-state-collection ivy-last) ivy-text)
                    ivy--old-cands)))
-      (message "%s" files)
       (chom/counsel-rg files)
       (minibuffer-keyboard-quit)))
 
@@ -640,7 +639,6 @@ If there is no region call CMD with the point position."
                  (switch "--pcre2"))
              (and (eq 0 (call-process rg nil nil nil switch "--pcre2-version"))
                   switch))))
-      (message "%s" counsel-ag-base-command)
       (counsel-ag initial-input initial-directory extra-rg-args rg-prompt
                   :caller 'counsel-rg)))
 
