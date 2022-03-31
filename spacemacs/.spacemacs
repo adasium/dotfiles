@@ -616,6 +616,37 @@ If there is no region call CMD with the point position."
   (define-and-bind-text-object "'" "double-quotation-mark" "'" "'")
 
   ;; ================================ FUNCTIONS ============================================
+
+  (defun chom/search-in-files ()
+    ;; https://emacs.stackexchange.com/a/38806
+    (interactive)
+    (let ((files (if (ivy-state-dynamic-collection ivy-last)
+                     (funcall (ivy-state-collection ivy-last) ivy-text)
+                   ivy--old-cands)))
+      (message "%s" files)
+      (chom/counsel-rg files)
+      (minibuffer-keyboard-quit)))
+
+  (defun chom/counsel-rg (&optional chom/targets initial-input initial-directory extra-rg-args rg-prompt)
+    (interactive)
+    (let ((counsel-ag-base-command
+           (if (listp counsel-rg-base-command)
+               (append counsel-rg-base-command chom/targets)
+             (concat counsel-rg-base-command " "
+                     (mapconcat #'shell-quote-argument chom/targets " "))))
+          (counsel--grep-tool-look-around
+           (let ((rg (car (if (listp counsel-rg-base-command) counsel-rg-base-command
+                            (split-string counsel-rg-base-command))))
+                 (switch "--pcre2"))
+             (and (eq 0 (call-process rg nil nil nil switch "--pcre2-version"))
+                  switch))))
+      (message "%s" counsel-ag-base-command)
+      (counsel-ag initial-input initial-directory extra-rg-args rg-prompt
+                  :caller 'counsel-rg)))
+
+  (with-eval-after-load 'ivy
+    (define-key ivy-minibuffer-map (kbd "C-c C-c") #'chom/search-in-files))
+
   (defun chom/kill-buffer-and-window ()
     (interactive)
     (spacemacs/kill-this-buffer)
