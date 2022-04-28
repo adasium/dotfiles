@@ -623,8 +623,8 @@ If there is no region call CMD with the point position."
     (let ((files (if (ivy-state-dynamic-collection ivy-last)
                      (funcall (ivy-state-collection ivy-last) ivy-text)
                    ivy--old-cands)))
-      (chom/counsel-rg files)
-      (minibuffer-keyboard-quit)))
+      (message "%s" files)
+      (chom/counsel-rg files)))
 
   (defun chom/counsel-rg (&optional chom/targets initial-input initial-directory extra-rg-args rg-prompt)
     (interactive)
@@ -1673,7 +1673,7 @@ This function is called at the very end of Spacemacs initialization."
  '(evil-want-Y-yank-to-eol nil)
  '(latex-noindent-environments nil)
  '(package-selected-packages
-   '(graphviz-dot-mode org-plus-contrib evil-unimpaired f s dash doom-dark+-theme))
+   '(rainbow-mode valign org-plus-contrib evil-unimpaired f s dash doom-dark+-theme))
  '(safe-local-variable-values
    '((counsel-find-file-ignore-regexp . "^test")
      (flycheck-disabled-checkers . python-flake8)
@@ -1690,7 +1690,8 @@ This function is called at the very end of Spacemacs initialization."
  ;; If there is more than one, they won't work right.
  '(flycheck-error ((t (:underline (:style line :color "#FF0000")))))
  '(flycheck-info ((t (:underline (:style wave :color "#00FF00")))))
- '(flycheck-warning ((t (:underline (:style line :color "#FFFF00"))))))
+ '(flycheck-warning ((t (:underline (:style line :color "#FFFF00")))))
+ '(highlight-parentheses-highlight ((nil (:weight ultra-bold))) t))
 )
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
