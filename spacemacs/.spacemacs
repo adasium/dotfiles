@@ -753,8 +753,13 @@ If there is no region call CMD with the point position."
     '((t :foreground "#fcdb03"))
     "Face used for labels e.g. @work"
     :group 'org-mode)
+  (defface chom/org-mode-important-face
+    '((t :foreground "#ff0000"))
+    "Face used for important things e.g. !important"
+    :group 'org-mode)
 
   (defun chom/org-font-setup ()
+    (font-lock-add-keywords nil '(("![a-zA-Z]+" . 'chom/org-mode-important-face)))
     (font-lock-add-keywords nil '(("@[a-zA-Z]+" . 'chom/org-mode-label-face))))
 
   (defface chom/python-mode-logger-info-face
@@ -1631,6 +1636,7 @@ Otherwise it expects a thing, e.g. 'symbol"
 
   (put 'python-sort-imports-on-save 'safe-local-variable #'symbolp)
   (put 'python-format-on-save 'safe-local-variable #'symbolp)
+  (put 'lsp-clients-python-library-directories 'safe-local-variable #'listp)
   ;; ================================== END
   )
 
