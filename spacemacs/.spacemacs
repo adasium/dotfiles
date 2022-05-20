@@ -643,6 +643,7 @@ If there is no region call CMD with the point position."
                   :caller 'counsel-rg)))
 
   (with-eval-after-load 'ivy
+    (define-key ivy-minibuffer-map (kbd "C-c C-f") 'ivy-toggle-calling)
     (define-key ivy-minibuffer-map (kbd "C-c C-c") #'chom/search-in-files))
 
   (defun chom/kill-buffer-and-window ()
