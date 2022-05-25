@@ -28,6 +28,8 @@ alias ..2="cd ../.."
 alias ..3="cd ../../.."
 alias ..4="cd ../../../.."
 alias ..5="cd ../../../../.."
+alias ..6="cd ../../../../../.."
+alias ..7="cd ../../../../../../.."
 
 if [[ "${LANG:0:2}" == "en" ]]; then
     alias cdd='cd ~/Downloads'
