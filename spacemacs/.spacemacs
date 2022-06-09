@@ -616,6 +616,21 @@ If there is no region call CMD with the point position."
   (define-and-bind-text-object "'" "double-quotation-mark" "'" "'")
 
   ;; ================================ FUNCTIONS ============================================
+  (defun align-repeat (start end regexp)
+    ;; https://www.emacswiki.org/emacs/AlignCommands
+    "Repeat alignment with respect to
+     the given regular expression."
+    (interactive "r\nsAlign regexp: ")
+    (align-regexp start end
+                  (concat "\\(\\s-*\\)" regexp) 1 1 t))
+
+  (defun align-repeat-after (start end regexp)
+    ;; https://www.emacswiki.org/emacs/AlignCommands
+    "Repeat alignment with respect to
+     the given regular expression."
+    (interactive "r\nsAlign regexp: ")
+    (align-regexp start end
+                  (concat regexp "\\(\\s-*\\)") 1 1 t))
 
   (defun chom/search-in-files ()
     ;; https://emacs.stackexchange.com/a/38806
@@ -774,7 +789,7 @@ If there is no region call CMD with the point position."
     :group 'python-mode)
 
   (defface chom/python-mode-logger-debug-face
-    '((t :foreground "#eb4c34"))
+    '((t :foreground "#013220"))
     "Face used for logger.debug in python-mode"
     :group 'python-mode)
 
