@@ -616,7 +616,7 @@ If there is no region call CMD with the point position."
   (define-and-bind-text-object "'" "double-quotation-mark" "'" "'")
 
   ;; ================================ FUNCTIONS ============================================
-  (defun align-repeat (start end regexp)
+  (defun chom/align-repeat (start end regexp)
     ;; https://www.emacswiki.org/emacs/AlignCommands
     "Repeat alignment with respect to
      the given regular expression."
@@ -624,7 +624,7 @@ If there is no region call CMD with the point position."
     (align-regexp start end
                   (concat "\\(\\s-*\\)" regexp) 1 1 t))
 
-  (defun align-repeat-after (start end regexp)
+  (defun chom/align-repeat-after (start end regexp)
     ;; https://www.emacswiki.org/emacs/AlignCommands
     "Repeat alignment with respect to
      the given regular expression."
@@ -1448,6 +1448,9 @@ Otherwise it expects a thing, e.g. 'symbol"
 
   (spacemacs/set-leader-keys "id" 'org-read-date-interactive)
   (spacemacs/set-leader-keys "bNs" 'chom/create-python-scratch-file)
+  (spacemacs/set-leader-keys "xar" 'chom/align-repeat-after)
+  (spacemacs/set-leader-keys "xaR" 'chom/align-repeat)
+
   (spacemacs/set-leader-keys-for-major-mode 'python-mode "," 'chom/create-python-scratch-file)
   (bind-key "C-l" 'chom/toggle-thing)
   ;; (define-key evil-insert-state-map (kbd "C-j") 'evil-next-line)
