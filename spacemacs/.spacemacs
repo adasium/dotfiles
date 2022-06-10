@@ -775,8 +775,8 @@ If there is no region call CMD with the point position."
     :group 'org-mode)
 
   (defun chom/org-font-setup ()
-    (font-lock-add-keywords nil '(("![a-zA-Z_]+" . 'chom/org-mode-important-face)))
-    (font-lock-add-keywords nil '(("@[a-zA-Z_]+" . 'chom/org-mode-label-face))))
+    (font-lock-add-keywords nil '(("![a-zA-Z_-]+" . 'chom/org-mode-important-face)))
+    (font-lock-add-keywords nil '(("@[a-zA-Z_-]+" . 'chom/org-mode-label-face))))
 
   (defface chom/python-mode-logger-info-face
     '((t :foreground "#34eb52"))
