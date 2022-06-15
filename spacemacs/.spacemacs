@@ -789,7 +789,7 @@ If there is no region call CMD with the point position."
     :group 'python-mode)
 
   (defface chom/python-mode-logger-debug-face
-    '((t :foreground "#013220"))
+    '((t :foreground "#A020F0"))
     "Face used for logger.debug in python-mode"
     :group 'python-mode)
 
