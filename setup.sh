@@ -30,3 +30,6 @@ setting_up Cinnamon settings
 
 setting_up misc dotfiles
 ./misc/setup.sh
+
+setting_up nemo
+./nemo/setup.sh
