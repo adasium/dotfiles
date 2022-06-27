@@ -1184,6 +1184,12 @@ Otherwise it expects a thing, e.g. 'symbol"
     )
 
   ;; ================================ VARIABLES ============================================
+
+  (setq org-link-frame-setup '((vm . vm-visit-folder-other-frame)
+                               (vm-imap . vm-visit-imap-folder-other-frame)
+                               (gnus . org-gnus-no-new-news)
+                               (file . find-file)
+                               (wl . wl-other-frame)))
   (setq ivy-more-chars-alist '((counsel-grep . 2) (t . 2)))
   (setq ivy-on-del-error-function #'ignore)
   (setq lsp-headerline-breadcrumb-path-warning-face '((t (:inherit lsp-headerline-breadcrumb-path-face :underline nil))))
