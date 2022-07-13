@@ -616,6 +616,16 @@ If there is no region call CMD with the point position."
   (define-and-bind-text-object "'" "double-quotation-mark" "'" "'")
 
   ;; ================================ FUNCTIONS ============================================
+  (defun chom/newline-comment-below ()
+    (interactive)
+    (evil-open-below 1)
+    (comment-dwim nil))
+
+  (defun chom/newline-comment-above ()
+    (interactive)
+    (evil-open-above 1)
+    (comment-dwim nil))
+
   (defun chom/align-repeat (start end regexp)
     ;; https://www.emacswiki.org/emacs/AlignCommands
     "Repeat alignment with respect to
@@ -1364,6 +1374,10 @@ Otherwise it expects a thing, e.g. 'symbol"
   (define-key evil-normal-state-map (kbd "zm") 'hs-hide-level)
   (define-key evil-normal-state-map (kbd "<escape>") 'evil-mc-undo-all-cursors)
   (define-key evil-insert-state-map (kbd "<S-return>") 'evil-open-above)
+  (define-key evil-insert-state-map (kbd "C-<return>") 'chom/newline-comment-below)
+  (define-key evil-insert-state-map (kbd "C-S-<return>") 'chom/newline-comment-above)
+  (define-key evil-normal-state-map (kbd "C-<return>") 'chom/newline-comment-below)
+  (define-key evil-normal-state-map (kbd "C-S-<return>") 'chom/newline-comment-above)
 
   (spacemacs/set-leader-keys "by" 'spacemacs/copy-whole-buffer-to-clipboard)
   (spacemacs/set-leader-keys "Bd" 'chom/kill-buffer-and-window)
