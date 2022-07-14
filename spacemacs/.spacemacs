@@ -616,6 +616,13 @@ If there is no region call CMD with the point position."
   (define-and-bind-text-object "'" "double-quotation-mark" "'" "'")
 
   ;; ================================ FUNCTIONS ============================================
+
+  (defun spacemacs//python-setup-shell (&rest args)
+    ;; hack away, hack away
+    (progn
+      (setq python-shell-interpreter-args "-i"
+            python-shell-interpreter "python")))
+
   (defun chom/newline-comment-below ()
     (interactive)
     (evil-open-below 1)
