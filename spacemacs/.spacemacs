@@ -1514,8 +1514,8 @@ Otherwise it expects a thing, e.g. 'symbol"
            (output (shell-command-to-string (concat
                                              python-emacs-executable-path
                                              " -m importsorcery"
-                                             " --index " (if projectile-src-directory
-                                                             (f-join (projectile-project-root) projectile-src-directory)
+                                             " --index " (if (file-directory-p (f-join (projectile-project-root) "src"))
+                                                             (f-join (projectile-project-root) "src")
                                                            (projectile-project-root))
                                              " -e .venv __pycache__ .git .mypy_cache"
                                              " --symbol " (format "%s" symbol)
@@ -1523,6 +1523,7 @@ Otherwise it expects a thing, e.g. 'symbol"
                                              " --current-file " (buffer-file-name))))
            (candidates (s-split "\n" output))
            (filtered-candidates (-filter (lambda (import) (string-match-p (regexp-quote "import") import)) candidates)))
+      (kill-new (ivy-read "Select import: " filtered-candidates))
       ))
 
   (defun chom/python-setup ()
