@@ -1464,6 +1464,8 @@ Otherwise it expects a thing, e.g. 'symbol"
   (with-eval-after-load 'lsp-mode
     (define-key lsp-mode-map (kbd "<C-down-mouse-1>") 'spacemacs/jump-to-definition)
     (define-key lsp-mode-map (kbd "<double-mouse-1>") 'spacemacs/jump-to-definition)
+    (define-key lsp-mode-map (kbd "<double-mouse-1>") 'spacemacs/jump-to-definition)
+    (spacemacs/set-leader-keys-for-major-mode 'python-mode "gr" 'xref-find-references)
     )
   (define-key evil-motion-state-map (kbd "<double-down-mouse-1>") nil)
   (define-key evil-motion-state-map (kbd "<double-mouse-1>") nil)
