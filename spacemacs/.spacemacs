@@ -1421,6 +1421,8 @@ Otherwise it expects a thing, e.g. 'symbol"
   (define-key evil-visual-state-map (kbd "I") 'chom/mc-make-cursors-in-selection)
   (define-key evil-normal-state-map (kbd "C-S-n") 'evil-mc-skip-and-goto-next-match)
   (define-key evil-normal-state-map (kbd "C-S-p") 'evil-mc-skip-and-goto-prev-match)
+  (define-key evil-normal-state-map (kbd "C-M-S-j") 'mc/mark-next-like-this)
+  (define-key evil-normal-state-map (kbd "C-M-S-k") 'mc/mark-previous-like-this)
 
   (define-key evil-normal-state-map (kbd ">") 'chom/shift-line-right)
   (define-key evil-normal-state-map (kbd "<") 'chom/shift-line-left)
