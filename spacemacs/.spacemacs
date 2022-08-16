@@ -36,7 +36,10 @@ values."
      typescript
      racket
      sql
+
      vue
+     (svelte :variables svelte-backend 'lsp)
+
      systemd
      csv
 
@@ -1516,19 +1519,21 @@ Otherwise it expects a thing, e.g. 'symbol"
   (defun chom/import-symbol-under-cursor ()
     (interactive)
     (let* ((symbol (thing-at-point 'symbol))
-           (output (shell-command-to-string (concat
-                                             python-emacs-executable-path
-                                             " -m importsorcery"
-                                             " --index " (if (file-directory-p (f-join (projectile-project-root) "src"))
-                                                             (f-join (projectile-project-root) "src")
-                                                           (projectile-project-root))
-                                             " -e .venv __pycache__ .git .mypy_cache"
-                                             " --symbol " (format "%s" symbol)
-                                             " -p " python-shell-interpreter
-                                             " --current-file " (buffer-file-name))))
+           (command (concat
+                     python-emacs-executable-path
+                     " -m importsorcery"
+                     " --project-root " (if (file-directory-p (f-join (projectile-project-root) "src"))
+                                     (f-join (projectile-project-root) "src")
+                                   (projectile-project-root))
+                     " --exclude .venv __pycache__ .git .mypy_cache"
+                     " --symbol " (format "%s" symbol)
+                     " --python-path " python-shell-interpreter
+                     " --current-file " (buffer-file-name)))
+           (output (shell-command-to-string command))
            (candidates (s-split "\n" output))
            (filtered-candidates (-filter (lambda (import) (string-match-p (regexp-quote "import") import)) candidates)))
       (kill-new (ivy-read "Select import: " filtered-candidates))
+      (message "%s" command)
       ))
 
   (defun chom/python-setup ()
@@ -1727,7 +1732,7 @@ This function is called at the very end of Spacemacs initialization."
  '(evil-want-Y-yank-to-eol nil)
  '(latex-noindent-environments nil)
  '(package-selected-packages
-   '(rainbow-mode valign org-plus-contrib evil-unimpaired f s dash doom-dark+-theme))
+   '(valign org-plus-contrib evil-unimpaired f s dash doom-dark+-theme))
  '(safe-local-variable-values
    '((counsel-find-file-ignore-regexp . "^test")
      (flycheck-disabled-checkers . python-flake8)
@@ -1736,7 +1741,8 @@ This function is called at the very end of Spacemacs initialization."
      (javascript-backend . tern)
      (javascript-backend . lsp)))
  '(spacemacs-indent-sensitive-modes
-   '(asm-mode coffee-mode elm-mode haml-mode haskell-mode slim-mode makefile-mode makefile-bsdmake-mode makefile-gmake-mode makefile-imake-mode yaml-mode)))
+   '(asm-mode coffee-mode elm-mode haml-mode haskell-mode slim-mode makefile-mode makefile-bsdmake-mode makefile-gmake-mode makefile-imake-mode yaml-mode))
+ '(warning-suppress-types '((lsp-mode) (lsp-mode))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
