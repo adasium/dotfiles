@@ -1540,15 +1540,16 @@ Otherwise it expects a thing, e.g. 'symbol"
     (define-key python-mode-map (kbd "C-j") nil)
     (add-to-list 'flycheck-disabled-checkers 'python-pylint)
     (setq python-shell-interpreter "python3")
-    (let ((virtualenv-dir-path (chom/get-python-virtualenv-path)))
+    (let ((virtualenv-dir-path (file-truename (chom/get-python-virtualenv-path))))
       (setq-local flycheck-python-flake8-executable (f-join python-emacs-virtualenv-path "bin" "flake8"))
       (setq-local flycheck-python-mypy-executable (f-join python-emacs-virtualenv-path "bin" "mypy"))
 
       (if virtualenv-dir-path
           (progn
-            (message virtualenv-dir-path)
+            (message ">> %s" virtualenv-dir-path)
             ;; Python executable
             (setq-local python-shell-interpreter (f-join "/" virtualenv-dir-path "bin" "python"))
+            (message "> %s" python-shell-interpreter)
             (setq-local dap-python-executable python-shell-interpreter)
             ;; Linters
 
