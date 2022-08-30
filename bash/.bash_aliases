@@ -143,3 +143,4 @@ open() {
         echo "No program found for $extension extension"
     fi
 }
+alias synctime='sudo ntpdate -u 0.europe.pool.ntp.org'
