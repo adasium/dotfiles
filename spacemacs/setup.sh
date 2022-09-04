@@ -26,12 +26,14 @@ if command -v emacs; then
 fi
 
 mkdir -vp ~/.local/share/applications/
-ln -sfv $SCRIPT_DIR/emacsclient.desktop ~/.local/share/applications/
-ln -sfv $SCRIPT_DIR/emacs.desktop ~/.local/share/applications/
+# no soft links because KDE
+ln -fv $SCRIPT_DIR/emacsclient.desktop ~/.local/share/applications/
+ln -fv $SCRIPT_DIR/emacs.desktop ~/.local/share/applications/
 
 ln -sfv $SCRIPT_DIR/requirements.txt ~/.config/emacs/
 ln -sfv $SCRIPT_DIR/Pipfile ~/.config/emacs/
 
+mkdir -vp ~/.local/share/icons/
 ln -sfv $SCRIPT_DIR/icons/vscode.png ~/.local/share/icons/
 
 systemctl --user daemon-reload

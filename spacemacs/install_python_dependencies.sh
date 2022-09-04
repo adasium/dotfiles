@@ -25,4 +25,4 @@ fi
 
 echo "Activating virtualenv"
 source "$EMACS_DIR/.venv/bin/activate"
-pip3 install -r requirements.txt --upgrade
+pip install -r requirements.txt --upgrade

@@ -9,12 +9,18 @@ editors=(
     gedit
 )
 emacs_dependencies=(
+    hunspell
     hunspell-{pl,en_{us,gb},de}
     npm
     ripgrep
 )
 python_dependencies=(
     pyenv
+)
+other=(
+    ark
+    dolphin
+    syncthing
 )
 util_packages=(
     fzf
@@ -28,12 +34,13 @@ util_packages=(
     xclip
     colordiff
     flameshot
-    texlive-most
+    #texlive-most
     docker
     docker-compose
     pdftk
 )
-fonts=(
+fonts_icons=(
+    papirus-icon-theme
     ttf-fira-code
 )
 yay_fonts=(
@@ -49,11 +56,22 @@ yay_other=(
 pacman_all=(
     "${emacs_dependencies[@]}"
     "${python_dependencies[@]}"
+    "${other[@]}"
     "${util_packages[@]}"
-    "${fonts[@]}"
+    "${fonts_icons[@]}"
     "${editors[@]}"
 )
 yay_all=( "${yay_fonts[@]}" "${yay_other[@]}")
+
+if ! command -v yay &> /dev/null
+then
+    sudo pacman -S --needed --noconfirm git base-devel
+    mkdir -p /tmp/yay
+    git clone https://aur.archlinux.org/yay.git /tmp/yay
+    cd /tmp/yay
+    makepkg -si
+fi
+
 
 # install
 sudo pacman -S --needed --noconfirm "${pacman_all[@]}"

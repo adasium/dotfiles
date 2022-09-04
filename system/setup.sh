@@ -1,3 +1,6 @@
+SCRIPT_DIR=$(dirname $(realpath -s $0))
+
+
 if [ -f /etc/os-release ]; then
     . /etc/os-release
     OS=$NAME
@@ -9,7 +12,7 @@ if [ -z ${OS+x} ]; then
     exit 1
 fi
 
-if [[ $OS =~ "Manjaro" ]]; then
+if [[ $OS =~ "Manjaro" || $OS =~ "Arch" ]]; then
     echo "$OS"
-    ./pacman.sh
+    $SCRIPT_DIR/pacman.sh
 fi
