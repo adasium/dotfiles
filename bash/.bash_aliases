@@ -31,14 +31,14 @@ alias ..5="cd ../../../../.."
 alias ..6="cd ../../../../../.."
 alias ..7="cd ../../../../../../.."
 
-if [[ "${LANG:0:2}" == "en" ]]; then
-    alias cdd='cd ~/Downloads'
-    alias cdp='cd ~/Desktop'
-    alias cdc='cd ~/Documents'
-else
+if [[ "${LANG:0:2}" == "pl" ]]; then
     alias cdd='cd ~/Pobrane'
     alias cdp='cd ~/Pulpit'
     alias cdc='cd ~/Dokumenty'
+else
+    alias cdd='cd ~/Downloads'
+    alias cdp='cd ~/Desktop'
+    alias cdc='cd ~/Documents'
 fi
 
 mkcdir()
