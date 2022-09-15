@@ -1413,6 +1413,7 @@ Otherwise it expects a thing, e.g. 'symbol"
   ;; (bind-key "M-j" 'spacemacs/move-text-transient-state/move-text-down)
 
   (with-eval-after-load 'magit-status
+    (define-key magit-status-mode-map (kbd "z z") 'evil-scroll-line-to-center)
     (define-key magit-status-mode-map (kbd "RET") 'magit-diff-visit-file-other-window))
 
   (define-key evil-normal-state-map (kbd "K") 'join-line)
