@@ -42,6 +42,10 @@ util_packages=(
 fonts_icons=(
     papirus-icon-theme
     ttf-fira-code
+    # noto
+    noto-fonts
+    noto-fonts-cjk
+    noto-fonts-emoji
 )
 yay_fonts=(
     ttf-mononoki
