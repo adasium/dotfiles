@@ -2,6 +2,7 @@
 export ZSH="/home/$USER/.oh-my-zsh"
 export EDITOR="emacsclient -c -a vim"
 setopt HIST_IGNORE_DUPS
+setopt +o nomatch
 unsetopt correct_all
 ZSH_THEME="agnoster"
 source ~/.bash_aliases
