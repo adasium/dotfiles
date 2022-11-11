@@ -1736,15 +1736,13 @@ This function is called at the very end of Spacemacs initialization."
  '(package-selected-packages
    '(valign org-plus-contrib evil-unimpaired f s dash doom-dark+-theme))
  '(safe-local-variable-values
-   '((counsel-find-file-ignore-regexp . "^test")
-     (flycheck-disabled-checkers . python-flake8)
+   '((flycheck-disabled-checkers . python-flake8)
      (python-format-on-save t)
      (javascript-backend . tide)
      (javascript-backend . tern)
      (javascript-backend . lsp)))
  '(spacemacs-indent-sensitive-modes
-   '(asm-mode coffee-mode elm-mode haml-mode haskell-mode slim-mode makefile-mode makefile-bsdmake-mode makefile-gmake-mode makefile-imake-mode yaml-mode))
- '(warning-suppress-types '((lsp-mode) (lsp-mode))))
+   '(asm-mode coffee-mode elm-mode haml-mode haskell-mode slim-mode makefile-mode makefile-bsdmake-mode makefile-gmake-mode makefile-imake-mode yaml-mode)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -1752,8 +1750,7 @@ This function is called at the very end of Spacemacs initialization."
  ;; If there is more than one, they won't work right.
  '(flycheck-error ((t (:underline (:style line :color "#FF0000")))))
  '(flycheck-info ((t (:underline (:style wave :color "#00FF00")))))
- '(flycheck-warning ((t (:underline (:style line :color "#FFFF00")))))
- '(highlight-parentheses-highlight ((nil (:weight ultra-bold))) t))
+ '(flycheck-warning ((t (:underline (:style line :color "#FFFF00"))))))
 )
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
