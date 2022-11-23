@@ -427,6 +427,8 @@ you should place your code here."
   ;; NOTE: XCompose env variables
   ;; export GTK_IM_MODULE=uim; export QT_IM_MODULE=uim; export XMODIFIERS=@im=uim;
 
+  (global-flycheck-mode -1)
+
   (with-eval-after-load 'spaceline
     ;; (spaceline-toggle-minor-modes-off)
     (spaceline-define-segment python-version
@@ -1210,7 +1212,6 @@ Otherwise it expects a thing, e.g. 'symbol"
     )
 
   ;; ================================ VARIABLES ============================================
-  (global-flycheck-mode -1)
   (setq org-link-frame-setup '((vm . vm-visit-folder-other-frame)
                                (vm-imap . vm-visit-imap-folder-other-frame)
                                (gnus . org-gnus-no-new-news)
