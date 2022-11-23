@@ -131,7 +131,6 @@ values."
    dotspacemacs-additional-packages
    '(
      doom-themes
-     flycheck-mypy
      highlight-indent-guides
      (simple-buffer-jump :location (recipe :fetcher github :repo "dalanicolai/dala-emacs-lisp"))
      (rustic :location (recipe :fetcher github :repo "brotzeit/rustic"))
@@ -619,6 +618,13 @@ If there is no region call CMD with the point position."
   (define-and-bind-text-object "'" "double-quotation-mark" "'" "'")
 
   ;; ================================ FUNCTIONS ============================================
+
+  (defun chom/rev-parse ()
+    (interactive)
+    (let* ((text (gui-get-selection))
+           (parsed (shell-command-to-string (concat "git rev-parse " text))))
+      (message parsed)
+      (gui-set-selection nil parsed)))
 
   (defun spacemacs//python-setup-shell (&rest args)
     ;; hack away, hack away
@@ -1204,7 +1210,7 @@ Otherwise it expects a thing, e.g. 'symbol"
     )
 
   ;; ================================ VARIABLES ============================================
-
+  (global-flycheck-mode -1)
   (setq org-link-frame-setup '((vm . vm-visit-folder-other-frame)
                                (vm-imap . vm-visit-imap-folder-other-frame)
                                (gnus . org-gnus-no-new-news)
@@ -1322,7 +1328,6 @@ Otherwise it expects a thing, e.g. 'symbol"
   (setq flycheck-flake8rc "setup.cfg")
   (setq flycheck-pylintrc "setup.cfg")
   (setq-default flycheck-disabled-checkers '(python-pycompile))
-  (setq flycheck-python-mypy-config '("mypy.ini" "pyproject.toml" "setup.cfg"))
   (setq lsp-pyls-configuration-sources ["flake8"])
   (setq-default flycheck-python-flake8-executable python-emacs-executable-path)
   (setq lsp-ui-doc-enable nil)
@@ -1354,7 +1359,7 @@ Otherwise it expects a thing, e.g. 'symbol"
     (setq TeX-brace-indent-level n)
     (setq tab-width n)
     (setq lua-indent-level n)
-    ;; (setq evil-shift-width n)
+    (setq evil-shift-width n)
     )
   (chom/setup-indent chom/indent-level)
 
@@ -1540,38 +1545,6 @@ Otherwise it expects a thing, e.g. 'symbol"
   (defun chom/python-setup ()
     (define-key python-mode-map (kbd "C-j") nil)
     (add-to-list 'flycheck-disabled-checkers 'python-pylint)
-    (setq python-shell-interpreter "python3")
-    (let ((virtualenv-dir-path (file-truename (chom/get-python-virtualenv-path))))
-      (setq-local flycheck-python-flake8-executable (f-join python-emacs-virtualenv-path "bin" "flake8"))
-      (setq-local flycheck-python-mypy-executable (f-join python-emacs-virtualenv-path "bin" "mypy"))
-
-      (if virtualenv-dir-path
-          (progn
-            (message ">> %s" virtualenv-dir-path)
-            ;; Python executable
-            (setq-local python-shell-interpreter (f-join "/" virtualenv-dir-path "bin" "python"))
-            (message "> %s" python-shell-interpreter)
-            (setq-local dap-python-executable python-shell-interpreter)
-            ;; Linters
-
-            (setq-local flycheck-python-mypy-executable
-                        (if (file-executable-p (f-join "/" virtualenv-dir-path "bin" "mypy"))
-                            (f-join "/" virtualenv-dir-path "bin" "mypy")
-                          (f-join python-emacs-virtualenv-path "bin" "mypy")))
-
-            (setq-local flycheck-python-flake8-executable
-                        (if (file-executable-p (f-join "/" virtualenv-dir-path "bin" "flake8"))
-                            (f-join "/" virtualenv-dir-path "bin" "flake8")
-                          (f-join python-emacs-virtualenv-path "bin" "flake8")))
-            ;; (setq-local flycheck-python-pylint-executable (f-join "/" virtualenv-dir-path "bin" "pylint"))
-           )
-        )
-      )
-
-    (fset 'python-\[\]-get
-          (kmacro-lambda-form [?c ?s ?\] ?\) ?i ?. ?g ?e ?t escape ?f ?\" ?t ?\"] 0 "%d"))
-    (define-key evil-insert-state-map (kbd "M-RET") 'chom/import-symbol-under-cursor)
-    (define-key evil-normal-state-map (kbd "M-RET") 'chom/import-symbol-under-cursor)
     (global-set-key [remap python-indent-dedent-line] 'chom/smart-tab-jump-in-or-indent)
     (chom/python-font-setup)
     )
