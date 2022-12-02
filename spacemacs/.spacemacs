@@ -427,8 +427,6 @@ you should place your code here."
   ;; NOTE: XCompose env variables
   ;; export GTK_IM_MODULE=uim; export QT_IM_MODULE=uim; export XMODIFIERS=@im=uim;
 
-  (global-flycheck-mode -1)
-
   (with-eval-after-load 'spaceline
     ;; (spaceline-toggle-minor-modes-off)
     (spaceline-define-segment python-version
@@ -1706,11 +1704,13 @@ This function is called at the very end of Spacemacs initialization."
      ("thebibliography")
      ("document" chom/LaTeX/indent-tabular)))
  '(evil-want-Y-yank-to-eol nil)
+ '(global-flycheck-mode nil)
  '(latex-noindent-environments nil)
  '(package-selected-packages
    '(valign org-plus-contrib evil-unimpaired f s dash doom-dark+-theme))
  '(safe-local-variable-values
-   '((flycheck-disabled-checkers . python-flake8)
+   '((counsel-find-file-ignore-regexp . "^test")
+     (flycheck-disabled-checkers . python-flake8)
      (python-format-on-save t)
      (javascript-backend . tide)
      (javascript-backend . tern)
