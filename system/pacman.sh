@@ -38,6 +38,7 @@ util_packages=(
     docker
     docker-compose
     pdftk
+    cups
 )
 fonts_icons=(
     papirus-icon-theme

@@ -64,6 +64,7 @@ fi
 
 PATH="$HOME/.local/bin:$PATH"
 PATH="$PATH:/opt/bin"
+PATH="$PATH:$HOME/.cargo/bin"
 
 export PYENV_ROOT="$HOME/.pyenv"
 export PATH="$PYENV_ROOT/bin:$PATH"
