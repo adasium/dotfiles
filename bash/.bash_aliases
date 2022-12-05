@@ -153,3 +153,6 @@ open() {
     fi
 }
 alias synctime='sudo ntpdate -u 0.europe.pool.ntp.org'
+
+# https://askubuntu.com/a/620142
+alias lh='ls -Ad .??*'
