@@ -128,6 +128,15 @@ rf() {
     fi
 }
 
+mark() {
+    if [ "$#" -ne 1 ]; then
+        cat
+    else
+        rg "$@|$"
+    fi
+}
+alias colour=mark
+
 open() {
     filename="$1"
     extension="${1##*.}"
