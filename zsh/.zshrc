@@ -75,3 +75,5 @@ export PYTHONSTARTUP=~/.pythonrc.py
 if [ -f ~/.zshrc.local ]; then
     source ~/.zshrc.local
 fi
+
+# TODO: https://github.com/junegunn/fzf/issues/2300
