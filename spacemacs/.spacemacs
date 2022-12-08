@@ -1503,6 +1503,10 @@ Otherwise it expects a thing, e.g. 'symbol"
   (add-hook 'yas-minor-mode-hook
             (lambda ()
               (yas-activate-extra-mode 'fundamental-mode)))
+
+  ;; === text mode hook
+  (add-hook 'text-mode-hook (lambda()
+                              (chom/setup-indent chom/indent-level)))
   ;; === BASH-h
   (add-hook 'sh-mode-hook 'sh-script-extra-font-lock-activate)
 
