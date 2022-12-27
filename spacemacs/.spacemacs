@@ -1211,6 +1211,8 @@ Otherwise it expects a thing, e.g. 'symbol"
     )
 
   ;; ================================ VARIABLES ============================================
+  (setq c-c++-enable-clang-format-on-save nil)
+  (setq lsp-enable-on-type-formatting nil)
   (setq org-link-frame-setup '((vm . vm-visit-folder-other-frame)
                                (vm-imap . vm-visit-imap-folder-other-frame)
                                (gnus . org-gnus-no-new-news)
