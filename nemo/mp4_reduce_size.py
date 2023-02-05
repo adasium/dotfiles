@@ -50,14 +50,12 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
             else:
                 out_filename = f'{dirname(filename)}_v2.mp4'
             result = subprocess.check_output(
-                f'/usr/bin/ffmpeg -i {filename} -vcodec libx265 -crf 29 {out_filename}',
+                f'/usr/bin/ffmpeg -i {filename} -vcodec libx264 {out_filename}',
                 stderr=subprocess.STDOUT,
                 shell=True,
             )
     except Exception as e:
         logger.exception(e)
-
-    logger.debug(f'Result: {err}')
     return 0
 
 
