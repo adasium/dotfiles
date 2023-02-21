@@ -1,0 +1,48 @@
+# -*- mode: snippet -*-
+# name: json-template
+# key: json
+# --
+import json
+import os
+from google.api_core.datetime_helpers import DatetimeWithNanoseconds
+from google.cloud.firestore_v1 import DocumentReference
+from typing import Any
+
+
+class MyEncoder(json.JSONEncoder):
+    def default(self, obj: object) -> object:
+        if isinstance(obj, DatetimeWithNanoseconds):
+            return {"_DatetimeWithNanoseconds": obj.isoformat()}
+        elif isinstance(obj, DocumentReference):
+            return {"_DocumentReference": obj.path}
+        else:
+            return json.JSONEncoder.default(self, obj)
+
+
+class MyDecoder(json.JSONDecoder):
+    def __init__(self) -> None:
+        super().__init__(object_hook=self.custom_hook)
+
+    def custom_hook(self, obj: object) -> object:
+        if "_DatetimeWithNanoseconds" in obj:
+            return DatetimeWithNanoseconds.fromisoformat(
+                obj["_DatetimeWithNanoseconds"]
+            )
+        elif "_DocumentReference" in obj:
+            return DocumentReference(
+                *obj["_DocumentReference"].split("/"), client=get_db()
+            )
+        else:
+            return obj
+
+
+def load_json_file(path: str, default: Any) -> Any:
+    if os.path.isfile(path):
+        with open(path) as f:
+            return json.load(f, cls=MyDecoder)
+    else:
+        return default
+
+def dump_json(obj: str, path: Any) -> Any:
+    with open(path, 'w') as f:
+        json.dump(obj, f, cls=MyEncoder)
