@@ -127,6 +127,7 @@ rf() {
         rg --files | rg $@
     fi
 }
+alias rg='rg --vimgrep --color=auto'
 
 mark() {
     if [ "$#" -ne 1 ]; then
