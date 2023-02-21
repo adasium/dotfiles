@@ -33,7 +33,10 @@ values."
    '(
      graphviz
      nginx
-     typescript
+     (typescript :variables
+                 typescript-linter 'eslint
+                 typescript-fmt-tool 'prettier
+                 typescript-backend 'lsp)
      racket
      sql
 
