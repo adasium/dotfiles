@@ -128,6 +128,7 @@ rf() {
     fi
 }
 alias rg='rg --vimgrep --color=auto'
+alias rgfile="awk -F ':' '{print \$1}'"
 
 mark() {
     if [ "$#" -ne 1 ]; then
@@ -137,6 +138,14 @@ mark() {
     fi
 }
 alias colour=mark
+
+nth() {
+    if [ "$#" -ne 1 ]; then
+        cat
+    else
+        head -n $1 | tail -n 1
+    fi
+}
 
 open() {
     filename="$1"
