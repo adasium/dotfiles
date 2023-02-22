@@ -137,6 +137,11 @@ values."
      highlight-indent-guides
      (simple-buffer-jump :location (recipe :fetcher github :repo "dalanicolai/dala-emacs-lisp"))
      (rustic :location (recipe :fetcher github :repo "brotzeit/rustic"))
+     (copilot :location (recipe
+                         :fetcher github
+                         :repo "zerolfx/copilot.el"
+                         :files ("*.el" "dist")))
+
      ;; (valign :location (recipe :fetcher github :repo "casouri/valign"))
      ;; (compat :location (recipe :fetcher github :repo "phikal/compat.el"))
      )
@@ -430,6 +435,19 @@ you should place your code here."
   ;; NOTE: last working commit: 6bafc7269
   ;; NOTE: XCompose env variables
   ;; export GTK_IM_MODULE=uim; export QT_IM_MODULE=uim; export XMODIFIERS=@im=uim;
+
+  (with-eval-after-load 'company
+    ;; disable inline previews
+    (delq 'company-preview-if-just-one-frontend company-frontends))
+
+  (with-eval-after-load 'copilot
+    (define-key copilot-completion-map (kbd "<tab>") 'copilot-accept-completion)
+    (define-key copilot-completion-map (kbd "TAB") 'copilot-accept-completion))
+
+  (add-hook 'prog-mode-hook 'copilot-mode)
+
+  (define-key evil-insert-state-map (kbd "C-<tab>") 'copilot-accept-completion-by-word)
+  (define-key evil-insert-state-map (kbd "C-TAB") 'copilot-accept-completion-by-word)
 
   (with-eval-after-load 'spaceline
     ;; (spaceline-toggle-minor-modes-off)
