@@ -1334,12 +1334,12 @@ Otherwise it expects a thing, e.g. 'symbol"
   ;; === vC/C++
   (setq-default sp-escape-quotes-after-insert nil) ; fix inserting single quotes
 
-  (setq ispell-program-name "hunspell")
-  (setq ispell-dictionary "en_GB,en_US,pl_PL,de_DE")
-  ;; ispell-set-spellchecker-params has to be called
-  ;; before ispell-hunspell-add-multi-dic will work
-  (ispell-set-spellchecker-params)
-  (ispell-hunspell-add-multi-dic "en_GB,en_US,pl_PL,de_DE")
+  ;; (setq ispell-program-name "hunspell")
+  ;; (setq ispell-dictionary "en_GB,en_US,pl_PL,de_DE")
+  ;; ;; ispell-set-spellchecker-params has to be called
+  ;; ;; before ispell-hunspell-add-multi-dic will work
+  ;; (ispell-set-spellchecker-params)
+  ;; (ispell-hunspell-add-multi-dic "en_GB,en_US,pl_PL,de_DE")
 
   ;; === vPYTHON
   (setq lsp-disabled-clients '(pyls mspyls))
