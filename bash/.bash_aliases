@@ -173,6 +173,10 @@ getmem() {
     fi
 }
 
+nicehtml() {
+    tidy -q -i -utf8 -w 0 -asxml -xml -indent --indent-spaces 4 -wrap 0 -c -f /dev/stdout
+}
+
 open() {
     filename="$1"
     extension="${1##*.}"
