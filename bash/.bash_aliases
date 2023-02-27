@@ -147,6 +147,14 @@ nth() {
     fi
 }
 
+prepend() {
+    if [ "$#" -ne 1 ]; then
+        cat
+    else
+        sed -e "s/^/$1/"
+    fi
+}
+
 open() {
     filename="$1"
     extension="${1##*.}"
