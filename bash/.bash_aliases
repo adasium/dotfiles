@@ -5,6 +5,7 @@ fi
 alias e="emacsclient -n "
 
 alias aliases="vim ~/.bash_aliases && source ~/.bash_aliases"
+alias reload="source ~/.bash_aliases"
 alias locals="vim ~/.local_aliases && source ~/.local_aliases"
 
 alias vimrc="vim ~/.vimrc"
@@ -152,6 +153,23 @@ prepend() {
         cat
     else
         sed -e "s/^/$1/"
+    fi
+}
+
+setmem() {
+    if [ "$#" -ne 1 ]; then
+        echo "Usage: setmem <name>"
+    else
+        mkdir -p /tmp/.mem
+        echo "setmem: $1"
+        clip -o > /tmp/.mem/$1
+    fi
+}
+getmem() {
+    if [ "$#" -ne 1 ]; then
+        echo "Usage: getmem <name>"
+    else
+        cat /tmp/.mem/$1
     fi
 }
 
