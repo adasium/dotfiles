@@ -168,6 +168,8 @@ setmem() {
 getmem() {
     if [ "$#" -ne 1 ]; then
         echo "Usage: getmem <name>"
+        echo "Available mems:"
+        ls /tmp/.mem
     else
         cat /tmp/.mem/$1
     fi
