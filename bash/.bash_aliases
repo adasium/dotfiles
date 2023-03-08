@@ -128,7 +128,7 @@ rf() {
         rg --files | rg $@
     fi
 }
-alias rg='rg --vimgrep --color=auto'
+alias rgv='rg --vimgrep --color=auto'
 alias rgfile="awk -F ':' '{print \$1}'"
 
 mark() {
