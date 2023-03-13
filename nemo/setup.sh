@@ -3,5 +3,6 @@
 SCRIPT_DIR=$(dirname $(realpath -s $0))
 
 mkdir -p ~/.local/share/nemo/scripts/
-ln -sfv $SCRIPT_DIR/pdfunite.py ~/.local/share/nemo/scripts/
-ln -sfv $SCRIPT_DIR/mp4_reduce_size.py ~/.local/share/nemo/scripts/
+for file in $SCRIPT_DIR/*.py; do
+    ln -sfv $file ~/.local/share/nemo/scripts/
+done
