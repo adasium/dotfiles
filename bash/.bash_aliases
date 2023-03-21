@@ -183,6 +183,14 @@ open() {
     filename="$1"
     extension="${1##*.}"
     filename_no_ext="${1%.*}"
+
+    # if -e or --explorer is passed as second argument, open the file in nemo
+    if [ "$2" = "-e" ] || [ "$2" = "--explorer" ]; then
+        nemo "$filename"
+        return
+    fi
+
+    echo "$extension: $filename_no_ext"
     if [ "$extension" = "dot" ]; then
         echo "$1 -> $filename_no_ext.svg"
         echo "Opening with `xdg-open`"
@@ -190,8 +198,10 @@ open() {
     elif [ "$extension" = "svg" ]; then
         display $filename
         echo "Opening with `display` (imagemagick)"
+    elif [ "$extension" = "mp4" ]; then
+        mpv --really-quiet $filename
     else
-        echo "No program found for $extension extension"
+        echo "$extension: No dedicated program"
     fi
 }
 alias synctime='sudo ntpdate -u 0.europe.pool.ntp.org'
