@@ -50,7 +50,11 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
             else:
                 out_filename = f'{dirname(filename)}_v2.mp4'
             result = subprocess.check_output(
-                f'/usr/bin/ffmpeg -i {filename} -vcodec libx264 {out_filename}',
+                # f'/usr/bin/ffmpeg -i {filename} -vcodec libx264 {out_filename}',
+                f'ffmpeg -i {filename} -c:v libx264 -preset superfast -crf 20 -c:a aac -b:a 128k {out_filename}'
+                if filename.endswith('mp4') else
+                f'ffmpeg -i {filename} -movflags faststart -pix_fmt yuv420p -vf "scale=trunc(iw/2)*2:trunc(ih/2)*2" -n "{out_filename}"',
+
                 stderr=subprocess.STDOUT,
                 shell=True,
             )
