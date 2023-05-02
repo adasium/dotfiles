@@ -74,6 +74,7 @@
 ;;
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
+;; (setq doom-font (font-spec :family "Fira Mono" :size 12))
 
 (defun switch-to-last-buffer ()
   (interactive)
@@ -83,3 +84,35 @@
 (map! :leader :desc "SPC SPC does M-x" :n "SPC" #'execute-extended-command)
 (map! :n "C-M-j" #'evil-mc-make-cursor-move-next-line)
 (map! :n "C-M-k" #'evil-mc-make-cursor-move-prev-line)
+(map! :leader :n "g s" #'magit-status)
+(map! :leader "C-a" #'evil-numbers/inc-at-pt)
+(map! :leader "C-x" #'evil-numbers/dec-at-pt)
+(map! :nvi "<tab>" #'evil-indent)
+(map! :leader :n "F n" #'make-frame)
+(map! :nvi "<c-tab>" #'yas-insert-snippet)
+(map! :v "s" #'evil-surround-region)
+;; (map! :leader :nv "c l" #'comment-line)
+(add-to-list 'default-frame-alist '(fullscreen . maximized))
+(advice-add '+emacs-lisp-truncate-pin :override (lambda () ()) )
+
+
+(evil-define-text-object chom/textobj-inner-line (count &optional _beg _end type)
+  "Text object to select the line."
+  (evil-range
+   (save-excursion
+     (evil-end-of-line))
+   (save-excursion
+     (evil-first-non-blank))
+   type))
+(evil-define-text-object chom/textobj-outer-line (count &optional _beg _end type)
+  "Text object to select the line."
+  (evil-range
+   (save-excursion
+     (evil-end-of-line))
+   (save-excursion
+     (evil-beginning-of-line))
+   type))
+(map! :textobj "l" #'chom/textobj-inner-line #'chom/textobj-outer-line)
+
+(map! :nv "M-j" #'drag-stuff-down)
+(map! :nv "M-k" #'drag-stuff-up)
