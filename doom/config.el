@@ -85,8 +85,11 @@
 (map! :n "C-M-j" #'evil-mc-make-cursor-move-next-line)
 (map! :n "C-M-k" #'evil-mc-make-cursor-move-prev-line)
 (map! :leader :n "g s" #'magit-status)
+
 (map! "C-a" #'evil-numbers/inc-at-pt)
-(map! "C-x" #'evil-numbers/dec-at-pt)
+;; TODO: is not applied correctly because there is already a group of bindings for C-x.
+;; (map! "C-x" #'evil-numbers/dec-at-pt)
+
 (map! :nvi "<tab>" #'evil-indent)
 (map! :leader :n "F n" #'make-frame)
 (map! :nvi "<c-tab>" #'yas-insert-snippet)
@@ -118,3 +121,26 @@
 (map! :nv "M-k" #'drag-stuff-up)
 (map! :n "C-n" #'evil-mc-make-and-goto-next-match)
 (map! :n "C-p" #'evil-mc-make-and-goto-prev-match)
+
+;; TODO: doesn't seem to work
+(defun chom/git-commit-setup ()
+  ;; https://emacs.stackexchange.com/a/28541
+  (let ((ISSUEKEY "[[:upper:]]+-[[:digit:]]+"))
+    (when
+        (and
+         (string-match-p ISSUEKEY (magit-get-current-branch))
+         (not (string-match-p
+               (string-join (list ISSUEKEY ":.*"))
+               (first (chom/util/get-buffer-lines)))))
+      (insert
+       (upcase
+        (string-inflection-kebab-case-function
+         (replace-regexp-in-string
+          (concat ".*?\\(" ISSUEKEY "\\).*")
+          "\\1: "
+          (magit-get-current-branch))))))))
+
+(add-hook 'git-commit-setup-hook 'chom/git-commit-setup)
+
+(map! :leader :n "F d" #'delete-frame)
+(map! :n ", g r" #'+lookup/references)
