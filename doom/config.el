@@ -117,8 +117,8 @@
    type))
 (map! :textobj "l" #'chom/textobj-inner-line #'chom/textobj-outer-line)
 
-(map! :nv "M-j" #'drag-stuff-down)
-(map! :nv "M-k" #'drag-stuff-up)
+(map! :nvi "M-j" #'drag-stuff-down)
+(map! :nvi "M-k" #'drag-stuff-up)
 (map! :n "C-n" #'evil-mc-make-and-goto-next-match)
 (map! :n "C-p" #'evil-mc-make-and-goto-prev-match)
 
