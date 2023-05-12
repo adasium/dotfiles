@@ -145,3 +145,5 @@
 (map! :leader :n "F d" #'delete-frame)
 (map! :n ", g r" #'+lookup/references)
 (map! :ni "C-<tab>" #'yas-expand)
+
+(setq yas-indent-line 'fixed)

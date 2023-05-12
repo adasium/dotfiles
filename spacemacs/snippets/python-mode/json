@@ -43,6 +43,7 @@ def load_json_file(path: str, default: Any) -> Any:
     else:
         return default
 
+
 def dump_json(obj: str, path: Any) -> Any:
     with open(path, 'w') as f:
         json.dump(obj, f, cls=MyEncoder)
