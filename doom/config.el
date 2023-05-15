@@ -147,3 +147,14 @@
 (map! :ni "C-<tab>" #'yas-expand)
 
 (setq yas-indent-line 'fixed)
+
+(defun chom/projectile-copy-file-path-as-python-import ()
+  "Copy and show file path as python import"
+  (interactive)
+  (if-let (file-path (abbreviate-file-name (file-relative-name (buffer-file-name) (doom-project-root))))
+      (progn
+        (setq file-path (replace-regexp-in-string "/" "." (replace-regexp-in-string "src/" "" (file-name-sans-extension file-path))))
+        (kill-new file-path)
+        (message "%s" file-path))
+    (message "WARNING: Current buffer is not visiting a file!")))
+(map! :leader :n "f p" #'chom/projectile-copy-file-path-as-python-import)
