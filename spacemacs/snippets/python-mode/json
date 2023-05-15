@@ -1,12 +1,15 @@
 # -*- mode: snippet -*-
 # name: json-template
-# key: json
+# key: json,
 # --
 import json
 import os
 from google.api_core.datetime_helpers import DatetimeWithNanoseconds
 from google.cloud.firestore_v1 import DocumentReference
 from typing import Any
+
+
+_SENTINEL = object()
 
 
 class MyEncoder(json.JSONEncoder):
@@ -36,11 +39,12 @@ class MyDecoder(json.JSONDecoder):
             return obj
 
 
-def load_json_file(path: str, default: Any) -> Any:
+def load_json_file(path: str, default: Any = _SENTINEL) -> Any:
     if os.path.isfile(path):
         with open(path) as f:
             return json.load(f, cls=MyDecoder)
     else:
+        assert default != _SENTINEL, f'file {path} does not exist and default is not set'
         return default
 
 
