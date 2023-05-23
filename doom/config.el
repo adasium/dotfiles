@@ -86,9 +86,10 @@
 (map! :n "C-M-k" #'evil-mc-make-cursor-move-prev-line)
 (map! :leader :n "g s" #'magit-status)
 
-(map! "C-a" #'evil-numbers/inc-at-pt)
+(map! :map global-map "C-a" #'evil-numbers/inc-at-pt)
 ;; TODO: is not applied correctly because there is already a group of bindings for C-x.
-;; (map! "C-x" #'evil-numbers/dec-at-pt)
+;; this also make C-h k and C-h f error.
+;; (global-set-key (kbd "C-x") #'evil-numbers/dec-at-pt)
 
 (map! :nvi "<tab>" #'evil-indent)
 (map! :leader :n "F n" #'make-frame)
