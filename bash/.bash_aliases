@@ -208,3 +208,18 @@ alias synctime='sudo ntpdate -u 0.europe.pool.ntp.org'
 
 # https://askubuntu.com/a/620142
 alias lh='ls -Ad .??*'
+
+t() {
+    mkdir t
+    pushd t > /dev/null
+    touch t.py
+    virtualenv .venv --python python3.8 > /dev/null
+    source .venv/bin/activate
+    ll
+}
+
+regex() {
+    python -c "import re, sys; print(\"\\n\".join([group for match in re.finditer(\"$1\", sys.stdin.read(), re.MULTILINE) for group in match.groups()]))"
+}
+
+
