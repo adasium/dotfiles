@@ -1,10 +1,17 @@
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
 # Path to your oh-my-zsh installation.
 export ZSH="/home/$USER/.oh-my-zsh"
 export EDITOR="emacsclient -c -a vim"
 setopt HIST_IGNORE_DUPS
 setopt +o nomatch
 unsetopt correct_all
-ZSH_THEME="agnoster"
+ZSH_THEME="powerlevel10k/powerlevel10k"
 source ~/.bash_aliases
 # Uncomment the following line to disable bi-weekly auto-update checks.
 DISABLE_AUTO_UPDATE="true"
@@ -77,3 +84,6 @@ if [ -f ~/.zshrc.local ]; then
 fi
 
 # TODO: https://github.com/junegunn/fzf/issues/2300
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
