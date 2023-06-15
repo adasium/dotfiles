@@ -159,3 +159,9 @@
         (message "%s" file-path))
     (message "WARNING: Current buffer is not visiting a file!")))
 (map! :leader :n "f p" #'chom/projectile-copy-file-path-as-python-import)
+
+
+(defun chom/default-web-engine()
+  (web-mode-set-engine "django"))
+
+(add-hook 'web-mode-hook 'chom/default-web-engine)
