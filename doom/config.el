@@ -167,16 +167,30 @@
 (add-hook 'web-mode-hook 'chom/default-web-engine)
 
 (defun chom/smart-tab-jump-out-or-indent (&optional arg)
-    "Smart tab behaviour for doom emacs.
+  "Smart tab behaviour for doom emacs.
 Copilot accept completion if copilot-mode active, jump out quote or brackets, or indent."
-    (interactive "P")
-    (if (and (bound-and-true-p copilot-mode) (copilot-accept-completion))
-        (copilot-accept-completion))
-    (if (and (evil-insert-state-p) (char-after)
-             (-contains? (list "\"" "'" ")" "}" ";" "|" ">" "]" "`")
-                         (make-string 1 (char-after))))
-        (forward-char 1)
-      (indent-for-tab-command arg)))
+  (interactive "P")
+  ;; if autocomplete is active, accept completion
+  (cond
+   ((company--active-p)
+    (progn
+      ;; (messsage "company")
+      (company-complete-selection)))
+   ((copilot--overlay-visible) (progn
+                                 ;; (message "copilot")
+                                 (copilot-accept-completion)))
+   ((and (evil-insert-state-p)
+         (char-after)
+         (-contains? (list "\"" "'" ")" "}" ";" "|" ">" "]" "`")
+                     (make-string 1 (char-after))))
+    (progn
+      ;; (message "jump out")
+      (forward-char 1)))
+   (t
+    ;; (message "nothing")
+    (indent-for-tab-command arg)
+    ))
+  )
 
 (defun chom/smart-tab-jump-in-or-indent (&optional arg)
     "Smart tab behavior. Jump out quote or brackets, or indent."
