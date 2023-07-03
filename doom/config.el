@@ -91,9 +91,7 @@
 ;; this also make C-h k and C-h f error.
 ;; (global-set-key (kbd "C-x") #'evil-numbers/dec-at-pt)
 
-(map! :nvi "<tab>" #'evil-indent)
 (map! :leader :n "F n" #'make-frame)
-(map! :nvi "<c-tab>" #'yas-insert-snippet)
 (map! :v "s" #'evil-surround-region)
 ;; (map! :leader :nv "c l" #'comment-line)
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
@@ -146,8 +144,10 @@
 (map! :leader :n "F d" #'delete-frame)
 (map! :n ", g r" #'+lookup/references)
 (map! :ni "C-<tab>" #'yas-expand)
+;; (map! :nvi "<c-tab>" #'yas-insert-snippet)
 
 (setq yas-indent-line 'fixed)
+(setq tab-always-indent t)
 
 (defun chom/projectile-copy-file-path-as-python-import ()
   "Copy and show file path as python import"
@@ -165,3 +165,26 @@
   (web-mode-set-engine "django"))
 
 (add-hook 'web-mode-hook 'chom/default-web-engine)
+
+(defun chom/smart-tab-jump-out-or-indent (&optional arg)
+    "Smart tab behaviour for doom emacs.
+Copilot accept completion if copilot-mode active, jump out quote or brackets, or indent."
+    (interactive "P")
+    (if (and (bound-and-true-p copilot-mode) (copilot-accept-completion))
+        (copilot-accept-completion))
+    (if (and (evil-insert-state-p) (char-after)
+             (-contains? (list "\"" "'" ")" "}" ";" "|" ">" "]" "`")
+                         (make-string 1 (char-after))))
+        (forward-char 1)
+      (indent-for-tab-command arg)))
+
+(defun chom/smart-tab-jump-in-or-indent (&optional arg)
+    "Smart tab behavior. Jump out quote or brackets, or indent."
+    (interactive "P")
+    (if (and (evil-insert-state-p) (char-before)
+             (-contains? (list "\"" "'" ")" "}" ";" "|" ">" "]" "`") (make-string 1 (char-before))))
+        (backward-char 1)
+      (indent-for-tab-command arg)))
+
+(map! :nvi "<tab>" #'chom/smart-tab-jump-out-or-indent)
+(map! :nvi "<backtab>" #'chom/smart-tab-jump-in-or-indent)
