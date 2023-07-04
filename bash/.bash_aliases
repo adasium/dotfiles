@@ -221,5 +221,5 @@ t() {
 regex() {
     python -c "import re, sys; print(\"\\n\".join([group for match in re.finditer(\"$1\", sys.stdin.read(), re.MULTILINE) for group in match.groups()]))"
 }
-
+alias seba='source .venv/bin/activate'
 
