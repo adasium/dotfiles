@@ -176,7 +176,7 @@ Copilot accept completion if copilot-mode active, jump out quote or brackets, or
     (progn
       ;; (message "company")
       (company-complete-selection)))
-   ((copilot--overlay-visible) (progn
+   ((and (bound-and-true-p copilot--overlay-visible) (copilot--overlay-visible)) (progn
                                  ;; (message "copilot")
                                  (copilot-accept-completion)))
    ((and (evil-insert-state-p)
