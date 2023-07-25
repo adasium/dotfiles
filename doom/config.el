@@ -170,9 +170,9 @@ Copilot accept completion if copilot-mode active, jump out quote or brackets, or
   (interactive "P")
   (let ((debug nil)
         (company-active (company--active-p))
-        (copilot-visible (and
-                          (bound-and-true-p copilot--overlay-visible)
-                          (copilot-current-completion)))
+        (copilot-available (and
+                             (fboundp 'copilot-current-completion)
+                             (copilot-current-completion)))
         (should-skip-next (and (evil-insert-state-p)
                                (char-after)
                                (-contains? (list "\"" "'" ")" "}" ";" "|" ">" "]" "`")
@@ -180,33 +180,32 @@ Copilot accept completion if copilot-mode active, jump out quote or brackets, or
     (cond
      (company-active (progn
                        (when debug
-                         (message "company"))
+                         (message "> (chom) company"))
                        (company-complete-selection)))
+     (copilot-available (progn
+                          (when debug
+                            (message "> (chom) copilot"))
+                          (copilot-accept-completion)))
      (should-skip-next (progn
                          (when debug
-                           (message "jump out"))
+                           (message "> (chom) jump out"))
                          (forward-char 1)))
      (t
       (when debug
-        (message "default"))
+        (message "> (chom) default"))
       (indent-for-tab-command arg)))))
 
 (defun chom/ctab (&optional arg)
   "Smart tab behaviour for doom emacs.
 Copilot accept completion if copilot-mode active, jump out quote or brackets, or indent."
   (interactive "P")
-  (let ((debug nil)
-        (copilot-available (and
-                            (bound-and-true-p copilot-current-completion)
-                            (copilot-current-completion))))
+  (let* ((debug nil))
+    (when debug
+      (message "> (chom) copilot: %s" copilot-available))
     (cond
-     (copilot-available (progn
-                          (when debug
-                            (message "copilot"))
-                          (copilot-accept-completion)))
      (t
       (when debug
-        (message "default"))
+        (message "> (chom) default"))
       (yas-expand)))))
 
 (defun chom/smart-tab-jump-in-or-indent (&optional arg)
@@ -222,3 +221,9 @@ Copilot accept completion if copilot-mode active, jump out quote or brackets, or
 (map! :nvi "<backtab>" #'chom/smart-tab-jump-in-or-indent)
 (map! :ni "C-<tab>" #'chom/ctab)
 (map! :ni "S-<return>" #'evil-open-above)
+
+;; https://github.com/dalanicolai/dala-emacs-lisp/blob/master/simple-buffer-jump.el
+(defun chom/sbj-get-emacs-configuration ()
+  (if (boundp 'spacemacs-default-map)
+      spacemacs-leader-map
+    global-map))
