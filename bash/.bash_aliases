@@ -1,5 +1,5 @@
 # -*- mode: shell-script -*-
-if type nvim > /dev/null 2>&1; then
+if command -v 'nvim' &> /dev/null; then
     alias vim="nvim"
 fi
 alias e="emacsclient -n "
