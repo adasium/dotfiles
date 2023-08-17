@@ -158,7 +158,6 @@
        ;;plantuml          ; diagrams for confusing people more
        ;;purescript        ; javascript, but functional
        (python
-        +lsp
         +cython
         )            ; beautiful is better than ugly
        ;;qt                ; the 'cutest' gui framework ever
