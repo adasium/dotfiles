@@ -223,3 +223,4 @@ regex() {
 }
 alias seba='source .venv/bin/activate'
 
+alias remote='x11vnc -repeat -forever -nomodtweak -remap less-comma -display :0'
