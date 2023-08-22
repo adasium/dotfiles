@@ -227,3 +227,5 @@ Copilot accept completion if copilot-mode active, jump out quote or brackets, or
   (if (boundp 'spacemacs-default-map)
       spacemacs-leader-map
     global-map))
+
+(bind-key* (kbd "C-x") 'evil-numbers/dec-at-pt)
