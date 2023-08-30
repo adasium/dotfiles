@@ -224,3 +224,83 @@ regex() {
 alias seba='source .venv/bin/activate'
 
 alias remote='x11vnc -repeat -forever -nomodtweak -remap less-comma -display :0'
+
+alias bak='bak_func'
+bak_func() {
+    local copy_flag=false
+    local source_files=()
+
+    while [ $# -gt 0 ]; do
+        case "$1" in
+            --copy|-c)
+                copy_flag=true
+                shift
+                ;;
+            *)
+                source_files+=("$1")
+                shift
+                ;;
+        esac
+    done
+
+    if [ "${#source_files[@]}" -eq 0 ]; then
+        echo "Usage: bak [--copy|-c] <filename(s)>"
+        return 1
+    fi
+
+    for source_file in "${source_files[@]}"; do
+        destination_file="${source_file}.bak"
+
+        if [ "$copy_flag" = true ]; then
+            cp "$source_file" "$destination_file"
+            echo "Copied $source_file to $destination_file"
+        else
+            mv "$source_file" "$destination_file"
+            echo "Renamed $source_file to $destination_file"
+        fi
+    done
+}
+
+alias unbak='unbak_func'
+unbak_func() {
+    local copy_flag=false
+    local source_files=()
+
+    while [ $# -gt 0 ]; do
+        case "$1" in
+            --copy|-c)
+                copy_flag=true
+                shift
+                ;;
+            *)
+                source_files+=("$1")
+                shift
+                ;;
+        esac
+    done
+
+    if [ "${#source_files[@]}" -eq 0 ]; then
+        echo "Usage: unbak [--copy|-c] <filename(s)>"
+        return 1
+    fi
+
+    for source_file in "${source_files[@]}"; do
+        if [[ "$source_file" =~ \.bak$ ]]; then
+            destination_file="${source_file%.bak}"
+
+            if [ -e "$destination_file" ]; then
+                echo "Error: Destination file '$destination_file' already exists. Skipping '$source_file'."
+            else
+                if [ "$copy_flag" = true ]; then
+                    cp "$source_file" "$destination_file"
+                    echo "Restored (copied) $source_file to $destination_file"
+                else
+                    mv "$source_file" "$destination_file"
+                    echo "Restored $source_file to $destination_file"
+                fi
+            fi
+        else
+            echo "Error: '$source_file' doesn't seem to be a valid backup file. Skipping."
+        fi
+    done
+}
