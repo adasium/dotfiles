@@ -222,10 +222,5 @@ Copilot accept completion if copilot-mode active, jump out quote or brackets, or
 (map! :ni "C-<tab>" #'chom/ctab)
 (map! :ni "S-<return>" #'evil-open-above)
 
-;; https://github.com/dalanicolai/dala-emacs-lisp/blob/master/simple-buffer-jump.el
-(defun chom/sbj-get-emacs-configuration ()
-  (if (boundp 'spacemacs-default-map)
-      spacemacs-leader-map
-    global-map))
-
 (bind-key* (kbd "C-x") 'evil-numbers/dec-at-pt)
+;; (use-package "simple-buffer-jump")
