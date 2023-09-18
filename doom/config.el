@@ -224,3 +224,13 @@ Copilot accept completion if copilot-mode active, jump out quote or brackets, or
 
 (bind-key* (kbd "C-x") 'evil-numbers/dec-at-pt)
 ;; (use-package "simple-buffer-jump")
+
+(map! :leader :n "el" #'flycheck-list-errors)
+(map! :leader :n "en" #'next-error)
+(map! :leader :n "ep" #'previous-error)
+
+(defun chom/save-all-buffers()
+  (interactive)
+  (save-some-buffers t nil))
+
+(map! :leader :n "fS" #'chom/save-all-buffers)
