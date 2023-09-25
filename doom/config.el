@@ -234,3 +234,4 @@ Copilot accept completion if copilot-mode active, jump out quote or brackets, or
   (save-some-buffers t nil))
 
 (map! :leader :n "fS" #'chom/save-all-buffers)
+(map! :ni "C-t" #'transpose-chars)
