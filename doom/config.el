@@ -237,3 +237,8 @@ Copilot accept completion if copilot-mode active, jump out quote or brackets, or
 (map! :leader :n "fS" #'chom/save-all-buffers)
 (map! :ni "C-t" #'transpose-chars)
 (map! :ni "C-S-t" #'transpose-sexps)
+
+(setq evil-mc-custom-known-commands '(
+                                      (wdired--self-insert
+                                       (:default . evil-mc-execute-default-call))
+                                      ))
