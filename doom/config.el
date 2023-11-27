@@ -118,6 +118,7 @@
 
 (map! :nvi "M-j" #'drag-stuff-down)
 (map! :nvi "M-k" #'drag-stuff-up)
+;; (bind-key* (kbd "C-n") #'evil-mc-make-and-goto-next-match)
 (map! :n "C-n" #'evil-mc-make-and-goto-next-match)
 (map! :n "C-p" #'evil-mc-make-and-goto-prev-match)
 
