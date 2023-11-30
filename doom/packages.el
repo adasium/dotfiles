@@ -51,6 +51,3 @@
 
 (package! copilot
   :recipe (:host github :repo "zerolfx/copilot.el" :files ("*.el" "dist")))
-
-(package! simple-buffer-jump
-  :recipe (:host github :repo "milochadam/dala-emacs-lisp" :files ("simple-buffer-jump.el")))
