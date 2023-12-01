@@ -119,10 +119,11 @@
 (map! :nvi "M-j" #'drag-stuff-down)
 (map! :nvi "M-k" #'drag-stuff-up)
 
-(map! :map evil-mc-key-map :nv "C-n" nil)
-(map! :map evil-mc-key-map :nv "C-p" nil)
-(map! :n "C-n" #'evil-mc-make-and-goto-next-match)
-(map! :n "C-p" #'evil-mc-make-and-goto-prev-match)
+(after! (:or evil evil-mc)
+  (map! :map evil-mc-key-map :nv "C-n" nil)
+  (map! :map evil-mc-key-map :nv "C-p" nil)
+  (map! :n "C-n" #'evil-mc-make-and-goto-next-match)
+  (map! :n "C-p" #'evil-mc-make-and-goto-prev-match))
 
 ;; TODO: doesn't seem to work
 (defun chom/git-commit-setup ()
