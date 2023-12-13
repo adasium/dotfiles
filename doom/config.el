@@ -244,4 +244,15 @@ Copilot accept completion if copilot-mode active, jump out quote or brackets, or
 (setq evil-mc-custom-known-commands '(
                                       (wdired--self-insert
                                        (:default . evil-mc-execute-default-call))
+                                      (string-inflection-underscore
+                                       (:default . evil-mc-execute-default-call))
+                                      (string-inflection-upcase
+                                       (:default . evil-mc-execute-default-call))
+                                      (string-inflection-kebab-case
+                                       (:default . evil-mc-execute-default-call))
                                       ))
+
+(map! :leader :n "x")
+(map! :leader "xtu" #'string-inflection-underscore)
+(map! :leader "xtU" #'string-inflection-upcase)
+(map! :leader "xtk" #'string-inflection-kebab-case)

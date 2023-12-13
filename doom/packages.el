@@ -51,3 +51,6 @@
 
 (package! copilot
   :recipe (:host github :repo "zerolfx/copilot.el" :files ("*.el" "dist")))
+
+(package! evil-string-inflection
+  :recipe (:host github :repo "ninrod/evil-string-inflection" :files ("*.el" "dist")))
