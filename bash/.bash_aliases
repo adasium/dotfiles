@@ -148,6 +148,22 @@ nth() {
     fi
 }
 
+lower() {
+    if [ "$#" -ne 1 ]; then
+        cat
+    else
+        tr '[:upper:]' '[:lower:]'
+    fi
+}
+
+upper() {
+    if [ "$#" -ne 1 ]; then
+        cat
+    else
+        tr '[:lower:]' '[:upper:]'
+    fi
+}
+
 prepend() {
     if [ "$#" -ne 1 ]; then
         cat
