@@ -149,19 +149,11 @@ nth() {
 }
 
 lower() {
-    if [ "$#" -ne 1 ]; then
-        cat
-    else
-        tr '[:upper:]' '[:lower:]'
-    fi
+    tr '[:upper:]' '[:lower:]'
 }
 
 upper() {
-    if [ "$#" -ne 1 ]; then
-        cat
-    else
-        tr '[:lower:]' '[:upper:]'
-    fi
+    tr '[:lower:]' '[:upper:]'
 }
 
 prepend() {
