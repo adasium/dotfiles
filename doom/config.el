@@ -256,3 +256,5 @@ Copilot accept completion if copilot-mode active, jump out quote or brackets, or
 (map! :leader "xtu" #'string-inflection-underscore)
 (map! :leader "xtU" #'string-inflection-upcase)
 (map! :leader "xtk" #'string-inflection-kebab-case)
+
+(define-key evil-normal-state-map (kbd "-") 'dired-jump)
