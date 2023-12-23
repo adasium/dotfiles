@@ -220,7 +220,6 @@ Copilot accept completion if copilot-mode active, jump out quote or brackets, or
         (backward-char 1)
       (indent-for-tab-command arg)))
 
-(map! :map company-active-map "<tab>" nil)
 (map! :nvi "<tab>" #'chom/smart-tab-jump-out-or-indent)
 (map! :nvi "<backtab>" #'chom/smart-tab-jump-in-or-indent)
 (map! :ni "C-<tab>" #'chom/ctab)
@@ -258,3 +257,4 @@ Copilot accept completion if copilot-mode active, jump out quote or brackets, or
 (map! :leader "xtk" #'string-inflection-kebab-case)
 
 (define-key evil-normal-state-map (kbd "-") 'dired-jump)
+(setq company-selection-wrap-around t)
