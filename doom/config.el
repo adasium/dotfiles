@@ -249,6 +249,8 @@ Copilot accept completion if copilot-mode active, jump out quote or brackets, or
                                        (:default . evil-mc-execute-default-call))
                                       (string-inflection-kebab-case
                                        (:default . evil-mc-execute-default-call))
+                                      (chom/smart-tab-jump-out-or-indent
+                                       (:default . evil-mc-execute-call-with-count))
                                       ))
 
 (map! :leader :n "x")
