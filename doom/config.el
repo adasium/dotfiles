@@ -260,3 +260,16 @@ Copilot accept completion if copilot-mode active, jump out quote or brackets, or
 
 (define-key evil-normal-state-map (kbd "-") 'dired-jump)
 (setq company-selection-wrap-around t)
+(map! :map company-active-map "<tab>" 'company-complete)
+(setq lsp-enable-snippet nil)
+
+;; https://github.com/doomemacs/doomemacs/issues/4477#issuecomment-762882261
+(when (and (modulep! :tools lsp) (not (modulep! :tools lsp +eglot)))
+  (use-package! lsp-mode :defer t :config
+    (add-hook! lsp-after-open
+      (setq company-backends (remove 'company-yasnippet company-backends)))))
+
+(set-company-backend! 'prog-mode
+  '(:separate company-capf company-dabbrev company-ispell))
+(set-company-backend! 'python-mode
+  '(:separate company-capf company-dabbrev company-ispell))
