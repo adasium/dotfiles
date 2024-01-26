@@ -54,3 +54,6 @@
 
 (package! evil-string-inflection
   :recipe (:host github :repo "ninrod/evil-string-inflection" :files ("*.el" "dist")))
+
+(package! evil-textobj-line
+  :recipe (:host github :repo "emacsorphanage/evil-textobj-line" :files ("*.el" "dist")))

@@ -273,3 +273,44 @@ Copilot accept completion if copilot-mode active, jump out quote or brackets, or
   '(:separate company-capf company-dabbrev company-ispell))
 (set-company-backend! 'python-mode
   '(:separate company-capf company-dabbrev company-ispell))
+
+
+;; https://github.com/emacsorphanage/evil-textobj-line/blob/master/evil-textobj-line.el
+;; pasting the code here because I don't know how to install it
+
+(defgroup evil-textobj-line nil
+  "Line text object for Evil."
+  :group 'evil)
+
+(defcustom evil-textobj-line-i-key "l"
+  "Keys for evil-inner-line."
+  :type 'string
+  :group 'evil-textobj-line)
+
+(defcustom evil-textobj-line-a-key "l"
+  "Keys for evil-a-line."
+  :type 'string
+  :group 'evil-textobj-line)
+
+(defun evil-line-range (count beg end type &optional inclusive)
+  (if inclusive
+      (evil-range (line-beginning-position) (line-end-position))
+    (let ((start (save-excursion
+                   (back-to-indentation)
+                   (point)))
+          (end (save-excursion
+                 (goto-char (line-end-position))
+                 (skip-syntax-backward " " (line-beginning-position))
+                 (point))))
+      (evil-range start end))))
+
+(evil-define-text-object evil-a-line (count &optional beg end type)
+  "Select range between a character by which the command is followed."
+  (evil-line-range count beg end type t))
+(evil-define-text-object evil-inner-line (count &optional beg end type)
+  "Select inner range between a character by which the command is followed."
+  (evil-line-range count beg end type))
+
+;; https://github.com/emacsorphanage/evil-textobj-line/blob/master/evil-textobj-line.el
+(define-key evil-outer-text-objects-map evil-textobj-line-a-key 'evil-a-line)
+(define-key evil-inner-text-objects-map evil-textobj-line-i-key 'evil-inner-line)
