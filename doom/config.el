@@ -261,7 +261,9 @@ Copilot accept completion if copilot-mode active, jump out quote or brackets, or
 (define-key evil-normal-state-map (kbd "-") 'dired-jump)
 (setq company-selection-wrap-around t)
 (map! :map company-active-map "<tab>" 'company-complete)
+(map! :map company-active-map "<return>" 'newline-and-indent)
 (setq lsp-enable-snippet nil)
+
 
 ;; https://github.com/doomemacs/doomemacs/issues/4477#issuecomment-762882261
 (when (and (modulep! :tools lsp) (not (modulep! :tools lsp +eglot)))
