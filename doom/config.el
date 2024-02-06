@@ -125,24 +125,6 @@
   (map! :n "C-n" #'evil-mc-make-and-goto-next-match)
   (map! :n "C-p" #'evil-mc-make-and-goto-prev-match))
 
-;; TODO: doesn't seem to work
-(defun chom/git-commit-setup ()
-  ;; https://emacs.stackexchange.com/a/28541
-  (let ((ISSUEKEY "[[:upper:]]+-[[:digit:]]+"))
-    (when
-        (and
-         (string-match-p ISSUEKEY (magit-get-current-branch))
-         (not (string-match-p
-               (string-join (list ISSUEKEY ":.*"))
-               (first (chom/util/get-buffer-lines)))))
-      (insert
-       (upcase
-        (string-inflection-kebab-case-function
-         (replace-regexp-in-string
-          (concat ".*?\\(" ISSUEKEY "\\).*")
-          "\\1: "
-          (magit-get-current-branch))))))))
-
 (add-hook 'git-commit-setup-hook 'chom/git-commit-setup)
 
 (map! :leader :n "F d" #'delete-frame)
