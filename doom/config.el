@@ -242,8 +242,10 @@ Copilot accept completion if copilot-mode active, jump out quote or brackets, or
 
 (define-key evil-normal-state-map (kbd "-") 'dired-jump)
 (setq company-selection-wrap-around t)
-(map! :map company-active-map "<tab>" 'company-complete-selection)
-(map! :map company-active-map "<return>" 'newline-and-indent)
+
+(after! (:or company)
+  (map! :map company-active-map "<tab>" 'company-complete-selection)
+  (map! :map company-active-map "<return>" 'newline-and-indent))
 (setq lsp-enable-snippet nil)
 
 
