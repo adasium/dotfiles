@@ -45,11 +45,17 @@ def _format(string: str) -> dict[str, FormatInfo] | None:
 
 
 def try_parse_datetime(dt_str: str) -> datetime:
-    try:
-        return datetime.strptime(dt_str, "%Y-%m-%d %H:%M:%S.%f %Z")
-    except ValueError:
-        print("Error: Unable to parse datetime string.")
-        raise
+    formats = [
+        "%Y-%m-%d %H:%M:%S.%f %Z",
+        "%m/%d/%Y",
+    ]
+    for format in formats:
+        try:
+            return datetime.strptime(dt_str, format)
+        except ValueError:
+            pass
+    raise ValueError(f"Error: Unable to parse datetime string. tried: {formats}")
+
 
 
 def format_output_item(
