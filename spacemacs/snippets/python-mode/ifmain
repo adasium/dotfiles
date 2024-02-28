@@ -2,11 +2,13 @@
 # name: ifmain
 # key: ifm
 # --
+from __future__ import annotations
+
 from typing import Optional
 from typing import Sequence
 
 
-def main(argv: Optional[Sequence[str]] = None) -> int:
+def main(argv: Sequence[str] | None = None) -> int:
     ${0:return 0}
 
 
