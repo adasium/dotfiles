@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import csv
+import collections
 import json
 import sys
 import argparse
@@ -122,10 +123,10 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
     args = parser.parse_args()
     if args.debug:
         print(args.columns)
-    data = json.load(sys.stdin)
-    json_fields = set()
+    data = json.load(sys.stdin, object_pairs_hook=collections.OrderedDict)
+    json_fields = []
     for doc in data:
-        json_fields |= set(doc)
+        json_fields = list(dict.fromkeys(json_fields + list(doc.keys())))
 
     csv_columns = args.columns or json_fields
     print(','.join(csv_columns))
