@@ -17,9 +17,14 @@ from typing import Sequence
 DELIM = ','
 
 
-def _columns(string: str) -> list[str] | None:
+def _columns(string: str) -> list[str]:
     chunks = string.split(',')
     return [chunk.strip() for chunk in chunks]
+
+
+def _delimiter(string: str) -> str:
+    string = string.replace('\\t', '\t').replace('tab', '\t')
+    return string
 
 
 class FormatInfo(NamedTuple):
@@ -115,12 +120,14 @@ def _sort(sort_str: str) -> list[SortBy]:
 
 def main(argv: Optional[Sequence[str]] = None) -> int:
     parser = argparse.ArgumentParser()
-    parser.add_argument('-d', '--debug', required=False, action='store_true')
+    parser.add_argument('-D', '--debug', required=False, action='store_true')
     parser.add_argument('-c', '--columns', required=False, type=_columns)
     parser.add_argument('-f', '--format', required=False, type=_format)
     parser.add_argument('-s', '--sort', required=False, type=_sort)
+    parser.add_argument('-d', '--delimiter', required=False, type=_delimiter)
 
     args = parser.parse_args()
+    delimiter = args.delimiter or ','
     if args.debug:
         print(args.columns)
     data = json.load(sys.stdin, object_pairs_hook=collections.OrderedDict)
@@ -129,7 +136,7 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
         json_fields = list(dict.fromkeys(json_fields + list(doc.keys())))
 
     csv_columns = args.columns or json_fields
-    print(','.join(csv_columns))
+    print(delimiter.join(csv_columns))
 
     for sort_by in reversed(args.sort or []):
         data = sorted(
@@ -139,7 +146,7 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
         )
 
     for doc in data:
-        line = ','.join(
+        line = delimiter.join(
             format_output_item(
                 key=col,
                 value=doc[col],
