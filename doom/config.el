@@ -300,3 +300,13 @@ Copilot accept completion if copilot-mode active, jump out quote or brackets, or
 ;; https://github.com/emacsorphanage/evil-textobj-line/blob/master/evil-textobj-line.el
 (define-key evil-outer-text-objects-map evil-textobj-line-a-key 'evil-a-line)
 (define-key evil-inner-text-objects-map evil-textobj-line-i-key 'evil-inner-line)
+
+(defun chom/remove-yasnippet-from-company-backends ()
+  (interactive)
+  (mapcar (lambda (x)
+            (if (listp x)
+                (remove 'company-yasnippet x)
+              x))
+          company-backends))
+
+(add-hook! 'python-mode-hook #'chom/remove-yasnippet-from-company-backends)
