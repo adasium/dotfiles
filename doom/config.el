@@ -310,3 +310,6 @@ Copilot accept completion if copilot-mode active, jump out quote or brackets, or
           company-backends))
 
 (add-hook! 'python-mode-hook #'chom/remove-yasnippet-from-company-backends)
+
+(setq lsp-pylsp-server-command (substitute-in-file-name "$HOME/.config/emacs/.local/etc/lsp/pylsp/.venv/bin/pylsp"))
+(setq lsp-pylsp-plugins-pydocstyle-enabled nil)
