@@ -303,11 +303,12 @@ Copilot accept completion if copilot-mode active, jump out quote or brackets, or
 
 (defun chom/remove-yasnippet-from-company-backends ()
   (interactive)
-  (mapcar (lambda (x)
-            (if (listp x)
-                (remove 'company-yasnippet x)
-              x))
-          company-backends))
+  (setq company-backends
+        (mapcar (lambda (x)
+                  (if (listp x)
+                      (remove 'company-yasnippet x)
+                    x))
+                company-backends)))
 
 (add-hook! 'python-mode-hook #'chom/remove-yasnippet-from-company-backends)
 
