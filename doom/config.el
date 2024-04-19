@@ -319,3 +319,17 @@ Copilot accept completion if copilot-mode active, jump out quote or brackets, or
       '("Visual Studio Code  |  " (:eval (if (buffer-file-name)
                                              (abbreviate-file-name (buffer-file-name))
                                            "%b"))))
+
+(defvar chom/*switch-to-buf-name-alist* (list))
+(map! :leader "o"
+  (lambda ()
+    (interactive)
+    (let ((c (read-char "c?")))
+      (if (= c ?o)
+          (let* ((l (read-char "char?"))
+                 (bn (buffer-name)))
+            (if (eq nil (alist-get l chom/*switch-to-buf-name-alist*))
+                (setq chom/*switch-to-buf-name-alist* (append chom/*switch-to-buf-name-alist* (list (cons l bn))))
+              (setcdr (assq l chom/*switch-to-buf-name-alist*) bn)))
+          (let* ((b (assq c chom/*switch-to-buf-name-alist*)))
+            (if b (switch-to-buffer (cdr b)) (message (concat "nie zapisano bufora " (string c)))))))))
