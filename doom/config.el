@@ -314,3 +314,4 @@ Copilot accept completion if copilot-mode active, jump out quote or brackets, or
 
 (setq lsp-pylsp-server-command (substitute-in-file-name "$HOME/.config/emacs/.local/etc/lsp/pylsp/.venv/bin/pylsp"))
 (setq lsp-pylsp-plugins-pydocstyle-enabled nil)
+(setq fancy-splash-image (substitute-in-file-name "$HOME/dotfiles/spacemacs/icons/vscode-banner.png"))
