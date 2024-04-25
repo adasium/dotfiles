@@ -233,6 +233,10 @@ Copilot accept completion if copilot-mode active, jump out quote or brackets, or
                                        (:default . evil-mc-execute-default-call))
                                       (chom/smart-tab-jump-out-or-indent
                                        (:default . evil-mc-execute-call-with-count))
+                                      (evil-numbers/inc-at-pt
+                                       (:default . evil-mc-execute-call-with-region-or-macro))
+                                      (evil-numbers/dec-at-pt
+                                       (:default . evil-mc-execute-call-with-region-or-macro))
                                       ))
 
 (map! :leader :n "x")
