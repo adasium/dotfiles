@@ -337,3 +337,5 @@ Copilot accept completion if copilot-mode active, jump out quote or brackets, or
               (setcdr (assq l chom/*switch-to-buf-name-alist*) bn)))
           (let* ((b (assq c chom/*switch-to-buf-name-alist*)))
             (if b (switch-to-buffer (cdr b)) (message (concat "nie zapisano bufora " (string c)))))))))
+
+(setq markdown-gfm-use-electric-backquote nil)
