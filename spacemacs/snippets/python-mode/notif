@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: notif
+# key: notif
+# --
+
+__import__('os').system(f'notify-send "{str}"')
