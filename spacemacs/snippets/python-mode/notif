@@ -3,4 +3,4 @@
 # key: notif
 # --
 
-__import__('os').system(f'notify-send "{str}"')
+__import__('os').system(f'notify-send "{__name__$0}"')
