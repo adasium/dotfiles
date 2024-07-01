@@ -1,0 +1,7 @@
+- name: KDE config
+  hosts: localhost
+  tasks:
+    - name: KDE shortcuts
+      shell: |
+        kwriteconfig5 --file kglobalshortcutsrc --group 'khotkeys' --key 'Window One Screen to the Right' 'Meta+Shift+Right'
+        kwriteconfig5 --file kglobalshortcutsrc --group 'khotkeys' --key 'Window One Screen to the Left'  'Meta+Shift+Left'
