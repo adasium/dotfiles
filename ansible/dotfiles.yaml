@@ -1,0 +1,20 @@
+# ansible-playbook -i inventory.yaml dotfiles.yaml
+- name: dotfiles
+  hosts: localhost
+  vars:
+    CONTOUR_CONFIG: $HOME/.config/contour/contour.yml
+  tasks:
+    - name: stat config file
+      stat:
+        path: '{{ CONTOUR_CONFIG }}'
+      register: contour_config
+    - name: remove existing config file
+      when: contour_config.stat.isreg is defined and contour_config.stat.isreg
+      ansible.builtin.file:
+        state: absent
+        path: '{{ contour_config.stat.path }}'
+    - name: link contour config file
+      file:
+        src: '{{ DOTFILES }}/contour/contour.yml'
+        dest: '{{ CONTOUR_CONFIG }}'
+        state: link
