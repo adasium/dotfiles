@@ -3,5 +3,8 @@
   tasks:
     - name: KDE shortcuts
       shell: |
+        # ~/.config/kglobalshortcutsrc
         kwriteconfig5 --file kglobalshortcutsrc --group 'khotkeys' --key 'Window One Screen to the Right' 'Meta+Shift+Right'
         kwriteconfig5 --file kglobalshortcutsrc --group 'khotkeys' --key 'Window One Screen to the Left'  'Meta+Shift+Left'
+        # Terminal
+        kwriteconfig5 --file kglobalshortcutsrc --group 'services' --group 'org.contourterminal. Contour.desktop' --key 'NewWindow' 'Ctrl+Alt+T'
