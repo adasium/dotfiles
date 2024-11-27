@@ -116,8 +116,14 @@
    type))
 (map! :textobj "l" #'chom/textobj-inner-line #'chom/textobj-outer-line)
 
-(map! :nvi "M-j" #'drag-stuff-down)
-(map! :nvi "M-k" #'drag-stuff-up)
+(use-package! drag-stuff
+  :defer t
+  :init
+  (map! :nvi
+        "<M-k>" #'drag-stuff-up
+        "<M-j>" #'drag-stuff-down
+        "<M-h>" #'drag-stuff-left
+        "<M-;>" #'drag-stuff-right))
 
 (after! (:or evil evil-mc)
   (map! :map evil-mc-key-map :nv "C-n" nil)
