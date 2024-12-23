@@ -125,6 +125,9 @@
         "<M-h>" #'drag-stuff-left
         "<M-;>" #'drag-stuff-right))
 
+(map! :nvi "M-j" #'drag-stuff-down)
+(map! :nvi "M-k" #'drag-stuff-up)
+
 (after! (:or evil evil-mc)
   (map! :map evil-mc-key-map :nv "C-n" nil)
   (map! :map evil-mc-key-map :nv "C-p" nil)
