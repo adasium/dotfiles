@@ -348,3 +348,5 @@ Copilot accept completion if copilot-mode active, jump out quote or brackets, or
             (if b (switch-to-buffer (cdr b)) (message (concat "nie zapisano bufora " (string c)))))))))
 
 (setq markdown-gfm-use-electric-backquote nil)
+
+(setq magit-log-margin '(t "%Y-%m-%d %H:%M " magit-log-margin-width t 18))
