@@ -81,6 +81,7 @@ def dirname(filename: str) -> str:
 def compile_ffmpeg(
     var_video_rotation,
     var_audio,
+    input_path: str,
     output_name: str,
     crop: dict | None = None,
     crf: int | None = 28,
@@ -111,7 +112,7 @@ def compile_ffmpeg(
 
     cmd = [
         'ffmpeg',
-        '-i', get_filenames()[0],
+        '-i', input_path,
         '-crf', str(crf or 28),
         *options,
         output_name,
@@ -126,6 +127,17 @@ def compile_ffmpeg(
         text=True,
     )
     logger.exception(result.stderr)
+
+
+def get_output_filename(input_path: str) -> str:
+    import os
+    import re
+    filename = os.path.basename(input_path)
+    stem, ext = os.path.splitext(filename)
+    stem = re.sub(r'_v(\d+)$', lambda x: f'_v{int(x.group(1)) + 1}', stem)
+    if not re.match('.*_v(\d+)', stem):
+        stem = f'{stem}_v2'
+    return f'{stem}{ext}'
 
 
 def main(argv: Sequence[str] | None = None) -> int:
@@ -158,9 +170,13 @@ def main(argv: Sequence[str] | None = None) -> int:
     separator = ttk.Separator(root, orient='horizontal')
     separator.grid()
     tkinter.Label(root, text='out filename').grid()
+
+    input_path = get_filenames()[0]
+    output_filename = get_output_filename(input_path)
+
     out_filename = tkinter.Entry(root)
     out_filename.delete(0, tkinter.END)
-    out_filename.insert(0, 'test.mp4')
+    out_filename.insert(0, output_filename)
     out_filename.grid()
 
     def _scale(from_: int = 0, to: int = 64, default: int = 0, step: int = 1):
@@ -192,6 +208,7 @@ def main(argv: Sequence[str] | None = None) -> int:
     ttk.Button(text="Submit", command=lambda: compile_ffmpeg(
         VideoRotation(var_video_rotation.get()),
         AudioChannels(var_audio.get()),
+        input_path,
         out_filename.get(),
         crop={
             'top': maybe_int(crop_top.get()) or 0,
