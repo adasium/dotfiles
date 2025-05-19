@@ -240,6 +240,10 @@ Copilot accept completion if copilot-mode active, jump out quote or brackets, or
                                        (:default . evil-mc-execute-default-call))
                                       (string-inflection-kebab-case
                                        (:default . evil-mc-execute-default-call))
+                                      (string-inflection-lower-camelcase
+                                       (:default . evil-mc-execute-default-call))
+                                      (string-inflection-camelcase
+                                       (:default . evil-mc-execute-default-call))
                                       (chom/smart-tab-jump-out-or-indent
                                        (:default . evil-mc-execute-call-with-count))
                                       (evil-numbers/inc-at-pt
@@ -252,6 +256,8 @@ Copilot accept completion if copilot-mode active, jump out quote or brackets, or
 (map! :leader "xtu" #'string-inflection-underscore)
 (map! :leader "xtU" #'string-inflection-upcase)
 (map! :leader "xtk" #'string-inflection-kebab-case)
+(map! :leader "xtc" #'string-inflection-lower-camelcase)
+(map! :leader "xtC" #'string-inflection-camelcase)
 
 (define-key evil-normal-state-map (kbd "-") 'dired-jump)
 (setq company-selection-wrap-around t)
