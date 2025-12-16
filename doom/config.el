@@ -356,3 +356,33 @@ Copilot accept completion if copilot-mode active, jump out quote or brackets, or
 (setq markdown-gfm-use-electric-backquote nil)
 
 (setq magit-log-margin '(t "%Y-%m-%d %H:%M " magit-log-margin-width t 18))
+
+
+(setq chom/indent-level 4)
+(defun chom/setup-indent (n)
+  (setq python-tab-width n)
+  (setq python-indent-offset n)
+  ;; java/c/c++
+  (setq c-basic-offset n)
+  ;; web development
+  (setq coffee-tab-width n) ; coffeescript
+  (setq javascript-indent-level n) ; javascript-mode
+  (setq js-indent-level n) ; js-mode
+  (setq js2-basic-offset n) ; js2-mode, in latest js2-mode, it's alias of js-indent-level
+  (setq typescript-indent-level n)
+  (setq web-mode-markup-indent-offset n) ; web-mode, html tag in html file
+  (setq web-mode-css-indent-offset n) ; web-mode, css in html file
+  (setq web-mode-code-indent-offset n) ; web-mode, js code in html file
+  (setq web-mode-attr-indent-offset nil)
+  (setq css-indent-offset n) ; css-mode
+  (setq LaTeX-indent-level n)
+  (setq TeX-brace-indent-level n)
+  (setq tab-width n)
+  (setq lua-indent-level n)
+  (setq evil-shift-width n)
+  )
+(defun chom/setup-indent-hook()
+  (chom/setup-indent chom/indent-level))
+(chom/setup-indent-hook)
+(add-hook 'c-mode-hook 'chom/setup-indent-hook)
+(add-hook 'typescript-mode-hook 'chom/setup-indent-hook)
