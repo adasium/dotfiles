@@ -1,10 +1,7 @@
 ;;; $DOOMDIR/config.el -*- lexical-binding: t; -*-
 
 ;; Place your private configuration here! Remember, you do not need to run 'doom
-;; sync' after modifying this file!
-
-
-;; Some functionality uses this to identify you, e.g. GPG configuration, email
+;; sync' after modifyin    fileHandler = logging.FileHandler(log_file, mode='w') you, e.g. GPG configuration, email
 ;; clients, file templates and snippets. It is optional.
 (setq user-full-name "John Doe"
       user-mail-address "john@doe.com")
@@ -253,7 +250,7 @@ Copilot accept completion if copilot-mode active, jump out quote or brackets, or
                                       ))
 
 (map! :leader :n "x")
-(map! :leader "xtu" #'string-inflection-underscore)
+(map! :leader "xtu" #'string-inflection-snake-case)
 (map! :leader "xtU" #'string-inflection-upcase)
 (map! :leader "xtk" #'string-inflection-kebab-case)
 (map! :leader "xtc" #'string-inflection-lower-camelcase)
@@ -386,3 +383,57 @@ Copilot accept completion if copilot-mode active, jump out quote or brackets, or
 (chom/setup-indent-hook)
 (add-hook 'c-mode-hook 'chom/setup-indent-hook)
 (add-hook 'typescript-mode-hook 'chom/setup-indent-hook)
+
+
+(defface chom/python-mode-logger-info-face
+  '((t :foreground "#34eb52"))
+  "Face used for logger.info in python-mode"
+  :group 'python-mode)
+
+(defface chom/python-mode-logger-warn-face
+  '((t :foreground "#fcdb03"))
+  "Face used for logger.warn in python-mode"
+  :group 'python-mode)
+
+(defface chom/python-mode-logger-debug-face
+  '((t :foreground "#A020F0"))
+  "Face used for logger.debug in python-mode"
+  :group 'python-mode)
+
+(defface chom/python-mode-logger-error-face
+  '((t :foreground "#ff0000"))
+  "Face used for logger.error in python-mode"
+  :group 'python-mode)
+
+(defface chom/python-mode-logger-exception-face
+  '((t :foreground "#ff7a92"))
+  "Face used for logger.exception in python-mode"
+  :group 'python-mode)
+
+(defface chom/python-mode-assert-face
+  '((t :foreground "#ff00e1"))
+  "Face used for assert keyword in python-mode"
+  :group 'python-mode)
+
+
+(defun chom/python-font-setup ()
+  (font-lock-add-keywords nil '(("logger.info" . 'chom/python-mode-logger-info-face)
+                                ("logger.warning" . 'chom/python-mode-logger-warn-face)
+                                ("logger.warn" . 'chom/python-mode-logger-warn-face)
+                                ("logger.debug" . 'chom/python-mode-logger-debug-face)
+                                ("logger.exception" . 'chom/python-mode-logger-exception-face)
+                                ("logger.error" . 'chom/python-mode-logger-error-face)
+                                ("assert" . 'chom/python-mode-assert-face)
+                                )))
+(defun chom/python-setup ()
+  (define-key python-mode-map (kbd "C-j") nil)
+  (add-to-list 'flycheck-disabled-checkers 'python-pylint)
+  ;; (global-set-key [remap python-indent-dedent-line] 'chom/smart-tab-jump-in-or-indent)
+  (chom/python-font-setup)
+  )
+
+(add-hook 'python-mode-hook #'chom/python-setup t)
+
+
+(map! :nv "C-j" #'er/expand-region)
+(map! :nv "C-k" #'er/contract-region)
