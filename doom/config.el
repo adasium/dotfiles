@@ -437,3 +437,34 @@ Copilot accept completion if copilot-mode active, jump out quote or brackets, or
 
 (map! :nv "C-j" #'er/expand-region)
 (map! :nv "C-k" #'er/contract-region)
+
+(defcustom chom/skippable-buffer-regexp
+  (rx bos (or "*Messages*" "*scratch*" "*Help*" "*Minibuf") eos)
+  "Matching buffer names are ignored by `chom/next-buffer'
+and `chom/previous-buffer'."
+  :type 'regexp)
+
+(defun chom/change-buffer (change-buffer)
+  "Call CHANGE-BUFFER until `chom/skippable-buffer-regexp' doesn't match."
+  (let ((initial (current-buffer)))
+    (funcall change-buffer)
+    (let ((first-change (current-buffer)))
+      (catch 'loop
+        (while (string-match-p chom/skippable-buffer-regexp (buffer-name))
+          (funcall change-buffer)
+          (when (eq (current-buffer) first-change)
+            (switch-to-buffer initial)
+            (throw 'loop t)))))))
+
+(defun chom/next-buffer ()
+  "Variant of `next-buffer' that skips `chom/skippable-buffer-regexp'."
+  (interactive)
+  (chom/change-buffer 'next-buffer))
+
+(defun chom/previous-buffer ()
+  "Variant of `previous-buffer' that skips `chom/skippable-buffer-regexp'."
+  (interactive)
+  (chom/change-buffer 'previous-buffer))
+
+(global-set-key [remap next-buffer] 'chom/next-buffer)
+(global-set-key [remap previous-buffer] 'chom/previous-buffer)
